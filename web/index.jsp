@@ -24,10 +24,10 @@
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <!-- Logo -->
-            <div class="navbar-header">
+            <div class="navbar-header myNav">
                 <a href="#" class="navbar-brand">Hanashi</a>
             </div>
-            <div>
+            <div class="myNav">
                 <ul class="nav navbar-nav">
                     <li class="active nav-item"><a href="#">Home</a></li>
                     <li class="nav-item"><a href="#">About</a></li>
