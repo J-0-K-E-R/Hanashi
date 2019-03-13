@@ -1,0 +1,34 @@
+/*background-color: #454545;
+color: #0481ff;*/
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #141414;
+    overflow: hidden;
+}
+/* Popover */
+.popover {
+    border: 2px solid red;
+    width:400px;
+    height:400px;
+    background-color: #333333;
+}
+/* Popover Header */
+.popover-title {
+    background-color: #333333; 
+    color: #333333; 
+    font-size: 50px;
+    text-align:center;
+}
+/* Popover Body */
+.popover-content {
+    background-color: black;
+    color: #FFFFFF;
+    padding: 25px;
+    text-align: center;
+}
+/* Popover Arrow */
+.arrow {
+    border-top-color: red !important;
+}
