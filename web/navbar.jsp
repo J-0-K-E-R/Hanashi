@@ -1,11 +1,3 @@
-<%-- 
-    Document   : navbar
-    Created on : 14 Mar, 2019, 1:31:28 PM
-    Author     : Joker
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
         <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <!-- Logo -->

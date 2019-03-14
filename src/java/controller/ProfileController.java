@@ -5,25 +5,24 @@
  */
 package controller;
 
+import dao.ProfileDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utilities.PasswordService;
 import pojos.User;
-import dao.UserDAO;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Joker
  */
-@WebServlet(name = "signUpController", urlPatterns = {"/signUp"})
-public class SignUpController extends HttpServlet {
+@WebServlet(name = "ProfileController", urlPatterns = {"/ProfileController"})
+public class ProfileController extends HttpServlet {
+
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -38,6 +37,24 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String username = request.getParameter("Username");
+            
+            // Fetch user from database
+            ProfileDAO pd = new ProfileDAO();
+            User user = pd.fetchUser(username);
+            if(user == null) {
+                out.print("Something Happened in Profile controller... <br> Username is null.");
+            }
+            else {
+                request.setAttribute("user", user);
+                
+                RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+                rd.forward(request, response);
+            }
+        }
     }
 
     /**
@@ -51,37 +68,7 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("Username");
-            String password = request.getParameter("Password");
-            String email = request.getParameter("Email");
-            
-            PasswordService pwe = new PasswordService();
-            
-            //Encryption of new password
-            String encryptPassword = pwe.encrypt(password);
-            
-            //Creating new user object
-            User user = new User(username, encryptPassword, email);
-            
-            UserDAO ud = new UserDAO();
-            
-            //Entering information to DB
-            String message = ud.signUpUser(user);
-            
-            if(message.equals("Done")) {
-                request.setAttribute("Username", username);
-                request.setAttribute("Password", password);
-                RequestDispatcher rd = request.getRequestDispatcher("LogIn");
-                rd.forward(request, response);
-            }
-            else {
-                session.setAttribute("errorMessage", message);
-                response.sendRedirect("SignUp.jsp");
-            }
-        }
+
     }
 
     /**

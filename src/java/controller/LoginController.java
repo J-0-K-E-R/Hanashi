@@ -6,7 +6,7 @@
 package controller;
 
 
-import DAO.UserDAO;
+import dao.UserDAO;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import pojos.User;
-import Utilities.PasswordService;
+import utilities.PasswordService;
 import java.io.PrintWriter;
 
 /**
