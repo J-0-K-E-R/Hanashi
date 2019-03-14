@@ -8,15 +8,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title id="title">Login/SignUp</title>
+        <title id="title">Hanashi</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <form action="SignIn">
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-            <input type="submit" value="Sign In">
+        <form action="LogIn" method="post">
+            <input type="text" name="Username" placeholder="Username" required>
+            <input type="password" name="Password" placeholder="Password" required>
+            <input type="submit" value="Log In">
         </form>
     </body>
 </html>

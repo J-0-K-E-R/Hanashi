@@ -14,11 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <form>
-            <input type="text" placeholder="Username"><br>
-            <input type="text" placeholder="E-Mail"><br>
-            <input type="password" placeholder="Password"><br>
-            <input type="password" placeholder="Confirm Password"><br>
+        <form action="signUp" method="post">
+            <input type="text" name="Username" placeholder="Username"><br>
+            <input type="text" name="Email" placeholder="Email"><br>
+            <input type="password" name="Password" placeholder="Password"><br>
+            <input type="password"  name="cPassword" placeholder="Confirm Password"><br>
             <input type="submit" value="Sign Up">
         </form>
     </body>

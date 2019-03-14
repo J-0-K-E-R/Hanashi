@@ -20,18 +20,18 @@ import javax.servlet.http.HttpSession;
 
 import pojos.User;
 import Utilities.PasswordService;
+import java.io.PrintWriter;
 
 /**
  *
  * @author Joker
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name = "LoginController", urlPatterns = {"/LogIn"})
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private HttpSession session; 
 	private String url;
-	private int loginAttempts;
 
 	/**
 	 * Servlet constructor
@@ -43,6 +43,7 @@ public class LoginController extends HttpServlet {
 	/**
 	 * Process GET requests/responses (logout)
 	 */
+        @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//User has clicked the logout link
 		session = request.getSession();
@@ -63,54 +64,46 @@ public class LoginController extends HttpServlet {
 	/**
 	 * Process POST requests/responses (login)
 	 */
+        @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()){
 		//get our current session
 		session = request.getSession();
 
 		//get the number of logins
-		if(session.getAttribute("loginAttempts") == null){
-			loginAttempts = 0;
+		/*if(true){
 		}
-		
-		//exceeded logins
-		if(loginAttempts > 2){
-			String errorMessage = "Error: Number of Login Attempts Exceeded";
-			request.setAttribute("errorMessage", errorMessage);
-			url = "index.jsp";
-		}else{	//proceed
+                else{*/	//proceed
 			//pull the fields from the form
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+			String Username = request.getParameter("Username");
+			String Password = request.getParameter("Password");
 
 			//encrypt the password to check against what's stored in DB
 			PasswordService pws = new PasswordService();
-			String encryptedPass = pws.encrypt(password);
+			String encryptedPass = pws.encrypt(Password);
 			
 			//create a user helper class to make database calls, and call authenticate user method
 			UserDAO uh = new UserDAO();
-			User user = uh.authenticateUser(username, encryptedPass);
-
+			User user = uh.authenticateUser(Username, encryptedPass);
 			//we've found a user that matches the credentials
 			if(user != null){
 				//invalidate current session, then get new session for our user (combats: session hijacking)
 				session.invalidate();
 				session=request.getSession(true);
 				session.setAttribute("user", user);
-				url="UserAccount.jsp";
+				url="index.jsp";
 			}
 			// user doesn't exist, redirect to previous page and show error
 			else{
-				String errorMessage = "Error: Unrecognized Username or Password<br>Login attempts remaining: "+(3-(loginAttempts));
+				String errorMessage = "Error: Unrecognized Username or Password";
 				request.setAttribute("errorMessage", errorMessage);
-
-				//track login attempts (combats: brute force attacks)
-				session.setAttribute("loginAttempts", loginAttempts++);
-				url = "index.jsp";
+				url = "LogIn.jsp";
 			}
-		}
 		//forward our request along
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
+            }
 	}
 
 	/**

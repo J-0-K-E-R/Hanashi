@@ -33,7 +33,7 @@
                     <li class="nav-item"><a href="#">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item"><a href="#" data-toggle="popover" title="Hanashi" data-placement="bottom" data-content='<input type="text" placeholder="Username">'><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+                    <li class="nav-item"><a href="#" data-toggle="popover" title="Hanashi" data-placement="bottom" data-content='<input type="text" placeholder="Username">'><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
                     <li class="nav-item"><a href="SignUp.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 </ul>
             </div>
