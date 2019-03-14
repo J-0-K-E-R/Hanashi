@@ -5,10 +5,12 @@
  */
 package controller;
 
+import dao.FollowersDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +23,8 @@ import pojos.User;
  *
  * @author Joker
  */
-@WebServlet(name = "ProfileController", urlPatterns = {"/Profile"})
-public class ProfileController extends HttpServlet {
-
-
+@WebServlet(name = "FollowUpdateController", urlPatterns = {"/FollowUser"})
+public class FollowUpdateController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -39,21 +39,19 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("Username");
-            
-            // Fetch user from database
-            UserDAO pd = new UserDAO();
-            User user = pd.fetchUser(username);
-            if(user == null) {
-                out.print("Something Happened in Profile controller... <br> Username is null.");
-            }
-            else {
-                session.setAttribute("profileUser", user);
-                response.sendRedirect("profile.jsp");
-            }
+            User user1 = (User)session.getAttribute("user");
+            User user2 = (User)session.getAttribute("profileUser");
+            user1.setFollowingCount(user1.getFollowingCount()+1);
+            user2.setFollowersCount(user2.getFollowersCount()+1);
+            UserDAO ud = new UserDAO();
+            ud.updateUser(user2);
+            ud.updateUser(user1);
+            FollowersDAO fd = new FollowersDAO();
+            fd.updateFollowers(user1.getUsername(), user2.getUsername());
+            response.sendRedirect("Profile?Username="+user2.getUsername());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FollowUpdateController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -66,9 +64,7 @@ public class ProfileController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
 
     /**

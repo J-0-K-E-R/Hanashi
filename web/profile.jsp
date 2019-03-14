@@ -17,19 +17,21 @@
                 picture
             </div>
             <div>
-                Username ${user.getUsername()}
+                Username ${profileUser.getUsername()}
             </div>
             <div>
-                Points ${user.getPoints()}
+                Points ${profileUser.getPoints()}
             </div>
-            <form>
-                <input type="submit" value="Follow">
-            </form>
+        </form>
+        <form action="FollowUser">
+            <input type="submit" value="Follow">
+        </form>
+        <form>
             <div>
-                Followers ${user.getFollowersCount()}
+                Followers ${profileUser.getFollowersCount()}
             </div>
             <div>
-                Following ${user.getFollowingCount()}
+                Following ${profileUser.getFollowingCount()}
             </div>
             <div>
                 Threads
