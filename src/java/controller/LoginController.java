@@ -47,14 +47,8 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//User has clicked the logout link
 		session = request.getSession();
-
-		//check to make sure we've clicked link
-		if(request.getParameter("logout") !=null){
-
-			//logout and redirect to frontpage
 			logout();
 			url="index.jsp";
-		}
 
 		//forward our request along
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);

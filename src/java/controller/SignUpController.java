@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import Utilities.PasswordService;
 import pojos.User;
 import DAO.UserDAO;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,16 +52,35 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             String username = request.getParameter("Username");
             String password = request.getParameter("Password");
             String email = request.getParameter("Email");
+            
             PasswordService pwe = new PasswordService();
+            
+            //Encryption of new password
             String encryptPassword = pwe.encrypt(password);
+            
+            //Creating new user object
             User user = new User(username, encryptPassword, email);
+            
             UserDAO ud = new UserDAO();
+            
+            //Entering information to DB
             String message = ud.signUpUser(user);
-            out.print(message);
+            
+            if(message.equals("Done")) {
+                request.setAttribute("Username", username);
+                request.setAttribute("Password", password);
+                RequestDispatcher rd = request.getRequestDispatcher("LogIn");
+                rd.forward(request, response);
+            }
+            else {
+                session.setAttribute("errorMessage", message);
+                response.sendRedirect("SignUp.jsp");
+            }
         }
     }
 

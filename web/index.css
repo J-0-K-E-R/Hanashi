@@ -1,34 +1,42 @@
-/*background-color: #454545;
+/*background-color: #454545;#141414(dark)
 color: #0481ff;*/
+.nav.navbar-nav li a {
+    color: #0481ff;
+}
+
+.myColor {
+    color: #0481ff;
+}
+
 body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #141414;
+    background-color: #454545;
     overflow: hidden;
 }
 /* Popover */
 .popover {
-    border: 2px solid red;
+    border: 2px solid #0481ff;
     width:400px;
     height:400px;
-    background-color: #333333;
+    background-color: #454545;
 }
 /* Popover Header */
 .popover-title {
-    background-color: #333333; 
-    color: #333333; 
-    font-size: 50px;
-    text-align:center;
+    background-color: #222; 
+    color: #0481ff; 
+    font-size: 30px;
+    text-align: center;
 }
 /* Popover Body */
 .popover-content {
-    background-color: black;
+    background-color: #454545;
     color: #0481ff;
     padding: 25px;
     text-align: center;
 }
 /* Popover Arrow */
 .arrow {
-    border-top-color: red !important;
+    border-color: red;
 }
