@@ -20,5 +20,8 @@
                 }
         %>
         <%@include file="navbar.jsp" %>
+        <form action="Users">
+           <input type="submit" value="Users">
+        </form>
     </body>
 </html>
