@@ -156,26 +156,21 @@ public class UserDAO {
             return message;
         }
 
-    public String fetchUserList() {
-            String userList = "<table>";
-            try {
-                    //Set up connection
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
-
-                    //Create the preparedstatement(s)
-                    String fetchQuery = "select Username, Points from users order by Points desc";
-                    Statement fetchStatement = conn.createStatement();
-                    ResultSet rs = fetchStatement.executeQuery(fetchQuery);
-                    while(rs.next()) {
-                        userList = userList.concat("<tr><td colspan='2'></td>");
-                        userList = userList.concat("<td>"+rs.getString("Username")+"</td></tr>");
-                        userList = userList.concat("<tr><td>"+rs.getInt("Points")+"</td></tr>");
-                    }
-                    userList = userList.concat("</table>");
-            } catch (SQLException | ClassNotFoundException e) {
-                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
-            }
-            return userList;
+    public ResultSet fetchUserList() {
+        ResultSet rs = null;
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            String fetchQuery = "select Username, Points from users order by Points desc";
+            Statement fetchStatement = conn.createStatement();
+            rs = fetchStatement.executeQuery(fetchQuery);
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return rs;
     }
 }

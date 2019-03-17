@@ -8,12 +8,14 @@ package controller;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utilities.ProcessResultSet;
 
 /**
  *
@@ -36,7 +38,11 @@ public class UsersListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             UserDAO ud = new UserDAO();
-            String userTable = ud.fetchUserList();
+            ResultSet rs = ud.fetchUserList();
+            
+            ProcessResultSet prs = new ProcessResultSet();
+            String userTable = prs.resultSetToTable(rs);
+            
             HttpSession session = request.getSession();
             session.setAttribute("userTable", userTable);
             response.sendRedirect("users.jsp");
