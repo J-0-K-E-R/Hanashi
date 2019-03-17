@@ -38,8 +38,3 @@
             </div>
         </div>
     </nav>
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="popover"]').popover(); 
-        });
-    </script>

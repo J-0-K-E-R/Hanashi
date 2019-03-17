@@ -10,16 +10,9 @@
 <html>
     <head>
         <%@include file="header.jsp"%>
+        
     </head>
     <body>
-        <%
-            Object user = session.getAttribute("user");
-                if(user!=null) {
-                    RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-                    rd.forward(request, response);
-                }
-        %>
-        <%@include file="navbar.jsp" %>
         <form action="Users">
            <input type="submit" value="Users">
         </form>

@@ -16,5 +16,6 @@
             <input type="password" name="Password" placeholder="Password" required>
             <input type="submit" value="Log In">
         </form>
+        ${errorMessage}
     </body>
 </html>
