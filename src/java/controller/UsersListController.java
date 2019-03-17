@@ -41,7 +41,7 @@ public class UsersListController extends HttpServlet {
             ResultSet rs = ud.fetchUserList();
             
             ProcessResultSet prs = new ProcessResultSet();
-            String userTable = prs.resultSetToTable(rs);
+            String userTable = prs.resultSetToTable(rs, "myTable", "myTableRow", "myTableData", "myPicture");
             
             HttpSession session = request.getSession();
             session.setAttribute("userTable", userTable);

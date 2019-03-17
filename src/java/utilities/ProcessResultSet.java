@@ -21,9 +21,25 @@ public class ProcessResultSet {
         try {
             userList = "<table>";
             while(rs.next()) {
-                userList = userList.concat("<tr><td colspan='2'></td>");
+                userList = userList.concat("<tr><td rowspan='2'></td>");
                 userList = userList.concat("<td>"+rs.getString("Username")+"</td></tr>");
                 userList = userList.concat("<tr><td>"+rs.getInt("Points")+"</td></tr>");
+            }
+            userList = userList.concat("</table>");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProcessResultSet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userList;
+    }
+    
+    public String resultSetToTable(ResultSet rs, String tableClass, String trClass, String tdClass, String picClass){
+        String userList = "";
+        try {
+            userList = "<table class='"+tableClass +"'>";
+            while(rs.next()) {
+                userList = userList.concat("<tr class='"+trClass +"'><td class='"+ tdClass + " " + picClass +"'rowspan='2'></td>");
+                userList = userList.concat("<td class='"+tdClass +"'>"+rs.getString("Username")+"</td></tr>");
+                userList = userList.concat("<tr class='"+trClass +"'><td class='"+tdClass +"'>"+rs.getInt("Points")+"</td></tr>");
             }
             userList = userList.concat("</table>");
         } catch (SQLException ex) {

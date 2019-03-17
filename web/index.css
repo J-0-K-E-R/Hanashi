@@ -41,3 +41,26 @@ body {
 .arrow {
     border-color: red;
 }
+
+/* Table CSS */
+.myTable {
+    border: 2px solid #0481ff;
+    width: 40%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.myTableRow {
+    
+}
+
+.myTableData {
+    padding: 2rem;
+    border: 2px solid #0481ff;
+    font-size: 1rem;
+}
+
+.myPicture {
+    width: 10rem;
+}
