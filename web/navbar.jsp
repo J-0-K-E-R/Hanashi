@@ -34,7 +34,7 @@
                         Log In
                     </a>
                 </li>
-                <li class="nav-item"><a href="SignUp.jsp"><span class="glyphicon glyphicon-plua-sign"></span> Sign Up</a></li>
+                <li class="nav-item"><a href="/Hanashi/signup"><span class="glyphicon glyphicon-plua-sign"></span> Sign Up</a></li>
             </ul>
         </div>
         

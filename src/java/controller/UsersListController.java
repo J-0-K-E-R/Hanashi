@@ -45,7 +45,7 @@ public class UsersListController extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.setAttribute("userTable", userTable);
-            response.sendRedirect("users.jsp");
+            response.sendRedirect("/Hanashi/users");
         }
     }
 

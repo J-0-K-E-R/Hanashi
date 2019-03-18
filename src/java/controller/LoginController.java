@@ -92,7 +92,7 @@ public class LoginController extends HttpServlet {
             else{
                 String errorMessage = "Error: Unrecognized Username or Password";
                 request.setAttribute("errorMessage", errorMessage);
-                url = "LogIn.jsp";
+                url = "/Hanashi/login";
             }
             //forward our request along
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);

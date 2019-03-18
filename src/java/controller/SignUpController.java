@@ -79,7 +79,7 @@ public class SignUpController extends HttpServlet {
             }
             else {
                 session.setAttribute("errorMessage", message);
-                response.sendRedirect("SignUp.jsp");
+                response.sendRedirect("/Hanashi/signup");
             }
         }
     }
