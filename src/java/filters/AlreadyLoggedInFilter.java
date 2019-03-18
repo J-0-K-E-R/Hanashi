@@ -113,22 +113,22 @@ public class AlreadyLoggedInFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
-            
-            String uri = req.getScheme() + "://" +
-                    req.getServerName() +
-                    ("http".equals(req.getScheme()) && req.getServerPort() == 80 || "https".equals(req.getScheme()) && req.getServerPort() == 443 ? "" : ":" + req.getServerPort() ) +
-                    req.getRequestURI() +
-                    (req.getQueryString() != null ? "?" + req.getQueryString() : "");
-            
+            String uri;
+//            
+//          uri = req.getScheme() + "://" +
+//                    req.getServerName() +
+//                    ("http".equals(req.getScheme()) && req.getServerPort() == 80 || "https".equals(req.getScheme()) && req.getServerPort() == 443 ? "" : ":" + req.getServerPort() ) +
+//                    req.getRequestURI() +
+//                    (req.getQueryString() != null ? "?" + req.getQueryString() : "");
+//            
+
             Object user = session.getAttribute("user");
             if(user!=null) {
                 res.sendRedirect("index.jsp");
             }
             else {
-                res.sendRedirect(uri);
+                chain.doFilter(request, response);
             }
-            
-            chain.doFilter(request, response);
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
