@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Hanashi</a>
+            <a href="index.jsp" class="navbar-brand">Hanashi</a>
         </div>
         
         <div class="nav nav-item col-sm-3 col-md-3">
