@@ -23,6 +23,7 @@
                        data-html="true"
                        data-toggle="popover"
                        title="Hanashi"
+                       data-trigger="focus"
                        data-placement="bottom"
                        data-content='<form action="LogIn" method="post">
                        <input type="text" name="Username" placeholder="Username" required>
@@ -44,6 +45,7 @@
                        data-html="true"
                        data-toggle="popover"
                        title="Hanashi"
+                       data-trigger="focus"
                        data-placement="bottom"
                        data-content='Profile'>
                         <span class="glyphicon glyphicon-user"></span>
