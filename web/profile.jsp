@@ -10,6 +10,7 @@
     <head>
         <%@include file="header.jsp"%>
     </head>
+    
     <body>
         <form>
             <div>

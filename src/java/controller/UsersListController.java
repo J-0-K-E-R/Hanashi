@@ -9,6 +9,7 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,9 +44,10 @@ public class UsersListController extends HttpServlet {
             ProcessResultSet prs = new ProcessResultSet();
             String userTable = prs.resultSetToTable(rs, "myTable", "myTableRow", "myTableData", "myPicture");
             
-            HttpSession session = request.getSession();
-            session.setAttribute("userTable", userTable);
-            response.sendRedirect("/Hanashi/users");
+            request.setAttribute("userTable", userTable);
+            
+            RequestDispatcher rd =request.getRequestDispatcher("users.jsp");
+            rd.forward(request, response);
         }
     }
 
