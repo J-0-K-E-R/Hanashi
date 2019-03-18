@@ -10,9 +10,8 @@
 <html>
     <head>
         <%@include file="header.jsp"%>
-        
     </head>
-    <body>
+    <body onload="whichNav()">
         <form action="Users">
            <input type="submit" value="Users">
         </form>

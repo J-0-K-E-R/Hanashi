@@ -11,7 +11,6 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
-        <%@include file="LoggedInNavbar.jsp" %>
         <form>
             <div>
                 picture
