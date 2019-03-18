@@ -48,11 +48,11 @@ public class LoginController extends HttpServlet {
         //User has clicked the logout link
         session = request.getSession();
         logout();
+        
         url="index.jsp";
         
         //forward our request along
-        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        response.sendRedirect(url);
     }
     
     /**
@@ -104,6 +104,8 @@ public class LoginController extends HttpServlet {
      * Logs the user out
      */
     public void logout() {
+        session.setAttribute("user", null);
+        session.removeAttribute("user");
         session.invalidate();
     }
 }

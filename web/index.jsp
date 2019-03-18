@@ -11,9 +11,7 @@
     <head>
         <%@include file="header.jsp"%>
     </head>
-    <body onload="whichNav()">
-        <form action="Users">
-           <input type="submit" value="Users">
-        </form>
+    <body>
+        <a href="Users"> Users </a>
     </body>
 </html>

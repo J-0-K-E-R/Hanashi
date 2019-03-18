@@ -1,32 +1,3 @@
-<%@page import="pojos.User"%>
-<%! boolean flag = false; %>
-<%
-    User user = (User)session.getAttribute("user");
-    if(user != null)
-        flag = true;
-    
-%>
-
-<script>
-    function whichNav() {
-
-        if(<%= flag %>) {
-            $(document).ready(
-                    function() {
-                        $("#UserDiv").show();
-                $("#GuestDiv").hide();
-            });
-        }
-        else {
-            $(document).ready(
-                    function() {
-                        $("#UserDiv").hide();
-                $("#GuestDiv").show();
-            });
-        }
-    }
-</script>
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <!-- Logo -->
