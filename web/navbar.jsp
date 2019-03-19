@@ -41,15 +41,13 @@
         <div hidden id="UserDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <span
+                    <a href="#" 
                        class="btn pop"
                        data-html="true"
                        data-toggle="popover"
-                       data-container="body"
                        title="Hanashi"
-                       data-trigger="manual"
                        data-placement="bottom"
-                       data-content='Profile'>
+                       data-content='profile'>
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
                     </span>
