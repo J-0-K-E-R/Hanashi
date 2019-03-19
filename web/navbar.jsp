@@ -20,10 +20,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 
+                       class="btn pop"
                        data-html="true"
                        data-toggle="popover"
                        title="Hanashi"
-                       data-trigger="focus"
                        data-placement="bottom"
                        data-content='<form action="LogIn" method="post">
                        <input type="text" name="Username" placeholder="Username" required>
@@ -41,16 +41,18 @@
         <div hidden id="UserDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a href="#" 
+                    <span
+                       class="btn pop"
                        data-html="true"
                        data-toggle="popover"
+                       data-container="body"
                        title="Hanashi"
-                       data-trigger="focus"
+                       data-trigger="manual"
                        data-placement="bottom"
                        data-content='Profile'>
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
-                    </a>
+                    </span>
                 </li>
                 <li class="nav-item"><a href="LogIn"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             </ul>
