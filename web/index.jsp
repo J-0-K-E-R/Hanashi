@@ -12,6 +12,6 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
-        <a href="/Hanashi/users"> Users </a>
+        <a href="/Hanashi/users" class="btn btn-default"> Users </a>
     </body>
 </html>

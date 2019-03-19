@@ -33,6 +33,7 @@ public class FollowersDAO {
                 message = "Done";
             } catch (SQLException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    message = e.getMessage();
             }
         return message;
     }

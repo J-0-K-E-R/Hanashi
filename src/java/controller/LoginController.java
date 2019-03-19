@@ -86,17 +86,17 @@ public class LoginController extends HttpServlet {
                 session.invalidate();
                 session=request.getSession(true);
                 session.setAttribute("user", user);
-                url="/index.jsp";
+                url="/Hanashi/index.jsp";
+                response.sendRedirect(url);
             }
             // user doesn't exist, redirect to previous page and show error
             else{
                 String errorMessage = "Error: Unrecognized Username or Password";
                 request.setAttribute("errorMessage", errorMessage);
-                url = "/login";
+                url = "/loginpage";
+                RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+                dispatcher.forward(request, response);
             }
-            //forward our request along
-            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-            dispatcher.forward(request, response);
         }
     }
     
