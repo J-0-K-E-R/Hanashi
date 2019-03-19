@@ -42,7 +42,7 @@ public class ProfileController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String uri = request.getPathInfo();
+            String uri = request.getRequestURI();
             String username = null;
             try {
                 username = uri.split("/")[3];              
@@ -50,8 +50,6 @@ public class ProfileController extends HttpServlet {
             catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
-            out.write(uri);
-            
             
             // Fetch user from database
             UserDAO pd = new UserDAO();
@@ -59,9 +57,10 @@ public class ProfileController extends HttpServlet {
             if(user == null) {
                 out.print("Something happened in Profile controller... <br> User doesn't exist.");
             }
+            
             else {
                 request.setAttribute("profileUser", user);
-                RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                 rd.forward(request, response);
             }
         }
@@ -78,6 +77,7 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
 
     }
 
