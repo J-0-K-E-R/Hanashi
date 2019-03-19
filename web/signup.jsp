@@ -12,7 +12,7 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
-        <form action="signUp" method="post">
+        <form action="/Hanashi/SignUp" method="post">
             <input type="text" name="Username" placeholder="Username"><br>
             <input type="text" name="Email" placeholder="Email"><br>
             <input type="password" name="Password" placeholder="Password"><br>

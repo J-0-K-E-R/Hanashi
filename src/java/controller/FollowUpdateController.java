@@ -42,6 +42,7 @@ public class FollowUpdateController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             User user1 = (User)session.getAttribute("user");
             User user2 = (User)session.getAttribute("profileUser");
+            
             user1.setFollowingCount(user1.getFollowingCount()+1);
             user2.setFollowersCount(user2.getFollowersCount()+1);
             UserDAO ud = new UserDAO();
@@ -49,7 +50,7 @@ public class FollowUpdateController extends HttpServlet {
             ud.updateUser(user1);
             FollowersDAO fd = new FollowersDAO();
             fd.updateFollowers(user1.getUsername(), user2.getUsername());
-            response.sendRedirect("Profile?Username="+user2.getUsername());
+//            response.sendRedirect("/Hanashi/users/"+user2.getUsername());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FollowUpdateController.class.getName()).log(Level.SEVERE, null, ex);
         }

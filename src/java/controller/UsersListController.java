@@ -46,7 +46,7 @@ public class UsersListController extends HttpServlet {
             
             request.setAttribute("userTable", userTable);
             
-            RequestDispatcher rd =request.getRequestDispatcher("users.jsp");
+            RequestDispatcher rd =request.getRequestDispatcher("/users.jsp");
             rd.forward(request, response);
         }
     }

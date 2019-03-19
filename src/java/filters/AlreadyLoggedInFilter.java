@@ -124,7 +124,7 @@ public class AlreadyLoggedInFilter implements Filter {
 
             Object user = session.getAttribute("user");
             if(user!=null) {
-                res.sendRedirect("index.jsp");
+                res.sendRedirect("/Hanashi/index.jsp");
             }
             else {
                 chain.doFilter(request, response);

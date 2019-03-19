@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Joker
  */
-@WebServlet(name = "signUpController", urlPatterns = {"/signUp"})
+@WebServlet(name = "signUpController", urlPatterns = {"/SignUp"})
 public class SignUpController extends HttpServlet {
 
 
@@ -74,7 +74,7 @@ public class SignUpController extends HttpServlet {
             if(message.equals("Done")) {
                 request.setAttribute("Username", username);
                 request.setAttribute("Password", password);
-                RequestDispatcher rd = request.getRequestDispatcher("LogIn");
+                RequestDispatcher rd = request.getRequestDispatcher("/Login");
                 rd.forward(request, response);
             }
             else {

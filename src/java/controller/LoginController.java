@@ -26,7 +26,7 @@ import java.io.PrintWriter;
  *
  * @author Joker
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LogIn"})
+@WebServlet(name = "LoginController", urlPatterns = {"/Login"})
 public class LoginController extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
         session = request.getSession();
         logout();
         
-        url="index.jsp";
+        url="/Hanashi/index.jsp";
         
         //forward our request along
         response.sendRedirect(url);
@@ -86,13 +86,13 @@ public class LoginController extends HttpServlet {
                 session.invalidate();
                 session=request.getSession(true);
                 session.setAttribute("user", user);
-                url="index.jsp";
+                url="/index.jsp";
             }
             // user doesn't exist, redirect to previous page and show error
             else{
                 String errorMessage = "Error: Unrecognized Username or Password";
                 request.setAttribute("errorMessage", errorMessage);
-                url = "/Hanashi/login";
+                url = "/login";
             }
             //forward our request along
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);

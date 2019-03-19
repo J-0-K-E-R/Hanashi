@@ -59,7 +59,7 @@ public class ProfileController extends HttpServlet {
             }
             
             else {
-                request.setAttribute("profileUser", user);
+                session.setAttribute("profileUser", user);
                 RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                 rd.forward(request, response);
             }

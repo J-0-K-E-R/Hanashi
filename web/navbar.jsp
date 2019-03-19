@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <div class="navbar-header">
-            <a href="index.jsp" class="navbar-brand">Hanashi</a>
+            <a href="/Hanashi/index.jsp" class="navbar-brand">Hanashi</a>
         </div>
         
         <div class="nav nav-item col-sm-3 col-md-3">
@@ -25,7 +25,7 @@
                        data-toggle="popover"
                        title="Hanashi"
                        data-placement="bottom"
-                       data-content='<form action="LogIn" method="post">
+                       data-content='<form action="/Hanashi/Login" method="post">
                        <input type="text" name="Username" placeholder="Username" required autofocus>
                        <input type="password" name="Password" placeholder="Password" required>
                        <input type="submit" value="Log In">
@@ -52,7 +52,7 @@
                         Profile
                     </a>
                 </li>
-                <li class="nav-item"><a href="LogIn"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                <li class="nav-item"><a href="/Hanashi/Login"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             </ul>
         </div>
     </div>

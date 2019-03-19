@@ -11,7 +11,7 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
-        <form action="LogIn" method="post">
+        <form action="/Hanashi/Login" method="post">
             <input type="text" name="Username" placeholder="Username" required>
             <input type="password" name="Password" placeholder="Password" required>
             <input type="submit" value="Log In">

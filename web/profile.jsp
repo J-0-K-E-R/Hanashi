@@ -12,21 +12,19 @@
     </head>
     
     <body>
-        <form>
+        <div>
             <div>
                 picture
             </div>
             <div>
-                Username ${profileUser.getUsername()}
+                Username: ${profileUser.getUsername()}
             </div>
             <div>
-                Points ${profileUser.getPoints()}
+                Points: ${profileUser.getPoints()}
             </div>
-        </form>
-        <form action="FollowUser">
-            <input type="submit" value="Follow">
-        </form>
-        <form>
+            
+            <a class= "btn btn-default" href="/Hanashi/FollowUser"> Follow </a>
+            
             <div>
                 Followers ${profileUser.getFollowersCount()}
             </div>
@@ -36,6 +34,6 @@
             <div>
                 Threads
             </div>
-        <form>
+        </div>
     </body>
 </html>
