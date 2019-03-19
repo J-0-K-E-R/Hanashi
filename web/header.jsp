@@ -9,16 +9,12 @@
 
 <script>
     $(document).ready(function(){
-        $('[data-toggle="popover"]').popover()  ; 
+        $('[data-toggle="popover"]').popover(); 
     });
-    $('body').on('click', function (e) {
-        $('[data-toggle="popover"]').each(function () {
-            //the 'is' for buttons that trigger popups
-            //the 'has' for icons within a button that triggers a popup
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-                $(this).popover('hide');
-            }
-        });
+    $('.pop').popover().click(function () {
+        setTimeout(function () {
+            $('.pop').popover('hide');
+        }, 2000);
     });
 </script>
 
@@ -66,3 +62,14 @@
 </script>
 
 <%@include file="navbar.jsp"%>
+
+<script>
+    $('.pop').popover({ trigger:"manual" }).click(function () {
+        var pop = $(this); 
+        pop.popover("show") ;
+        pop.on('shown.bs.popover',function() { 
+            setTimeout(function() {
+                pop.popover("hide");}, 10000); 
+        }) ;
+    });
+</script>
