@@ -69,7 +69,7 @@
         pop.popover("show") ;
         pop.on('shown.bs.popover',function() { 
             setTimeout(function() {
-                pop.popover("hide");}, 10000); 
+                pop.popover("hide");}, 30000); 
         }) ;
     });
 </script>

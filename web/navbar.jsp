@@ -26,7 +26,7 @@
                        title="Hanashi"
                        data-placement="bottom"
                        data-content='<form action="LogIn" method="post">
-                       <input type="text" name="Username" placeholder="Username" required>
+                       <input type="text" name="Username" placeholder="Username" required autofocus>
                        <input type="password" name="Password" placeholder="Password" required>
                        <input type="submit" value="Log In">
                        </form>'>
@@ -50,7 +50,7 @@
                        data-content='profile'>
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
-                    </span>
+                    </a>
                 </li>
                 <li class="nav-item"><a href="LogIn"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             </ul>
