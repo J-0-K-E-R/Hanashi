@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 
 <script>
     $(document).ready(function(){
@@ -61,7 +61,7 @@
     whichNav();
 </script>
 
-<%@include file="navbar.jsp"%>
+<%@include file="/navbar.jsp"%>
 
 <script>
     $('.pop').popover({ trigger:"manual" }).click(function () {

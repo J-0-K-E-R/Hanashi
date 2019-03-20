@@ -43,7 +43,7 @@
     </servlet>
     <servlet>
         <servlet-name>userprofile</servlet-name>
-        <servlet-class>controller.ProfileController</servlet-class>
+        <jsp-file>/profile.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>userprofile</servlet-name>

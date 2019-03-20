@@ -42,27 +42,19 @@ public class ProfileController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String uri = request.getRequestURI();
-            String username = null;
-            try {
-                username = uri.split("/")[3];              
-            }
-            catch(Exception ex) {
-                System.out.println(ex.getMessage());
-            }
+            String username = (String)request.getAttribute("profileUsername");
             
             // Fetch user from database
             UserDAO pd = new UserDAO();
             User user = pd.fetchUser(username);
             if(user == null) {
                 out.print("Something happened in Profile controller... <br> User doesn't exist.");
+                out.write(username);
             }
             
             else {
                 session.setAttribute("profileUser", user);
-//                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-//                rd.forward(request, response);
-                response.sendRedirect("/Hanashi/profile.jsp");
+                response.sendRedirect("/Hanashi/users/"+username);
             }
         }
     }

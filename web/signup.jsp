@@ -13,10 +13,10 @@
     </head>
     <body>
         <form action="/Hanashi/SignUp" method="post">
-            <input type="text" name="Username" placeholder="Username"><br>
-            <input type="text" name="Email" placeholder="Email"><br>
-            <input type="password" name="Password" placeholder="Password"><br>
-            <input type="password"  name="cPassword" placeholder="Confirm Password"><br>
+            <input type="text" name="Username" placeholder="Username" required><br>
+            <input type="text" name="Email" placeholder="Email" required><br>
+            <input type="password" name="Password" placeholder="Password" required><br>
+            <input type="password"  name="cPassword" placeholder="Confirm Password" required><br>
             <input type="submit" value="Sign Up">
         </form>
         ${errorMessage}
