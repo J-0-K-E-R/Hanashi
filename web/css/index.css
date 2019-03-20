@@ -13,7 +13,7 @@ body {
     padding: 0;
     height: 100%;
     background-color: #454545;
-    overflow: hidden;
+    overflow:auto;
     color: #0481ff;
 }
 /* Popover */
@@ -43,16 +43,31 @@ body {
 }
 
 /* Table CSS */
+#table-wrapper {
+  position:relative;
+  border:solid 2px chartreuse;
+  border-radius: 4%;
+  overflow: hidden;
+  width: 30%;
+  left:50%;
+  transform: translate(-50%, 0);
+}
+
+#table-scroll {
+  overflow:auto;
+  height:500px;
+}
+
+#table-wrapper table {
+    width:100%;
+}
+
 .myTable {
     border: 2px solid #0481ff;
-    width: 40%;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
 }
 
 .myTableRow {
-    
+    color: chartreuse;
 }
 
 .myTableData {

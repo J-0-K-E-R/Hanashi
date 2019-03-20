@@ -20,8 +20,10 @@
             }
 
         %>
-        <div>
-            ${userTable}
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                ${userTable}
+            </div>
         </div>
     </body>
 </html>
