@@ -11,6 +11,15 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
+        <% 
+            
+            String ut = (String)session.getAttribute("userTable");
+            if(ut == null) {
+                RequestDispatcher rd = request.getRequestDispatcher("/UsersList");
+                rd.forward(request, response);
+            }
+
+        %>
         <div>
             ${userTable}
         </div>

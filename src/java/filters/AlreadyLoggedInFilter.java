@@ -113,7 +113,7 @@ public class AlreadyLoggedInFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
-            String uri;
+//            String uri;
 //            
 //          uri = req.getScheme() + "://" +
 //                    req.getServerName() +
@@ -129,7 +129,7 @@ public class AlreadyLoggedInFilter implements Filter {
             else {
                 chain.doFilter(request, response);
             }
-        } catch (Throwable t) {
+        } catch (IOException | ServletException t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
             // rethrow the problem after that.

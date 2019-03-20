@@ -4,14 +4,6 @@
         <filter-name>AlreadyLoggedInFilter</filter-name>
         <filter-class>filters.AlreadyLoggedInFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>AlreadyLoggedInFilter</filter-name>
-        <url-pattern>/login.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>AlreadyLoggedInFilter</filter-name>
-        <url-pattern>/signup.jsp</url-pattern>
-    </filter-mapping>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -21,9 +13,14 @@
             30
         </session-timeout>
     </session-config>
+    <filter-mapping>
+        <filter-name>AlreadyLoggedInFilter</filter-name>
+        <url-pattern>/loginpage</url-pattern>
+        <url-pattern>/signup</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>users</servlet-name>
-        <servlet-class>controller.UsersListController</servlet-class>
+        <jsp-file>/users.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>users</servlet-name>

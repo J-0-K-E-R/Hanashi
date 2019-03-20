@@ -86,7 +86,7 @@ public class LoginController extends HttpServlet {
                 session.invalidate();
                 session=request.getSession(true);
                 session.setAttribute("user", user);
-                url="/Hanashi/index.jsp";
+                url=request.getParameter("returnto");
                 response.sendRedirect(url);
             }
             // user doesn't exist, redirect to previous page and show error

@@ -25,7 +25,7 @@
                        data-toggle="popover"
                        title="Hanashi"
                        data-placement="bottom"
-                       data-content='<form action="/Hanashi/Login" method="post">
+                       data-content='<form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
                        <input type="text" name="Username" placeholder="Username" required autofocus>
                        <input type="password" name="Password" placeholder="Password" required>
                        <input type="submit" value="Log In">

@@ -7,6 +7,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 
+<!-- setting the value of currentURI -->
+<% 
+    String myheaderuri = request.getRequestURI();
+    if(!(myheaderuri.equals("/Hanashi/loginpage") || myheaderuri.equals("/Hanashi/signup")))
+        session.setAttribute("currentURI", myheaderuri);
+%>
+
 <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover(); 
@@ -73,4 +80,9 @@
         }) ;
     });
 </script>
+
+
+
+
+
 

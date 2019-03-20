@@ -12,7 +12,7 @@
         <%@include file="header.jsp"%>
     </head>
     <body>
-        <form action="/Hanashi/SignUp" method="post">
+        <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
             <input type="text" name="Username" placeholder="Username" required><br>
             <input type="text" name="Email" placeholder="Email" required><br>
             <input type="password" name="Password" placeholder="Password" required><br>

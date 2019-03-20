@@ -22,7 +22,7 @@ import utilities.ProcessResultSet;
  *
  * @author Joker
  */
-@WebServlet(name = "UsersListController", urlPatterns = {"/Users"})
+@WebServlet(name = "UsersListController", urlPatterns = {"/UsersList"})
 public class UsersListController extends HttpServlet {
 
     /**
@@ -44,10 +44,10 @@ public class UsersListController extends HttpServlet {
             ProcessResultSet prs = new ProcessResultSet();
             String userTable = prs.resultSetToTable(rs, "myTable", "myTableRow", "myTableData", "myPicture");
             
-            request.setAttribute("userTable", userTable);
+            HttpSession session = request.getSession();
+            session.setAttribute("userTable", userTable);
             
-            RequestDispatcher rd =request.getRequestDispatcher("/users.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/Hanashi/users");
         }
     }
 
