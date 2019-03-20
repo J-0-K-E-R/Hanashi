@@ -70,6 +70,10 @@ body {
     color: chartreuse;
 }
 
+.myTableRow a {
+    color: chartreuse;
+}
+
 .myTableData {
     padding: 2rem;
     border: 2px solid #0481ff;

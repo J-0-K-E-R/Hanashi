@@ -20,9 +20,11 @@ public class ProcessResultSet {
         String userList = "";
         try {
             userList = "<table>";
+            String uname;
             while(rs.next()) {
-                userList = userList.concat("<tr><td rowspan='2'></td>");
-                userList = userList.concat("<td>"+rs.getString("Username")+"</td></tr>");
+                uname = rs.getString("Username");
+                userList = userList.concat("<tr><td rowspan='2'><a href='/Hanashi/users/"+uname+"'>  Picture  </a></td>");
+                userList = userList.concat("<td><a href='/Hanashi/users/"+uname+"'>"+uname+"</a></td></tr>");
                 userList = userList.concat("<tr><td>"+rs.getInt("Points")+"</td></tr>");
             }
             userList = userList.concat("</table>");
@@ -36,9 +38,11 @@ public class ProcessResultSet {
         String userList = "";
         try {
             userList = "<table class='"+tableClass +"'>";
+            String uname;
             while(rs.next()) {
-                userList = userList.concat("<tr class='"+trClass +"'><td class='"+ tdClass + " " + picClass +"'rowspan='2'></td>");
-                userList = userList.concat("<td class='"+tdClass +"'>"+rs.getString("Username")+"</td></tr>");
+                uname = rs.getString("Username");
+                userList = userList.concat("<tr class='"+trClass +"'><td class='"+ tdClass + " " + picClass +"'rowspan='2'><a href='/Hanashi/users/"+uname+"'>  Picture  </a></td>");
+                userList = userList.concat("<td class='"+tdClass +"'><a href='/Hanashi/users/"+uname+"'>"+rs.getString("Username")+"</a></td></tr>");
                 userList = userList.concat("<tr class='"+trClass +"'><td class='"+tdClass +"'>"+rs.getInt("Points")+"</td></tr>");
             }
             userList = userList.concat("</table>");
