@@ -13,5 +13,6 @@
     </head>
     <body>
         <a href="/Hanashi/users" class="btn btn-default"> Users </a>
+        <a href="/Hanashi/users/Admin" class="btn btn-default"> Admin </a>
     </body>
 </html>

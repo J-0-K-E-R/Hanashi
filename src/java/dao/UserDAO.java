@@ -66,7 +66,7 @@ public class UserDAO {
 
                     //if we've returned a row, turn that row into a new user object
                     if (rs.next()) {
-                            user = new User(rs.getInt("ID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("FollowersCount"), rs.getInt("FollowingCount"), rs.getInt("FollowingTagsCount"), rs.getInt("Points"));
+                        user = new User(rs.getInt("ID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("FollowersCount"), rs.getInt("FollowingCount"), rs.getInt("FollowingTagsCount"), rs.getInt("Points"));
                     }
             } catch (SQLException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());

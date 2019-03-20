@@ -60,8 +60,9 @@ public class ProfileController extends HttpServlet {
             
             else {
                 session.setAttribute("profileUser", user);
-                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
-                rd.forward(request, response);
+//                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+//                rd.forward(request, response);
+                response.sendRedirect("/Hanashi/profile.jsp");
             }
         }
     }
