@@ -9,8 +9,6 @@ import dao.FollowersDAO;
 import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +19,21 @@ import pojos.User;
 
 /**
  *
- * @author Joker
+ * @author robogod
  */
-@WebServlet(name = "FollowUpdateController", urlPatterns = {"/FollowUser"})
-public class FollowUpdateController extends HttpServlet {
+@WebServlet(name = "UnfollowUpdateController", urlPatterns = {"/UnfollowUser"})
+public class UnfollowUpdateController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -43,15 +52,15 @@ public class FollowUpdateController extends HttpServlet {
             User user1 = (User)session.getAttribute("user");
             User user2 = (User)session.getAttribute("profileUser");
             
-            user1.setFollowingCount(user1.getFollowingCount()+1);
-            user2.setFollowersCount(user2.getFollowersCount()+1);
+            user1.setFollowingCount(user1.getFollowingCount()-1);
+            user2.setFollowersCount(user2.getFollowersCount()-1);
             
             UserDAO ud = new UserDAO();
             ud.updateUser(user2);
             ud.updateUser(user1);
             
             FollowersDAO fd = new FollowersDAO();
-            fd.addFollowers(user1.getUsername(), user2.getUsername());
+            fd.deleteFollowers(user1.getUsername(), user2.getUsername());
             response.sendRedirect("/Hanashi/users/"+user2.getUsername());
         }
     }
@@ -65,7 +74,8 @@ public class FollowUpdateController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
     }
 
     /**

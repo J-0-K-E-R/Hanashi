@@ -10,15 +10,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import pojos.User;
 
 /**
  *
  * @author Joker
  */
 public class FollowersDAO {
-    private PreparedStatement insertStatement;
-    public String updateFollowers(String user1, String user2) throws ClassNotFoundException {
+    private PreparedStatement insertStatement, queryStatement, deleteStatement;
+    
+    public String addFollowers(String user1, String user2) {
         String message = "";
         try {
                 //Set up connection
@@ -31,9 +31,50 @@ public class FollowersDAO {
                 insertStatement.setString(2, user2);
                 insertStatement.executeUpdate();
                 message = "Done";
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
                     message = e.getMessage();
+            }
+        return message;
+    }
+    
+    public String deleteFollowers(String user1, String user2) {
+        String message = "";
+        try {
+                //Set up connection
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+                //Create the preparedstatement(s)
+                deleteStatement = conn.prepareStatement("delete from followers where Username1=? and Username2=?");
+                deleteStatement.setString(1, user1);
+                deleteStatement.setString(2, user2);
+                deleteStatement.executeUpdate();
+                message = "Done";
+            } catch (SQLException | ClassNotFoundException e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+                    message = e.getMessage();
+            }
+        return message;
+    }
+    
+    public boolean isFollowing(String user1, String user2) {
+        boolean message = false;
+        try {
+                //Set up connection
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+                //Create the preparedstatement(s)
+                queryStatement = conn.prepareStatement("select * from followers where Username1=? and Username2=?");
+                queryStatement.setString(1, user1);
+                queryStatement.setString(2, user2);
+                ResultSet rs = queryStatement.executeQuery();
+                if(rs.next()) {
+                    message = true;
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
             }
         return message;
     }
