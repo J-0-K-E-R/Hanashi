@@ -49,18 +49,22 @@ public class UnfollowUpdateController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
+            String message;
             User user1 = (User)session.getAttribute("user");
             User user2 = (User)session.getAttribute("profileUser");
             
-            user1.setFollowingCount(user1.getFollowingCount()-1);
-            user2.setFollowersCount(user2.getFollowersCount()-1);
-            
-            UserDAO ud = new UserDAO();
-            ud.updateUser(user2);
-            ud.updateUser(user1);
-            
             FollowersDAO fd = new FollowersDAO();
-            fd.deleteFollowers(user1.getUsername(), user2.getUsername());
+            message = fd.deleteFollowers(user1.getUsername(), user2.getUsername());
+            
+            if(message.equals("Done")) {
+                user1.setFollowingCount(user1.getFollowingCount()-1);
+                user2.setFollowersCount(user2.getFollowersCount()-1);
+                
+                UserDAO ud = new UserDAO();
+                ud.updateUser(user2);
+                ud.updateUser(user1);
+            }
+            
             response.sendRedirect("/Hanashi/users/"+user2.getUsername());
         }
     }
