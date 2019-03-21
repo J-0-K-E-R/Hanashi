@@ -47,7 +47,12 @@
                        data-toggle="popover"
                        title="Hanashi"
                        data-placement="bottom"
-                       data-content='profile'>
+                       data-content='<div>
+                       <div>Picture</div>
+                       <div>Username: ${user.getUsername()}</div>
+                       <div>Email: ${user.getEmail()}</div>
+                       <div>Points: ${user.getPoints()}</div>
+                       </div>'>
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
                     </a>
