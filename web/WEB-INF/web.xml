@@ -4,9 +4,25 @@
         <filter-name>AlreadyLoggedInFilter</filter-name>
         <filter-class>filters.AlreadyLoggedInFilter</filter-class>
     </filter>
+    <servlet>
+        <servlet-name>CreateThreadController</servlet-name>
+        <servlet-class>controller.CreateThreadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createthreadjsp</servlet-name>
+        <jsp-file>/createthread.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateThreadController</servlet-name>
+        <url-pattern>/CreateThread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createthreadjsp</servlet-name>
+        <url-pattern>/newthread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

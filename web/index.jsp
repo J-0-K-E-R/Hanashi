@@ -10,9 +10,29 @@
 <html>
     <head>
         <%@include file="header.jsp"%>
+
+        <script>
+            
+//            check if user is guest and if not, then is he following the profile user or not
+            function onIndexPageLoad() {
+                $(document).ready(
+                function() {
+                    if(<%=session.getAttribute("user")%> === null) {
+                        $("#userQuestion").hide();
+                $("#guestQuestion").show();
+            }
+            else {
+                $("#guestQuestion").hide();
+                $("#userQuestion").show();                
+            }
+        });
+            }
+        </script>
+        
     </head>
-    <body>
+    <body onload="onIndexPageLoad()">
         <a href="/Hanashi/users" class="btn btn-default"> Users </a>
-        <a href="/Hanashi/users/Admin" class="btn btn-default"> Admin </a>
+        <a hidden href="/Hanashi/newthread" class="btn btn-info" id="userQuestion"> Ask Question </a>
+        <a hidden href="/Hanashi/loginpage" class="btn btn-info" id="guestQuestion"> Ask Question </a>
     </body>
 </html>
