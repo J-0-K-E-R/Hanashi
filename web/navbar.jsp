@@ -25,11 +25,11 @@
                        data-toggle="popover"
                        title="Hanashi"
                        data-placement="bottom"
-                       data-content='<form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
-                       <input type="text" name="Username" placeholder="Username" required autofocus>
-                       <input type="password" name="Password" placeholder="Password" required>
-                       <input type="submit" value="Log In">
-                       </form>'>
+                       data-content="<form action='/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>' method='post'>
+                       <input type='text' name='Username' placeholder='Username' required autofocus>
+                       <input type='password' name='Password' placeholder='Password' required>
+                       <input type='submit' value='Log In'>
+                       </form>">
                         <span class="glyphicon glyphicon-log-in"></span>
                         Log In
                     </a>
@@ -47,12 +47,12 @@
                        data-toggle="popover"
                        title="Hanashi"
                        data-placement="bottom"
-                       data-content='<div>
+                       data-content="<div>
                        <div>Picture</div>
                        <div>Username: ${user.getUsername()}</div>
                        <div>Email: ${user.getEmail()}</div>
                        <div>Points: ${user.getPoints()}</div>
-                       </div>'>
+                       </div>">
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
                     </a>
