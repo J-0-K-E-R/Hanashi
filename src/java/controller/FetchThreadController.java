@@ -14,17 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.User;
-import pojos.Thread;
+import utilities.ThreadsService;
 
 /**
  *
  * @author robogod
  */
-public class CreateThreadController extends HttpServlet {
+public class FetchThreadController extends HttpServlet {
 
-    
 
- // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -36,7 +35,34 @@ public class CreateThreadController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        try (PrintWriter out = response.getWriter()) {
+            pojos.Thread thread;
+            int threadID = -1;
+            try {
+                threadID = (int)request.getAttribute("threadID");
+            }
+            catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+            ThreadDAO td = new ThreadDAO();
+            thread = td.fetchThread(threadID);
+            
+            if(thread == null) {
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                    request.getServerName() +
+                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "3; URL="+url);
+            }
+            else {
+                System.out.println("Log:::::: Found "+ threadID);
+                
+                session.setAttribute("currentThread", thread);
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+            }
+        }
     }
 
     /**
@@ -50,36 +76,9 @@ public class CreateThreadController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        try (PrintWriter out = response.getWriter()) {
-            Thread thread = new Thread(); 
-            ThreadDAO td = new ThreadDAO();
+                response.setContentType("text/html;charset=UTF-8");
+        
             
-            thread.setThreadID(td.getNextThreadID());
-            User user = (User)session.getAttribute("user");
-            thread.setUsername(user.getUsername());
-            
-            thread.setTitle(request.getParameter("title"));
-            thread.setPost(request.getParameter("post-content"));
-            thread.setTagsList(request.getParameter("tags"));
-            
-            thread = td.addNewThread(thread);
-            
-            if(thread == null) {
-                out.write("Some Error Occurred!<br> Redirecting...");
-                String uri = "/Hanashi/index.jsp";
-                String url = request.getScheme() + "://" +
-                        request.getServerName() +
-                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "3; URL="+url);
-            }
-            else {
-                session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+thread.getTitle().replace(" ", "-"));
-            }
-            
-        }
     }
 
     /**

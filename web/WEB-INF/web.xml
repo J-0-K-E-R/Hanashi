@@ -16,6 +16,10 @@
         <servlet-name>viewThread</servlet-name>
         <jsp-file>/viewThread.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>FetchThreadController</servlet-name>
+        <servlet-class>controller.FetchThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>viewThread</servlet-name>
         <url-pattern>/threads/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FetchThreadController</servlet-name>
+        <url-pattern>/FetchThread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
