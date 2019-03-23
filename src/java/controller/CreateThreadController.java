@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.User;
+import pojos.Thread;
 
 /**
  *
@@ -51,11 +52,17 @@ public class CreateThreadController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            User user = (User)session.getAttribute("user"); 
-            out.write(user.getUsername());
-            out.write(request.getParameter("title"));
-            out.write(request.getParameter("post-content"));
-            out.write(request.getParameter("tags"));
+            Thread thread = new Thread(); 
+            
+            User user = (User)session.getAttribute("user");
+            thread.setUsername(user.getUsername());
+            
+            thread.setTitle(request.getParameter("title"));
+            thread.setPost(request.getParameter("post-content"));
+            thread.setTagsList(request.getParameter("tags"));
+            
+            
+            
         }
     }
 
