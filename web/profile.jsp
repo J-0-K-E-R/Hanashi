@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="header.jsp"%>
+        <%@include file="/header.jsp"%>
         
                 <!--Check if profile of the current user is fetched or not-->
         <% 

@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="header.jsp"%>
+        <%@include file="/header.jsp"%>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script>
             var strength = {

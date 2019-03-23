@@ -18,7 +18,7 @@ public class Thread {
     private String tagsList;
     private String username;
     private int votes;
-    private long timestampCurrent;
+    private long timestampCreated;
     private long timestampModified;
 
     
@@ -26,7 +26,7 @@ public class Thread {
     public Thread() {
         this.threadID = 0;
         this.votes = 0;
-        this.timestampCurrent = Calendar.getInstance().getTime().getTime();
+        this.timestampCreated = Calendar.getInstance().getTime().getTime();
         this.timestampModified = Calendar.getInstance().getTime().getTime();
     }
     
@@ -123,21 +123,21 @@ public class Thread {
     }
 
     /**
-     * @return the timestampCurrent
+     * @return the timestampCreated
      */
-    public long getTimestampCurrent() {
-        return timestampCurrent;
+    public long getTimestampCreated() {
+        return timestampCreated;
     }
 
     /**
-     * @param timestampCurrent the timestampCurrent to set
+     * @param timestampCreated the timestampCreated to set
      */
-    public void setTimestampCurrent(long timestampCurrent) {
-        this.timestampCurrent = timestampCurrent;
+    public void setTimestampCreated(long timestampCreated) {
+        this.timestampCreated = timestampCreated;
     }
     
-    public void setTimestampCurrent() {
-        this.timestampModified = Calendar.getInstance().getTime().getTime();
+    public void setTimestampCreated() {
+        this.timestampCreated = Calendar.getInstance().getTime().getTime();
     }
 
     /**

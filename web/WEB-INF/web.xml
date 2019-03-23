@@ -12,6 +12,10 @@
         <servlet-name>createthreadjsp</servlet-name>
         <jsp-file>/createthread.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>viewThread</servlet-name>
+        <jsp-file>/viewThread.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>createthreadjsp</servlet-name>
         <url-pattern>/newthread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>viewThread</servlet-name>
+        <url-pattern>/threads/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -53,7 +54,9 @@ public class CreateThreadController extends HttpServlet {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             Thread thread = new Thread(); 
+            ThreadDAO td = new ThreadDAO();
             
+            thread.setThreadID(td.getNextThreadID());
             User user = (User)session.getAttribute("user");
             thread.setUsername(user.getUsername());
             
@@ -61,7 +64,15 @@ public class CreateThreadController extends HttpServlet {
             thread.setPost(request.getParameter("post-content"));
             thread.setTagsList(request.getParameter("tags"));
             
+            thread = td.addNewThread(thread);
             
+            if(thread == null) {
+                out.write("Some Error Occurred!<br> Redirecting...");
+            }
+            else {
+                session.setAttribute("currentThread", thread);
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID());
+            }
             
         }
     }

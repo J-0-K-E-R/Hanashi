@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%@include file="header.jsp"%>
+        <%@include file="/header.jsp"%>
     </head>
     <body>
         <form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
