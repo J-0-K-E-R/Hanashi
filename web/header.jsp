@@ -82,7 +82,9 @@
 </script>
 
 
-
-
+<!--Is user logged in-->
+<% 
+    session.setAttribute("isLoggedIn", !(session.getAttribute("user") == null) );
+%>
 
 
