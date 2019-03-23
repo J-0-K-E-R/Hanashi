@@ -56,9 +56,7 @@ public class FetchThreadController extends HttpServlet {
                     ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
                 response.setHeader("Refresh", "3; URL="+url);
             }
-            else {
-                System.out.println("Log:::::: Found "+ threadID);
-                
+            else {                
                 session.setAttribute("currentThread", thread);
                 response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
             }

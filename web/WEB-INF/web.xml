@@ -4,6 +4,19 @@
         <filter-name>AlreadyLoggedInFilter</filter-name>
         <filter-class>filters.AlreadyLoggedInFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>IsLoggedInFilter</filter-name>
+        <filter-class>filters.IsLoggedInFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AlreadyLoggedInFilter</filter-name>
+        <url-pattern>/loginpage</url-pattern>
+        <url-pattern>/signup</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>IsLoggedInFilter</filter-name>
+        <url-pattern>/newthread</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>CreateThreadController</servlet-name>
         <servlet-class>controller.CreateThreadController</servlet-class>
@@ -45,11 +58,6 @@
             30
         </session-timeout>
     </session-config>
-    <filter-mapping>
-        <filter-name>AlreadyLoggedInFilter</filter-name>
-        <url-pattern>/loginpage</url-pattern>
-        <url-pattern>/signup</url-pattern>
-    </filter-mapping>
     <servlet>
         <servlet-name>users</servlet-name>
         <jsp-file>/users.jsp</jsp-file>
