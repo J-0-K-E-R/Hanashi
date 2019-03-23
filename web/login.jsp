@@ -12,9 +12,10 @@
     </head>
     <body>
         <form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
-            <input type="text" name="Username" placeholder="Username" required>
-            <input type="password" name="Password" placeholder="Password" required>
-            <input type="submit" value="Log In">
+            <h3>Login</h3> <br>
+            <input type="text" name="Username" placeholder="Username" required> <br>
+            <input type="password" name="Password" placeholder="Password" required> <br>
+            <input type="submit" class="btn btn-success" value="Login">
         </form>
         ${errorMessage}
     </body>
