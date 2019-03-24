@@ -91,8 +91,8 @@ public class ThreadDAO {
                 thread.setTagsList(rs.getString("Tags_List"));
                 thread.setUsername(rs.getString("Username"));
                 thread.setVotes(rs.getInt("Votes"));
-                thread.setTimestampCreated(rs.getLong("Timestamp_Created"));
-                thread.setTimestampModified(rs.getLong("Timestamp_Modified"));
+                thread.setTimestampCreated(rs.getTimestamp("Timestamp_Created").getTime());
+                thread.setTimestampModified(rs.getTimestamp("Timestamp_Modified").getTime());
             }
             
         } catch (ClassNotFoundException | SQLException e) {

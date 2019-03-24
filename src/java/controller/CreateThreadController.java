@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.User;
 import pojos.Thread;
+import utilities.ThreadsService;
 
 /**
  *
@@ -76,7 +77,7 @@ public class CreateThreadController extends HttpServlet {
             }
             else {
                 session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+thread.getTitle().replace(" ", "-"));
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
             }
             
         }

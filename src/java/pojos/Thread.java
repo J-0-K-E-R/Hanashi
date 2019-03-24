@@ -18,16 +18,16 @@ public class Thread {
     private String tagsList;
     private String username;
     private int votes;
-    private long timestampCreated;
-    private long timestampModified;
+    private Calendar timestampCreated;
+    private Calendar timestampModified;
 
     
     
     public Thread() {
         this.threadID = 0;
         this.votes = 0;
-        this.timestampCreated = Calendar.getInstance().getTime().getTime();
-        this.timestampModified = Calendar.getInstance().getTime().getTime();
+        this.timestampCreated = Calendar.getInstance();
+        this.timestampModified = Calendar.getInstance();
     }
     
     public Thread(int threadID, String title, String post, String tagsList, String username, int votes) {
@@ -37,6 +37,8 @@ public class Thread {
         this.tagsList = tagsList;
         this.username = username;
         this.votes = votes;
+        this.timestampCreated = Calendar.getInstance();
+        this.timestampModified = Calendar.getInstance();
     }
     /**
      * @return the threadID
@@ -125,7 +127,7 @@ public class Thread {
     /**
      * @return the timestampCreated
      */
-    public long getTimestampCreated() {
+    public Calendar getTimestampCreated() {
         return timestampCreated;
     }
 
@@ -133,17 +135,18 @@ public class Thread {
      * @param timestampCreated the timestampCreated to set
      */
     public void setTimestampCreated(long timestampCreated) {
+        this.timestampCreated.setTimeInMillis(timestampCreated);
+    }
+    
+    public void setTimestampCreated(Calendar timestampCreated) {
         this.timestampCreated = timestampCreated;
     }
     
-    public void setTimestampCreated() {
-        this.timestampCreated = Calendar.getInstance().getTime().getTime();
-    }
 
     /**
      * @return the timestampModified
      */
-    public long getTimestampModified() {
+    public Calendar getTimestampModified() {
         return timestampModified;
     }
 
@@ -151,11 +154,11 @@ public class Thread {
      * @param timestampModified the timestampModified to set
      */
     public void setTimestampModified(long timestampModified) {
-        this.timestampModified = timestampModified;
+        this.timestampModified.setTimeInMillis(timestampModified);
     }
     
-    public void setTimestampModified() {
-        this.timestampModified = Calendar.getInstance().getTime().getTime();
+    public void setTimestampModified(Calendar timestampModified) {
+        this.timestampModified = timestampModified;
     }
     
     
