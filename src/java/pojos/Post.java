@@ -27,6 +27,7 @@ public class Post {
         this.votes = 0;
         this.timestampCreated = Calendar.getInstance();
         this.timestampModified = Calendar.getInstance();
+        this.replyTo = null;
     }
     
     public Post(int postID, int threadID, String post, String username, int votes, String replyTo) {

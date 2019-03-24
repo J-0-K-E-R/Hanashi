@@ -107,7 +107,6 @@
                     <h4> Your Reply </h4>
                     <textarea id="froala-editor" name="post-content"></textarea> <br>
                     <input class="btn btn-success" type="submit" value="Post">
-                    <a href="/Hanashi/cancel" class="btn btn-default">Cancel</a>
                 </form>
             </div>        
                     

@@ -16,6 +16,7 @@
     <filter-mapping>
         <filter-name>IsLoggedInFilter</filter-name>
         <url-pattern>/newthread</url-pattern>
+        <url-pattern>/CreatePost</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>CreateThreadController</servlet-name>
@@ -32,6 +33,10 @@
     <servlet>
         <servlet-name>FetchThreadController</servlet-name>
         <servlet-class>controller.FetchThreadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreatePostController</servlet-name>
+        <servlet-class>controller.CreatePostController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
@@ -52,6 +57,10 @@
     <servlet-mapping>
         <servlet-name>FetchThreadController</servlet-name>
         <url-pattern>/FetchThread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePostController</servlet-name>
+        <url-pattern>/CreatePost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.PostDAO;
 import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,17 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import pojos.User;
+import pojos.Post;
 import pojos.Thread;
+import pojos.User;
 import utilities.ThreadsService;
 
 /**
  *
  * @author robogod
  */
-public class CreateThreadController extends HttpServlet {
-
-    
+public class CreatePostController extends HttpServlet { 
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -53,20 +53,19 @@ public class CreateThreadController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            Thread thread = new Thread(); 
-            ThreadDAO td = new ThreadDAO();
             
-            thread.setThreadID(td.getNextThreadID());
+            Post post = new Post();
+            PostDAO pd = new PostDAO();
+            Thread currentThread = (Thread)session.getAttribute("currentThread");
             User user = (User)session.getAttribute("user");
-            thread.setUsername(user.getUsername());
             
-            thread.setTitle(request.getParameter("title"));
-            thread.setPost(request.getParameter("post-content"));
-            thread.setTagsList(request.getParameter("tags"));
+            post.setThreadID(currentThread.getThreadID());
+            post.setUsername(user.getUsername());
+            post.setPost(request.getParameter("post-content"));
             
-            thread = td.addNewThread(thread);
+            String message = pd.addNewPost(post);
             
-            if(thread == null) {
+            if(!message.equals("Done")) {
                 out.write("Some Error Occurred!<br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
@@ -75,8 +74,8 @@ public class CreateThreadController extends HttpServlet {
                 response.setHeader("Refresh", "3; URL="+url);
             }
             else {
-                session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+                session.removeAttribute("currentThread");
+                response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.titleToURL(currentThread.getTitle()));
             }
             
         }
