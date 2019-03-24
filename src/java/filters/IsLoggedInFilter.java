@@ -112,13 +112,14 @@ public class IsLoggedInFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
-
+            
             Object user = session.getAttribute("user");
             if(user==null) {
                 session.setAttribute("errorMessage", "Please login to continue...");
                 res.sendRedirect("/Hanashi/loginpage");
             }
-            chain.doFilter(request, response);
+            else 
+                chain.doFilter(request, response);
         } catch (Throwable t) {
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then

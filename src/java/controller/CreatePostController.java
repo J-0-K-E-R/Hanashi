@@ -52,7 +52,7 @@ public class CreatePostController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {           
             
             Post post = new Post();
             PostDAO pd = new PostDAO();
