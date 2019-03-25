@@ -12,15 +12,15 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #454545;
+    /*background-color: #454545;*/
     overflow:auto;
-    color: #0481ff;
+    /*color: #0481ff;*/
 }
 /* Popover */
 .popover {
     border: 2px solid #0481ff;
-    width:400px;
-    height:400px;
+    /*width:400px;*/
+    /*height:400px;*/
     background-color: #454545;
 }
 /* Popover Header */
@@ -45,8 +45,7 @@ body {
 /* Table CSS */
 #table-wrapper {
   position:relative;
-  border:solid 2px chartreuse;
-  border-radius: 4%;
+  border:solid 2px green;
   overflow: hidden;
   width: 30%;
   left:50%;
@@ -67,11 +66,11 @@ body {
 }
 
 .myTableRow {
-    color: chartreuse;
+    color: green;
 }
 
 .myTableRow a {
-    color: chartreuse;
+    color: green;
 }
 
 .myTableData {
@@ -121,12 +120,14 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 #signupform {
     position: relative;
     padding: 5rem;
+    padding-top: 2rem;
+    padding-right: 2rem;
     width:400px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 0);
     border: 2px solid #0481ff;
-    background: #222;
+    /*background: #222;*/
 }
 
 #password-div {
@@ -165,10 +166,22 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 #view-thread-container #replies {
-    border: solid 1px red;
     overflow: auto;
 }
 
 #view-thread-container #newreply {
     width: 100%;
 }
+
+#post-container {
+    border: solid 2px chartreuse;
+    margin: 5px;
+    padding: 5px;
+}
+
+#post-container #user {
+    color: green;
+    font-size: 20px;
+}
+
+

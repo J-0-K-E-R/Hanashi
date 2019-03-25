@@ -68,9 +68,9 @@
                     </div>
                 </div>
                 <!--<label for="title"> Title </label>-->
-                <input type="text" name="title" id="title" placeholder="Enter Title"> <br>
+                <input type="text" name="title" id="title" placeholder="Enter Title" required=""> <br>
                 <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by comma(,)" onkeyup="addTagsToDiv()"> <br>
-                <textarea id="froala-editor" name="post-content"></textarea> <br>
+                <textarea id="froala-editor" name="post-content" required></textarea> <br>
                 <input class="btn btn-success" type="submit" value="Post">
                 <a href="/Hanashi/cancel" class="btn btn-default">Cancel</a>
             </form>

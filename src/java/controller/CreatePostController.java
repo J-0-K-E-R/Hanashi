@@ -66,12 +66,13 @@ public class CreatePostController extends HttpServlet {
             String message = pd.addNewPost(post);
             
             if(!message.equals("Done")) {
+                out.write(message);
                 out.write("Some Error Occurred!<br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
                         request.getServerName() +
                         ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "3; URL="+url);
+                response.setHeader("Refresh", "10; URL="+url);
             }
             else {
                 session.removeAttribute("currentThread");

@@ -113,6 +113,7 @@ public class IsLoggedInFilter implements Filter {
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
             
+            
             Object user = session.getAttribute("user");
             if(user==null) {
                 session.setAttribute("errorMessage", "Please login to continue...");

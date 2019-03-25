@@ -42,6 +42,7 @@
     <body>
         <div id="signupform">
             <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
+                <h3> Sign Up </h3>
                 <input type="text" name="Username" placeholder="Username" required><br>
                 <input type="text" name="Email" placeholder="Email" required><br>
                 <div id="password-div">
