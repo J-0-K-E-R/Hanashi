@@ -8,6 +8,7 @@ package controller;
 import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,8 @@ public class CreateThreadController extends HttpServlet {
             Thread thread = new Thread(); 
             ThreadDAO td = new ThreadDAO();
             
-            thread.setThreadID(td.getNextThreadID());
+            int threadID = td.getNextThreadID();
+            thread.setThreadID(threadID);
             User user = (User)session.getAttribute("user");
             thread.setUsername(user.getUsername());
             
@@ -75,8 +77,9 @@ public class CreateThreadController extends HttpServlet {
                 response.setHeader("Refresh", "3; URL="+url);
             }
             else {
-                session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+                request.setAttribute("threadID", threadID);
+                RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
+                rd.forward(request, response);
             }
             
         }

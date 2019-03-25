@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utilities.ProcessResultSet;
+import utilities.ObjectToHTML;
 
 /**
  *
@@ -41,7 +41,7 @@ public class UsersListController extends HttpServlet {
             UserDAO ud = new UserDAO();
             ResultSet rs = ud.fetchUserList();
             
-            ProcessResultSet prs = new ProcessResultSet();
+            ObjectToHTML prs = new ObjectToHTML();
             String userTable = prs.resultSetToTable(rs, "myTable", "myTableRow", "myTableData", "myPicture");
             
             HttpSession session = request.getSession();

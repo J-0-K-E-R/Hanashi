@@ -7,14 +7,17 @@ package utilities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.jasper.tagplugins.jstl.ForEach;
+import pojos.Post;
 
 /**
  *
  * @author robogod
  */
-public class ProcessResultSet {
+public class ObjectToHTML {
     
     public String resultSetToTable(ResultSet rs){
         String userList = "";
@@ -29,7 +32,7 @@ public class ProcessResultSet {
             }
             userList = userList.concat("</table>");
         } catch (SQLException ex) {
-            Logger.getLogger(ProcessResultSet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ObjectToHTML.class.getName()).log(Level.SEVERE, null, ex);
         }
         return userList;
     }
@@ -47,9 +50,23 @@ public class ProcessResultSet {
             }
             userList = userList.concat("</table>");
         } catch (SQLException ex) {
-            Logger.getLogger(ProcessResultSet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ObjectToHTML.class.getName()).log(Level.SEVERE, null, ex);
         }
         return userList;
+    }
+    
+    
+    public String postsToHTML(ArrayList<Post> posts) {
+        String out="";
+        String temp;
+        
+        for(Post post: posts) {
+            temp = "<div id='post-container'> <div id='user'>" + post.getUsername() + "</div>";
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampCreated().getTime() + "</div> </div>");
+            out = out.concat(temp);
+        }
+        
+        return out;
     }
     
 }

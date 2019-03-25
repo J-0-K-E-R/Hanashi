@@ -5,15 +5,19 @@
  */
 package controller;
 
+import dao.PostDAO;
 import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pojos.Post;
 import pojos.User;
+import utilities.ObjectToHTML;
 import utilities.ThreadsService;
 
 /**
@@ -56,7 +60,14 @@ public class FetchThreadController extends HttpServlet {
                     ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
                 response.setHeader("Refresh", "3; URL="+url);
             }
-            else {                
+            else {
+                PostDAO pd = new PostDAO();
+                ArrayList<Post> postsList = pd.fetchPosts(threadID);
+            
+                ObjectToHTML oh = new ObjectToHTML();
+                String posts = oh.postsToHTML(postsList);
+                
+                session.setAttribute("posts", posts);
                 session.setAttribute("currentThread", thread);
                 response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
             }
