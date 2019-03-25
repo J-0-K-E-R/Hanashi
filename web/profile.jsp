@@ -70,38 +70,42 @@
     
     <body onload="pageLoader()">
         
-        <div>
-            <div>
-                picture
-            </div>
-            <div>
-                Username: ${profileUser.getUsername()}
-            </div>
-            <div>
-                Points: ${profileUser.getPoints()}
-            </div>
+        <div id="user-profile-container">
             
-            <div>
-                <div id="UserFollow" hidden>
-                    <a  class= "btn btn-default" href="/Hanashi/FollowUser" > Follow </a>
+            <div id="top">
+                <div id="profile-picture">
+                    Picture
+                </div>
+                <div id="username">
+                    ${profileUser.getUsername()}
+                </div>
+                <div id="points">
+                    Points ${profileUser.getPoints()}
                 </div>
                 
-                <div id="GuestFollow" hidden>
-                    <a  class= "btn btn-default" href="/Hanashi/loginpage"> Follow </a>
+                <div id="followers-following">
+                    <a href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
+                    <a href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
                 </div>
                 
-                <div id="Unfollow" hidden>
-                    <a  class= "btn btn-default" href="/Hanashi/UnfollowUser"> Unfollow </a>
+                <div id="follow-button">
+                    <div id="UserFollow" hidden>
+                        <a  class= "btn btn-default" href="/Hanashi/FollowUser" > Follow </a>
+                    </div>
+                        
+                    <div id="GuestFollow" hidden>
+                        <a  class= "btn btn-default" href="/Hanashi/loginpage"> Follow </a>
+                    </div>
+                        
+                    <div id="Unfollow" hidden>
+                        <a  class= "btn btn-default" href="/Hanashi/UnfollowUser"> Unfollow </a>
+                    </div>
+                    
                 </div>
-            </div>
             
-            <div>
-                Followers ${profileUser.getFollowersCount()}
+                <br style="clear:both;"/>
             </div>
-            <div>
-                Following ${profileUser.getFollowingCount()}
-            </div>
-            <div>
+            <div id="user-threads">
                 Threads
             </div>
         </div>
