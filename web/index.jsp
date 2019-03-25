@@ -30,15 +30,25 @@
         </script>
             
     </head>
+    
     <body onload="onIndexPageLoad()">
+        
+        <% 
+            if(session.getAttribute("threads") == null) {
+                response.sendRedirect("/Hanashi/FetchAllThreads");
+            }
+        %>
+        
+        <div>
         <a href="/Hanashi/users" class="btn btn-default"> Users </a>
         <div id="askQuestion">
-            <div id="userQuestion" hidden>
-                <a href="/Hanashi/newthread" class="btn btn-info"> Ask Question </a>
-            </div>
-            <div id="guestQuestion" hidden>
-                <a href="/Hanashi/loginpage" class="btn btn-info"> Ask Question </a>
-            </div>
+            <a href="/Hanashi/newthread" class="btn btn-info"> Ask Question </a>
         </div>
+        </div>
+        
+        <div id="all-threads-container">
+            ${threads}
+        </div>
+        
     </body>
 </html>

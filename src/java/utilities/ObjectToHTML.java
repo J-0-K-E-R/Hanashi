@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 import pojos.Post;
+import pojos.Thread;
 
 /**
  *
@@ -69,4 +70,17 @@ public class ObjectToHTML {
         return out;
     }
     
+    public String threadsToHTML(ArrayList<Thread> threads) {
+        String out="";
+        String temp;
+        
+        for(Thread thread: threads) {
+            temp = "<div id='thread-container'> <div id='votes'> Votes: " + thread.getVotes() + "</div>";
+            temp = temp.concat("<div id='thread-title'> <a href='/Hanashi/threads/"+thread.getThreadID() + "'>"+thread.getTitle() + "</a></div>");
+            temp = temp.concat("<div id='timestamp'>" + thread.getTimestampModified().getTime() + "</div> </div>");
+            out = out.concat(temp);
+        }
+        
+        return out;
+    }
 }

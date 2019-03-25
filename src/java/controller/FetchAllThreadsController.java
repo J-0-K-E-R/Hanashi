@@ -5,7 +5,6 @@
  */
 package controller;
 
-import dao.PostDAO;
 import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,17 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import pojos.Post;
-import pojos.User;
 import utilities.ObjectToHTML;
-import utilities.ThreadsService;
 
 /**
  *
  * @author robogod
  */
-public class FetchThreadController extends HttpServlet {
+public class FetchAllThreadsController extends HttpServlet {
 
+    
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,38 +35,17 @@ public class FetchThreadController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            pojos.Thread thread;
-            int threadID = -1;
-            try {
-                threadID = (int)request.getAttribute("threadID");
-            }
-            catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
             ThreadDAO td = new ThreadDAO();
-            thread = td.fetchThread(threadID);
+            ArrayList<pojos.Thread> threadsList = td.fetchAllThreads();
             
-            if(thread == null) {
-                out.write("Some Error Occurred!<br> Redirecting...");
-                String uri = "/Hanashi/index.jsp";
-                String url = request.getScheme() + "://" +
-                    request.getServerName() +
-                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "3; URL="+url);
-            }
-            else {
-                PostDAO pd = new PostDAO();
-                ArrayList<Post> postsList = pd.fetchPosts(threadID);
+            ObjectToHTML oh = new ObjectToHTML();
+            String threads = oh.threadsToHTML(threadsList);
             
-                ObjectToHTML oh = new ObjectToHTML();
-                String posts = oh.postsToHTML(postsList);
-                
-                session.setAttribute("posts", posts);
-                session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
-            }
+            session.setAttribute("threads", threads);
+            response.sendRedirect("/Hanashi/index.jsp");
         }
     }
 
@@ -84,9 +60,7 @@ public class FetchThreadController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
         
-            
     }
 
     /**

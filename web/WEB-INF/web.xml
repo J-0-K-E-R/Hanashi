@@ -38,6 +38,10 @@
         <servlet-name>CreatePostController</servlet-name>
         <servlet-class>controller.CreatePostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FetchAllThreadsController</servlet-name>
+        <servlet-class>controller.FetchAllThreadsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -61,6 +65,10 @@
     <servlet-mapping>
         <servlet-name>CreatePostController</servlet-name>
         <url-pattern>/CreatePost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FetchAllThreadsController</servlet-name>
+        <url-pattern>/FetchAllThreads</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
