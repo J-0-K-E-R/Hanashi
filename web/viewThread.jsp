@@ -60,7 +60,7 @@
             }
             else {
                 System.out.println("Log:::: View Thread Found");
-                String requiredTitle = ThreadsService.titleToURL(thread.getTitle());
+                String requiredTitle = ThreadsService.encodeTitleToURL(thread.getTitle());
                 if(!title.equals(requiredTitle))
                     response.sendRedirect("/Hanashi/threads/"+threadID+"/"+requiredTitle);
             }

@@ -70,7 +70,7 @@ public class FetchThreadController extends HttpServlet {
                 System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", posts);
                 session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(thread.getTitle()));
             }
         }   
     }
@@ -120,7 +120,7 @@ public class FetchThreadController extends HttpServlet {
                 System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", posts);
                 session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(thread.getTitle()));
             }
         }    
     }

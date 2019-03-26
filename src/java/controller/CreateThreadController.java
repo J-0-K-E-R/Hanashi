@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.TagsDAO;
 import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,7 +58,6 @@ public class CreateThreadController extends HttpServlet {
             Thread thread = new Thread(); 
             ThreadDAO td = new ThreadDAO();
             
-                out.write("hola");
             int threadID = td.getNextThreadID();
             thread.setThreadID(threadID);
             User user = (User)session.getAttribute("user");
@@ -68,6 +68,9 @@ public class CreateThreadController extends HttpServlet {
             thread.setTagsList(request.getParameter("tags"));
             
             thread = td.addNewThread(thread);
+            
+            TagsDAO tgd = new TagsDAO();
+            String message = tgd.updateTags(request.getParameter("tags"));
             
             if(thread == null) {
                 out.write("Some Error Occurred!<br> Redirecting...");

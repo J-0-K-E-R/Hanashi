@@ -25,6 +25,7 @@ import pojos.User;
 public class ThreadDAO {
     private PreparedStatement createThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
+    private PreparedStatement fetchUserThreadsStatement;
     
     public Thread addNewThread(Thread thread) {
         Thread returnThread = null;
@@ -139,9 +140,9 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("select * from threads where username=? order by Timestamp_Modified desc");
-            fetchThreadIDStatement.setString(1, profileUsername);
-            ResultSet rs = fetchThreadIDStatement.executeQuery();
+            fetchUserThreadsStatement = conn.prepareStatement("select * from threads where username=? order by Timestamp_Modified desc");
+            fetchUserThreadsStatement.setString(1, profileUsername);
+            ResultSet rs = fetchUserThreadsStatement.executeQuery();
             while(rs.next()) {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));

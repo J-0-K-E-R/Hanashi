@@ -76,7 +76,7 @@ public class CreatePostController extends HttpServlet {
             }
             else {
                 session.removeAttribute("currentThread");
-                response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.titleToURL(currentThread.getTitle()));
+                response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(currentThread.getTitle()));
             }
             
         }

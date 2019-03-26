@@ -35,12 +35,7 @@
         
         <script>
             function addTagsToDiv() {
-                var tags = document.getElementById("input-tags").value.split(",");
-//                var form = document.getElementById("create-thread-form");
-//                form.removeChild(document.getElementById("tags-list"));
-//                var div = document.createElement('div');
-//                div.setAttribute('id', 'tags-list');
-//                form.appendChild(div);
+                var tags = document.getElementById("input-tags").value.split(";");
                 var div= document.getElementById("tags-list");
                 div.removeChild(document.getElementById("child-tags-list"));
                 var newdiv = document.createElement('div');
@@ -69,7 +64,7 @@
                 </div>
                 <!--<label for="title"> Title </label>-->
                 <input type="text" name="title" id="title" placeholder="Enter Title" required=""> <br>
-                <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by comma(,)" onkeyup="addTagsToDiv()"> <br>
+                <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()"> <br>
                 <textarea id="froala-editor" name="post-content" required></textarea> <br>
                 <input class="btn btn-success" type="submit" value="Post">
                 <a href="/Hanashi/cancel" class="btn btn-default">Cancel</a>
