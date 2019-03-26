@@ -73,12 +73,21 @@
 <script>
     $('.pop').popover({ trigger:"manual" }).click(function () {
         var pop = $(this); 
-        pop.popover("show") ;
-        pop.on('shown.bs.popover',function() { 
-            setTimeout(function() {
-                pop.popover("hide");}, 30000); 
-        }) ;
+        pop.popover("toggle");
+//        pop.on('shown.bs.popover',function() { 
+//            setTimeout(function() {
+//                pop.popover("hide");
+//            }, 30000); 
+//        });
     });
+    $('body').on('click', function (e) {
+    $('[data-toggle=popover]').each(function () {
+        // hide any open popovers when the anywhere else in the body is clicked
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            $(this).popover('hide');
+        }
+    });
+});
 </script>
 
 
