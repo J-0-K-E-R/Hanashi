@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse stayontop">
     <div class="container-fluid">
         <!-- Logo -->
         <div class="navbar-header">

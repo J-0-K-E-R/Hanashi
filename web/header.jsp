@@ -70,6 +70,8 @@
 
 <%@include file="/navbar.jsp"%>
 
+<%@include file="/sidenav.jsp"%>
+
 <script>
     $('.pop').popover({ trigger:"manual" }).click(function () {
         var pop = $(this); 

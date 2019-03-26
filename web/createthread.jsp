@@ -67,7 +67,7 @@
                 <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()"> <br>
                 <textarea id="froala-editor" name="post-content" required></textarea> <br>
                 <input class="btn btn-success" type="submit" value="Post">
-                <a href="/Hanashi/cancel" class="btn btn-default">Cancel</a>
+                <a href="/Hanashi/index.jsp" class="btn btn-default">Cancel</a>
             </form>
         </div>
     </body>

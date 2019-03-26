@@ -3,6 +3,9 @@ color: #0481ff;*/
 .nav.navbar-nav li a {
     color: #0481ff;
 }
+.stayontop {
+    z-index: 100;
+}
 
 .myColor {
     color: #0481ff;
@@ -253,8 +256,54 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     color: green;
 }
 
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 200px; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1;   
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #222; 
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 54px; /* Place content 60px from the top */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 15px;
+  color: lavender;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    background-color: lavender;
+    color: black;
+}
+
+/*Styling loginpage*/
+#loginform-cotainer {
+    position: relative;
+    width: 400px;
+    left: 40%;
+    top: 30px;
+    /*transform: translate(-50%, 0);*/
+    /*border: 2px solid green;*/
+}
 
 
+/*Styling CreateThread Page*/
+
+#create-thread-container {
+    position: relative;
+    left: 300px;
+    /*top: 30px;*/
+    /*transform: translate(-50%, 0);*/
+}
 
 
 

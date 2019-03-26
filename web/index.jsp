@@ -39,12 +39,6 @@
             }
         %>
         
-        <div>
-        <a href="/Hanashi/users" class="btn btn-default"> Users </a>
-        <div id="askQuestion">
-            <a href="/Hanashi/newthread" class="btn btn-info"> Ask Question </a>
-        </div>
-        </div>
         
         <div id="all-threads-container">
             ${threads}
