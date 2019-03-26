@@ -230,7 +230,28 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 
 /*Styling threads div on index.jsp*/
+#all-threads-container,#user-threads {
+    width: 600px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    
+}
 
+#all-threads-container {
+    border: solid 2px #0481ff;
+}
+
+#all-threads-container #thread-container,#user-threads #thread-container {
+    margin: 10px;
+    border: solid 2px green;
+    padding: 5px;
+}
+
+#all-threads-container #thread-title,#user-threads #thread-title {
+    font-size: 15px;
+    color: green;
+}
 
 
 

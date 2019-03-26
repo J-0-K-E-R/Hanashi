@@ -29,6 +29,7 @@
                 rd.forward(request, response);
             }
             else {
+                System.out.println("Log::::: Profile Found");
                 if(session.getAttribute("user") == null ) {
                     session.setAttribute("isFollowing", null);
                 }
@@ -36,7 +37,10 @@
                     FollowersDAO fd = new FollowersDAO();
                     session.setAttribute("isFollowing", fd.isFollowing(user.getUsername(), proUser.getUsername()));
                 }
+                
+
             }
+            
 
         %>
 
@@ -69,6 +73,7 @@
     </head>
     
     <body onload="pageLoader()">
+        
         
         <div id="user-profile-container">
             
@@ -106,7 +111,7 @@
                 <br style="clear:both;"/>
             </div>
             <div id="user-threads">
-                Threads
+                ${userThreads}
             </div>
         </div>
     </body>

@@ -40,6 +40,7 @@ public class FetchThreadController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
+            System.out.println("Log::: Fetching Thread");
             pojos.Thread thread;
             int threadID = -1;
             try {
@@ -66,11 +67,12 @@ public class FetchThreadController extends HttpServlet {
                 ObjectToHTML oh = new ObjectToHTML();
                 String posts = oh.postsToHTML(postsList);
                 
+                System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", posts);
                 session.setAttribute("currentThread", thread);
                 response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
             }
-        }
+        }   
     }
 
     /**
@@ -86,7 +88,41 @@ public class FetchThreadController extends HttpServlet {
             throws ServletException, IOException {
                 response.setContentType("text/html;charset=UTF-8");
         
+        HttpSession session = request.getSession();
+        try (PrintWriter out = response.getWriter()) {
+            System.out.println("Log::: Fetching Thread");
+            pojos.Thread thread;
+            int threadID = -1;
+            try {
+                threadID = (int)request.getAttribute("threadID");
+            }
+            catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+            ThreadDAO td = new ThreadDAO();
+            thread = td.fetchThread(threadID);
             
+            if(thread == null) {
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                    request.getServerName() +
+                    ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "3; URL="+url);
+            }
+            else {
+                PostDAO pd = new PostDAO();
+                ArrayList<Post> postsList = pd.fetchPosts(threadID);
+            
+                ObjectToHTML oh = new ObjectToHTML();
+                String posts = oh.postsToHTML(postsList);
+                
+                System.out.println("Log::: Fetched Thread");
+                session.setAttribute("posts", posts);
+                session.setAttribute("currentThread", thread);
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.titleToURL(thread.getTitle()));
+            }
+        }    
     }
 
     /**

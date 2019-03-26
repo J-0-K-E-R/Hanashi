@@ -50,15 +50,16 @@
             catch(Exception ex) {
                 System.out.println(ex.getMessage());
             }
-            
+            System.out.println("Log:::: View Thread");
             Thread thread = (Thread)session.getAttribute("currentThread");
             if(thread == null || thread.getThreadID() != threadID) {
-                
+                System.out.println("Log::::  View Thread Not Found");
                 request.setAttribute("threadID", threadID);
                 RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
                 rd.forward(request, response);
             }
             else {
+                System.out.println("Log:::: View Thread Found");
                 String requiredTitle = ThreadsService.titleToURL(thread.getTitle());
                 if(!title.equals(requiredTitle))
                     response.sendRedirect("/Hanashi/threads/"+threadID+"/"+requiredTitle);

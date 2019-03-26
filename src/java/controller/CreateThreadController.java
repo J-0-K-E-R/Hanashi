@@ -57,6 +57,7 @@ public class CreateThreadController extends HttpServlet {
             Thread thread = new Thread(); 
             ThreadDAO td = new ThreadDAO();
             
+                out.write("hola");
             int threadID = td.getNextThreadID();
             thread.setThreadID(threadID);
             User user = (User)session.getAttribute("user");
@@ -78,6 +79,8 @@ public class CreateThreadController extends HttpServlet {
             }
             else {
                 request.setAttribute("threadID", threadID);
+                System.out.println("Log::: Created Thread");
+                session.removeAttribute("threads");
                 RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
                 rd.forward(request, response);
             }
