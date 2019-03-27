@@ -74,7 +74,7 @@
     
     <body onload="pageLoader()">
         
-        
+        <div id="main" class="main">
         <div id="user-profile-container">
             
             <div id="top">
@@ -113,6 +113,7 @@
             <div id="user-threads">
                 ${userThreads}
             </div>
+        </div>
         </div>
     </body>
 </html>

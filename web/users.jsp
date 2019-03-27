@@ -20,10 +20,12 @@
             }
 
         %>
+        <div id="main" class="main">
         <div id="table-wrapper">
             <div id="table-scroll">
                 ${userTable}
             </div>
+        </div>
         </div>
     </body>
 </html>

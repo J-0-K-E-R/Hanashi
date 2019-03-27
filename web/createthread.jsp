@@ -55,6 +55,7 @@
         </script>
     </head>
     <body>
+        <div id="main" class="main">
         <div id="create-thread-container">
             <form action="/Hanashi/CreateThread" id="create-thread-form" method="post">
                 <h2> Create Thread </h2>
@@ -69,6 +70,7 @@
                 <input class="btn btn-success" type="submit" value="Post">
                 <a href="/Hanashi/index.jsp" class="btn btn-default">Cancel</a>
             </form>
+        </div>
         </div>
     </body>
 </html>

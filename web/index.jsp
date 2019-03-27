@@ -39,10 +39,17 @@
         %>
         
         
-        
+        <div id="main" class="main">
+
         
         <div id="all-threads-container">
+            <div id="sortby" class="nav ">
+                <a href="#" class="btn btn-default btn-active"> Time </a>
+                <a href="#" class="btn btn-default"> Relevance </a>
+                <a href="#" class="btn btn-default"> Popularity </a>
+            </div>
             ${threads}
+        </div>
         </div>
         
     </body>

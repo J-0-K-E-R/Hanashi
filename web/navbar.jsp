@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse stayontop">
+<nav class="navbar navbar-inverse mynavbar">
     <div class="container-fluid">
         <!-- Logo -->
         <div class="navbar-header">
@@ -16,7 +16,7 @@
             </form>
         </div>
         
-        <div id="GuestDiv">
+        <div hidden id="GuestDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 

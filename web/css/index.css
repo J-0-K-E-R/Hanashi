@@ -3,8 +3,8 @@ color: #0481ff;*/
 .nav.navbar-nav li a {
     color: #0481ff;
 }
-.stayontop {
-    z-index: 100;
+.mynavbar {
+    z-index: 100; /* stay on top */
 }
 
 .myColor {
@@ -306,4 +306,15 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 
+/*Styling div sortby on index.jsp*/
+#sortby {
+    /*border: solid 2px red;*/
+    
+    
+    /*Fit width to content*/
+    /*display: inline-block;*/   
+    
+    
+    text-align: right;
+}
 

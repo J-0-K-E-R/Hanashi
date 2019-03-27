@@ -66,7 +66,7 @@
             }
         %>
         
-        
+        <div id="main" class="main">
         <div id="view-thread-container">
             <div id="originalPost">
                 <h3>${currentThread.getTitle()}</h3>
@@ -91,6 +91,7 @@
                 </form>
             </div>        
                     
+        </div>
         </div>
     </body>
 </html>

@@ -40,7 +40,9 @@
         </script>
     </head>
     <body>
+        <div id="main" class="main">
         <div id="signupform">
+            <span class='alert alert-danger'> ${errorMessage} </span>
             <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
                 <h3> Sign Up </h3>
                 <input type="text" name="Username" placeholder="Username" required><br>
@@ -54,6 +56,6 @@
                 <input type="submit" value="Sign Up">
             </form>
         </div>
-        ${errorMessage}
+        </div>
     </body>
 </html>
