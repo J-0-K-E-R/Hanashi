@@ -5,6 +5,10 @@ color: #0481ff;*/
 }
 .mynavbar {
     z-index: 100; /* stay on top */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .myColor {
@@ -19,6 +23,13 @@ body {
     overflow:auto;
     /*color: #0481ff;*/
 }
+
+.main {
+    /*margin-left: 200px;*/
+    position: relative;
+    top: 80px;
+}
+
 /* Popover */
 .popover {
     border: 2px solid #0481ff;
