@@ -32,12 +32,13 @@
     </head>
     
     <body onload="onIndexPageLoad()">
-        
         <% 
             if(session.getAttribute("threads") == null) {
                 response.sendRedirect("/Hanashi/FetchAllThreads");
             }
         %>
+        
+        
         
         
         <div id="all-threads-container">
