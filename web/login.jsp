@@ -9,11 +9,27 @@
 <html>
     <head>
         <%@include file="/header.jsp"%>
+        
+        <script>
+            function init() {
+                
+//                Check if errorMessage is null or not
+                var errMessage = <%=session.getAttribute("errorMessage")%>;
+                if(errMessage === null || errMessage === "") {
+                    $("#alertError").hide();
+                }
+                else {
+                    $("#alertError").show();
+                }
+            }
+        </script>
+        
+        
     </head>
-    <body>
+    <body onload="init();">
         <div id="main" class="main">
         <div id='loginform-cotainer'>
-        <span class='alert alert-danger'> ${errorMessage} </span>
+        <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
         <form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
             <h3>Login</h3> <br>
             <input type="text" name="Username" placeholder="Username" required> <br>

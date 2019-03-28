@@ -10,6 +10,22 @@
 <html>
     <head>
         <%@include file="/header.jsp"%>
+        
+        <script>
+            function init() {
+                
+//                Check if errorMessage is null or not
+                var errMessage = <%=session.getAttribute("errorMessage")%>;
+                if(errMessage === null || errMessage === "") {
+                    $("#alertError").hide();
+                }
+                else {
+                    $("#alertError").show();
+                }
+            }
+        </script>
+        
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script>
             var strength = {
@@ -38,11 +54,27 @@
                 }
             }
         </script>
+        
+        <script>
+            function alreadyExists(uname) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("d1").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", "aja.jsp?name="+x, true);
+                xhttp.send();
+            }
+        </script>
+        
+        
     </head>
-    <body>
+    
+    <body onload="init();">
         <div id="main" class="main">
         <div id="signupform">
-            <span class='alert alert-danger'> ${errorMessage} </span>
+            <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
             <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
                 <h3> Sign Up </h3>
                 <input type="text" name="Username" placeholder="Username" required><br>
