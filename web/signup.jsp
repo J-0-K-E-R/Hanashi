@@ -56,14 +56,23 @@
         </script>
         
         <script>
-            function alreadyExists(uname) {
+            function alreadyExists() {
+                var uname = document.getElementById("uname").value;
+                if(uname === "") {
+                    $("#alertUsernameExists").hide();
+                }
+                else {
+                    $("#alertUsernameExists").show();
+                }
+                
                 var xhttp = new XMLHttpRequest();
+                var span = document.getElementById("alertUsernameExists");
                 xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("d1").innerHTML = this.responseText;
+                    if (this.readyState === 4 && this.status === 200) {
+                        span.innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("GET", "aja.jsp?name="+x, true);
+                xhttp.open("GET", "/Hanashi/UsernameExists?uname="+uname, true);
                 xhttp.send();
             }
         </script>
@@ -77,7 +86,8 @@
             <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
             <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
                 <h3> Sign Up </h3>
-                <input type="text" name="Username" placeholder="Username" required><br>
+                <input type="text" id="uname" name="Username" placeholder="Username" onkeyup="alreadyExists();" required> 
+                <span id="alertUsernameExists" hidden> </span><br>
                 <input type="text" name="Email" placeholder="Email" required><br>
                 <div id="password-div">
                     <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required> 
