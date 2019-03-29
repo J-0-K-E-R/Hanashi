@@ -161,4 +161,31 @@ public class ThreadDAO {
         }
         return threads;
     }
+    
+     public Thread updateThread(Thread thread) {
+        Thread returnThread = null;
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            createThreadStatement = conn.prepareStatement("update  threads set " 
+                    + "Title = ?,"
+                    + "Post = ?,"
+                    + "Tags_List = ? where Thread_ID = ?");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            createThreadStatement.setString(1, thread.getTitle());
+            createThreadStatement.setString(2, thread.getPost());
+            createThreadStatement.setString(3, thread.getTagsList());
+            createThreadStatement.setInt(4, thread.getThreadID());
+            createThreadStatement.executeUpdate();
+            returnThread = this.fetchThread(thread.getThreadID());
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        
+        return returnThread;
+    }
 }

@@ -46,6 +46,10 @@
         <servlet-name>UsernameExistsController</servlet-name>
         <servlet-class>controller.UsernameExistsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditThreadController</servlet-name>
+        <servlet-class>controller.EditThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -77,6 +81,10 @@
     <servlet-mapping>
         <servlet-name>UsernameExistsController</servlet-name>
         <url-pattern>/UsernameExists</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditThreadController</servlet-name>
+        <url-pattern>/EditThread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
