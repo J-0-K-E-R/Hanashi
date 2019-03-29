@@ -6,7 +6,6 @@
 package controller;
 
 import dao.PostDAO;
-import dao.ThreadDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.Post;
-import pojos.Thread;
 import pojos.User;
 import utilities.ThreadsService;
 
@@ -23,33 +21,34 @@ import utilities.ThreadsService;
  *
  * @author robogod
  */
-public class CreatePostController extends HttpServlet { 
+public class EditPostController extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {           
             
             Post post = new Post();
             PostDAO pd = new PostDAO();
-            Thread currentThread = (Thread)session.getAttribute("currentThread");
+            pojos.Thread currentThread = (pojos.Thread)session.getAttribute("currentThread");
             User user = (User)session.getAttribute("user");
             
+            post.setPostID(Integer.parseInt(request.getParameter("editPostID")));
             post.setThreadID(currentThread.getThreadID());
             post.setUsername(user.getUsername());
             post.setPost(request.getParameter("post-content"));
             
-            String message = pd.addNewPost(post);
+            String message = pd.updatePost(post);
             
             if(!message.equals("Done")) {
                 out.write(message);
@@ -66,6 +65,35 @@ public class CreatePostController extends HttpServlet {
             }
             
         }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

@@ -19,6 +19,7 @@ import pojos.Post;
  */
 public class PostDAO {
     private PreparedStatement createPostStatement;
+    private PreparedStatement editPostStatement;
     private PreparedStatement fetchPostsStatement;
     
     public String addNewPost(Post post) {
@@ -80,5 +81,33 @@ public class PostDAO {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
         return posts;
+    }
+
+    public String updatePost(Post post) {       
+        String message;
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            editPostStatement = conn.prepareStatement("update posts set "
+                    + "Post = ?,"
+                    + "Reply_to = ? "
+                    + "where Post_ID=?;");
+            
+            
+            editPostStatement.setString(1, post.getPost());
+            editPostStatement.setString(2, post.getReplyTo());
+            editPostStatement.setInt(3, post.getPostID());
+            editPostStatement.executeUpdate();
+            
+            message = "Done";
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getMessage();
+        }
+        return message;
     }
 }
