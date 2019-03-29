@@ -13,25 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="/header.jsp" %>
         
-        <script>
-            function init() {
-
-            }
-            
-            function editUserPost(postid) {
-                $('#'+postid).hide();
-                $('#edit-'+postid).show();
-            }
-            
-            function cancelEdit(postid) {
-                $('#'+postid).show();
-                $('#edit-'+postid+'').hide();
-            }
-        </script>
-
-        
-    </head>
-    <body onload="init()">
+        <%! boolean canEdit;%>
         <% 
             String uri = request.getRequestURI();
             int threadID = -1;
@@ -55,15 +37,47 @@
                 System.out.println("Log:::: View Thread Found");
                 String requiredTitle = ThreadsService.encodeTitleToURL(thread.getTitle());
                 if(!title.equals(requiredTitle))
-                    response.sendRedirect("/Hanashi/threads/"+threadID+"/"+requiredTitle);
+                    response.sendRedirect("/Hanashi/threads/"+threadID+"/"+requiredTitle); 
+            
+                if(!isLoggedIn || !user.getUsername().equals(thread.getUsername())) {
+                    canEdit = false;
+                }
+                else {
+                    canEdit = true;
+                }
             }
         %>
+        
+        <script>
+            function init() {
+                if(<%=canEdit%>) {
+                    $("#editthread").show();
+                }
+                else {
+                    $("#editthread").hide();
+                }
+            }
+            
+            function editUserPost(postid) {
+                $('#'+postid).hide();
+                $('#edit-'+postid).show();
+            }
+            
+            function cancelEdit(postid) {
+                $('#'+postid).show();
+                $('#edit-'+postid+'').hide();
+            }
+        </script>
+
+        
+    </head>
+    <body onload="init()">
         
         <div id="main" class="main">
         <div id="view-thread-container">
             <div id="originalPost">
                 <h3>${currentThread.getTitle()} </h3>
-                <a href="/Hanashi/editthread.jsp"><span class="glyphicon glyphicon-edit"></span></a>
+                <div id="editthread" ><a href="/Hanashi/editthread"><span class="glyphicon glyphicon-edit"></span></a></div>
                 <div>
                     ${currentThread.getPost()}
                 </div>

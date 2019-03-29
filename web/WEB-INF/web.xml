@@ -54,6 +54,10 @@
         <servlet-name>EditPostController</servlet-name>
         <servlet-class>controller.EditPostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editthread</servlet-name>
+        <jsp-file>/editthread.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -93,6 +97,10 @@
     <servlet-mapping>
         <servlet-name>EditPostController</servlet-name>
         <url-pattern>/EditPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editthread</servlet-name>
+        <url-pattern>/editthread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
