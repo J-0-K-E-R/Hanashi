@@ -69,7 +69,7 @@
         
                 // Update the text indicator
                 if (val !== "") {
-                    text.innerHTML = "Strength: " + strength[result.score]; 
+                    text.innerHTML = " " + strength[result.score]; 
                 } else {
                     text.innerHTML = "";
                 }
@@ -111,19 +111,18 @@
         <div id="main" class="main">
         <div id="signupform">
             <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
-            <form action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
+            <form  action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
                 <h3> Sign Up </h3>
                 <input type="text" id="uname" name="Username" placeholder="Username" onkeyup="alreadyExists();" required> 
                 <span id="alertUsernameExists" hidden> </span><br>
                 <input type="text" name="Email" placeholder="Email" required><br>
                 <div id="password-div">
-                    <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required> 
+                    <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required><span id="password-strength-text"></span> <br>
                     <meter max="4" id="password-strength-meter"></meter> 
-                    <p id="password-strength-text"></p>
                 </div>
                 <input type="password" id="cPassword" name="cPassword" placeholder="Confirm Password" onkeyup="matchPass()" required>
                 <span id="alertPassMatch"> </span><br>
-                <input type="submit" value="Sign Up">
+                <input type="submit" class="btn btn-success" value="Sign Up">
             </form>
         </div>
         </div>
