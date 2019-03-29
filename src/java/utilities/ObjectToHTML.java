@@ -81,7 +81,7 @@ public class ObjectToHTML {
             
             temp = temp.concat("<div id='edit-" + post.getPostID() +"' hidden>"+ 
                     "<form action=\"/Hanashi/EditPost?editPostID="+ post.getPostID() +"\" id=\"create-post-form\" method=\"post\">\n" +
-                    "<textarea id=\"froala-editor\" name=\"post-content\" required></textarea> <br>\n" +
+                    "<textarea id=\"froala-editor\" name=\"post-content\" required > "+post.getPost()+" </textarea> <br>\n" +
                     "<input class=\"btn btn-success\" type=\"submit\" value=\"Update\">\n" +
                     "<input type=\"button\" class=\"btn btn-default\" value=\"Cancel\" onclick=\"cancelEdit("+ post.getPostID() +");\">\n" +
                     "</form></div>");

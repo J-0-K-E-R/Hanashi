@@ -34,8 +34,6 @@
         </script>
         <script>
             function init(){
-                var textarea = document.getElementById("froala-editor");
-                textarea.innerHTML = '<%=currentThread.getPost()%>';
             }
         </script>
         
@@ -52,7 +50,7 @@
                 <!--<label for="title"> Title </label>-->
                 <input type="text" name="title" id="title" placeholder="Enter Title" required="" value="${currentThread.getTitle()}"> <br>
                 <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()" value="${currentThread.getTagsList()}"> <br>
-                <textarea id="froala-editor" name="post-content" required></textarea> <br>
+                <textarea id="froala-editor" name="post-content" required>${currentThread.getPost()}</textarea> <br>
                 <input class="btn btn-success" type="submit" value="Update">
                 <a href="/Hanashi/index.jsp" class="btn btn-default">Cancel</a>
             </form>
