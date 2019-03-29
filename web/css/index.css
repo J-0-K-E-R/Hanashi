@@ -187,13 +187,13 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     width: 100%;
 }
 
-#post-container {
+.post-container {
     border: solid 2px chartreuse;
     margin: 5px;
     padding: 5px;
 }
 
-#post-container #user {
+.post-container #user {
     color: green;
     font-size: 20px;
 }

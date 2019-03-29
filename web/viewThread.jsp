@@ -13,32 +13,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="/header.jsp" %>
         
- 
         <script>
-            $(function() {
-                $('textarea#froala-editor').froalaEditor({
-//                    toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-//                     'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
-//                     'emoticons', 'fontAwesome', 'specialCharacters', '-', 
-//                     'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
-//                     'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
-//                     'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
-//                      'undo', 'redo'],
-                    toolbarButtons: ['undo', 'redo' , '|', 
-                        'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
-                        'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
-                        'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
-                        'insertLink', 'insertImage', 'html', 'fullscreen']
-//                    toolbarButtonsMD: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
-//                    toolbarButtonsSM: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
-//                    toolbarButtonsXS: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen']
-                });
-            });
+            function init() {
+
+            }
+            
+            function editUserPost(postid) {
+                $('#'+postid).hide();
+                $('#edit-'+postid).show();
+            }
+            
+            function cancelEdit(postid) {
+                $('#'+postid).show();
+                $('#edit-'+postid+'').hide();
+            }
         </script>
 
         
     </head>
-    <body>
+    <body onload="init()">
         <% 
             String uri = request.getRequestURI();
             int threadID = -1;

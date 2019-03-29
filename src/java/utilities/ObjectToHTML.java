@@ -62,8 +62,29 @@ public class ObjectToHTML {
         String temp;
         
         for(Post post: posts) {
-            temp = "<div id='post-container'> <div id='user'>" + post.getUsername() + "</div>";
+            temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + "</div>";
             temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampCreated().getTime() + "</div> </div>");
+            
+            out = out.concat(temp);
+        }
+        
+        return out;
+    }
+    
+    public String postsToHTML(ArrayList<Post> posts, String currentUser) {
+        String out="";
+        String temp;
+        
+        for(Post post: posts) {
+            temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + this.editTag(post.getPostID(), post.getUsername(), currentUser) + "</div>";
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampCreated().getTime() + "</div> </div>");
+            
+            temp = temp.concat("<div id='edit-" + post.getPostID() +"' hidden><form action=\"/Hanashi/EditPost\" id=\"create-post-form\" method=\"post\">\n" +
+                    "<textarea id=\"froala-editor\" name=\"post-content\" required></textarea> <br>\n" +
+                    "<input class=\"btn btn-success\" type=\"submit\" value=\"Update\">\n" +
+                    "<input type=\"button\" class=\"btn btn-default\" value=\"Cancel\" onclick=\"cancelEdit("+ post.getPostID() +");\">\n" +
+                    "</form></div>");
+            
             out = out.concat(temp);
         }
         
@@ -82,5 +103,13 @@ public class ObjectToHTML {
         }
         
         return out;
+    }
+    
+    private String editTag (int postID, String user1, String user2) {
+        String result = "";
+        if(user1.equals(user2)){
+            result = "<a id=\"userPostEdit\" href=\"#\" onclick=\"editUserPost("+ postID +");\"><span class=\"glyphicon glyphicon-edit\"></span></a>";
+        }
+        return result;
     }
 }

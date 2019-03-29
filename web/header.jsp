@@ -26,16 +26,16 @@
     And thus setting up the Navigation Bar.
 -->
 <%! 
-    boolean flag = false;
+    boolean isLoggedIn = false;
     User user = null;
 %>
 <%
     User user = (User)session.getAttribute("user");
     if(user != null) {
-        flag = true;
+        isLoggedIn = true;
     }
     else {
-        flag = false;
+       isLoggedIn = false;
     }
     
 %>
@@ -44,7 +44,7 @@
 <script>
     function whichNav() {
 
-        if(<%= flag %>) {
+        if(<%=isLoggedIn%>) {
             $(document).ready(
                     function() {
                         $("#UserDiv").show();
@@ -115,3 +115,25 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
     
 
+<script>
+            $(function() {
+                $('textarea#froala-editor').froalaEditor({
+//                    toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+//                     'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
+//                     'emoticons', 'fontAwesome', 'specialCharacters', '-', 
+//                     'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
+//                     'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
+//                     'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
+//                      'undo', 'redo'],
+                    toolbarButtons: ['undo', 'redo' , '|', 
+                        'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
+                        'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
+                        'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
+                        'insertLink', 'insertImage', 'html', 'fullscreen']
+//                    toolbarButtonsMD: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
+//                    toolbarButtonsSM: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
+//                    toolbarButtonsXS: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen']
+                });
+            });
+        </script>
+        

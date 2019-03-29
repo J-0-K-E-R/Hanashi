@@ -51,6 +51,7 @@ public class FetchThreadController extends HttpServlet {
             }
             ThreadDAO td = new ThreadDAO();
             thread = td.fetchThread(threadID);
+            User currentUser = (User)session.getAttribute("user");
             
             if(thread == null) {
                 out.write("Some Error Occurred!<br> Redirecting...");
@@ -65,8 +66,11 @@ public class FetchThreadController extends HttpServlet {
                 ArrayList<Post> postsList = pd.fetchPosts(threadID);
             
                 ObjectToHTML oh = new ObjectToHTML();
-                String posts = oh.postsToHTML(postsList);
-                
+                String posts;
+                if(currentUser!=null)
+                    posts = oh.postsToHTML(postsList, currentUser.getUsername());
+                else 
+                    posts = oh.postsToHTML(postsList);
                 System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", posts);
                 session.setAttribute("currentThread", thread);
@@ -101,6 +105,7 @@ public class FetchThreadController extends HttpServlet {
             }
             ThreadDAO td = new ThreadDAO();
             thread = td.fetchThread(threadID);
+            User currentUser = (User)session.getAttribute("user");
             
             if(thread == null) {
                 out.write("Some Error Occurred!<br> Redirecting...");
@@ -115,7 +120,11 @@ public class FetchThreadController extends HttpServlet {
                 ArrayList<Post> postsList = pd.fetchPosts(threadID);
             
                 ObjectToHTML oh = new ObjectToHTML();
-                String posts = oh.postsToHTML(postsList);
+                String posts;
+                if(currentUser!=null)
+                    posts = oh.postsToHTML(postsList, currentUser.getUsername());
+                else 
+                    posts = oh.postsToHTML(postsList);
                 
                 System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", posts);
