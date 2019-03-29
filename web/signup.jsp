@@ -26,6 +26,27 @@
         </script>
         
         
+        <script>
+            function matchPass() {
+                var pass = document.getElementById("Password").value;
+                var cpass = document.getElementById("cPassword").value;
+                var out = document.getElementById("alertPassMatch");
+                if(cpass === "") {
+                    out.hidden = true;
+                }
+                else if(pass === cpass) {
+                    out.hidden = false;
+                    out.innerHTML = "Matched!";
+                    out.className = "alert alert-success";
+                }
+                else {
+                    out.hidden = false;
+                    out.innerHTML = "Do Not Match!";
+                    out.className = "alert alert-danger";
+                }
+            }
+        </script>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <script>
             var strength = {
@@ -70,6 +91,12 @@
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
                         span.innerHTML = this.responseText;
+                        if(this.responseText === "<span> Available </span>") {
+                            span.className = "alert alert-success";
+                        }
+                        else {
+                            span.className = "alert alert-danger";
+                        }
                     }
                 };
                 xhttp.open("GET", "/Hanashi/UsernameExists?uname="+uname, true);
@@ -94,7 +121,8 @@
                     <meter max="4" id="password-strength-meter"></meter> 
                     <p id="password-strength-text"></p>
                 </div>
-                <input type="password"  name="cPassword" placeholder="Confirm Password" required><br>
+                <input type="password" id="cPassword" name="cPassword" placeholder="Confirm Password" onkeyup="matchPass()" required>
+                <span id="alertPassMatch"> </span><br>
                 <input type="submit" value="Sign Up">
             </form>
         </div>
