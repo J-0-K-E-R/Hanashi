@@ -42,7 +42,7 @@ public class EditThreadController extends HttpServlet {
             Thread currentThread = (Thread)session.getAttribute("currentThread");
             if(user == null || !user.getUsername().equals(currentThread.getUsername())) {
                 
-                out.write("Some Error Occurred!<br> Redirecting...");
+                out.write("Some Error Occurred! User access not permitted!! <br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
                         request.getServerName() +

@@ -63,7 +63,7 @@ public class ObjectToHTML {
         
         for(Post post: posts) {
             temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + "</div>";
-            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampCreated().getTime() + "</div> </div>");
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampModified().getTime() + "</div> </div>");
             
             out = out.concat(temp);
         }
@@ -77,7 +77,7 @@ public class ObjectToHTML {
         
         for(Post post: posts) {
             temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + this.editTag(post.getPostID(), post.getUsername(), currentUser) + "</div>";
-            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampCreated().getTime() + "</div> </div>");
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampModified().getTime() + "</div> </div>");
             
             temp = temp.concat("<div id='edit-" + post.getPostID() +"' hidden>"+ 
                     "<form action=\"/Hanashi/EditPost?editPostID="+ post.getPostID() +"\" id=\"create-post-form\" method=\"post\">\n" +

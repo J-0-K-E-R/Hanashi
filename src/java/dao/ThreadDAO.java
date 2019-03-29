@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import pojos.User;
  */
 public class ThreadDAO {
     private PreparedStatement createThreadStatement;
+    private PreparedStatement updateThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
     private PreparedStatement fetchUserThreadsStatement;
     
@@ -169,18 +171,22 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
+            Timestamp modified = new Timestamp(thread.getTimestampModified().getTime().getTime());
+            
             //Create the preparedstatement(s)
-            createThreadStatement = conn.prepareStatement("update  threads set " 
+            updateThreadStatement = conn.prepareStatement("update  threads set " 
                     + "Title = ?,"
                     + "Post = ?,"
+                    + "Timestamp_Modified = ?,"
                     + "Tags_List = ? where Thread_ID = ?");
             
             //Add parameters to the ?'s in the preparedstatement and execute
-            createThreadStatement.setString(1, thread.getTitle());
-            createThreadStatement.setString(2, thread.getPost());
-            createThreadStatement.setString(3, thread.getTagsList());
-            createThreadStatement.setInt(4, thread.getThreadID());
-            createThreadStatement.executeUpdate();
+            updateThreadStatement.setString(1, thread.getTitle());
+            updateThreadStatement.setString(2, thread.getPost());
+            updateThreadStatement.setTimestamp(3, modified);
+            updateThreadStatement.setString(4, thread.getTagsList());
+            updateThreadStatement.setInt(5, thread.getThreadID());
+            updateThreadStatement.executeUpdate();
             returnThread = this.fetchThread(thread.getThreadID());
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());

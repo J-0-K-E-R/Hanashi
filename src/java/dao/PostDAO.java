@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import pojos.Post;
 
@@ -90,16 +91,21 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
+            Timestamp modified = new Timestamp(post.getTimestampModified().getTime().getTime());
+
+            
             //Create the preparedstatement(s)
             editPostStatement = conn.prepareStatement("update posts set "
                     + "Post = ?,"
-                    + "Reply_to = ? "
+                    + "Reply_to = ? ,"
+                    + "Timestamp_Modified = ?"
                     + "where Post_ID=?;");
             
             
             editPostStatement.setString(1, post.getPost());
             editPostStatement.setString(2, post.getReplyTo());
-            editPostStatement.setInt(3, post.getPostID());
+            editPostStatement.setTimestamp(3, modified);
+            editPostStatement.setInt(4, post.getPostID());
             editPostStatement.executeUpdate();
             
             message = "Done";

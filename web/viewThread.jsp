@@ -84,7 +84,7 @@
                 <div>
                     ${currentThread.getUsername()}
                     <div>
-                        ${currentThread.getTimestampCreated().getTime()}
+                        ${currentThread.getTimestampModified().getTime()}
                     </div>
                 </div>
             </div>
