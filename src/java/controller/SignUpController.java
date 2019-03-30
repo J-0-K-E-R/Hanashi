@@ -17,6 +17,7 @@ import pojos.User;
 import dao.UserDAO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import utilities.Recaptcha;
 
 /**
  *
@@ -25,20 +26,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "signUpController", urlPatterns = {"/SignUp"})
 public class SignUpController extends HttpServlet {
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
+    private static final String reCaptchaSecretKey = "6Lf9DJsUAAAAAL7SULc7Yg0tGeZAcXNbsb1h6Jo5";
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -71,13 +59,20 @@ public class SignUpController extends HttpServlet {
             //Entering information to DB
             String message = ud.signUpUser(user);
             
-            if(message.equals("Done")) {
+            //verify reCaptcha
+            String reCaptchaResponse = request.getParameter("g-recaptcha-response");
+            boolean verify = Recaptcha.verify(reCaptchaSecretKey, reCaptchaResponse);
+            
+            if(message.equals("Done") && verify) {
                 request.setAttribute("Username", username);
                 request.setAttribute("Password", password);
+                request.setAttribute("g-recaptcha-response", reCaptchaResponse);
                 RequestDispatcher rd = request.getRequestDispatcher("/Login");
                 rd.forward(request, response);
             }
             else {
+                if(!verify)
+                    message = "You missed the reCAPTCHA";
                 session.setAttribute("errorMessage", message);
                 response.sendRedirect("/Hanashi/signup");
             }

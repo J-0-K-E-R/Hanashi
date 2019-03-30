@@ -28,6 +28,7 @@
                        data-content="<form action='/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>' method='post'>
                        <input type='text' name='Username' placeholder='Username' required autofocus>
                        <input type='password' name='Password' placeholder='Password' required>
+                       <div class='g-recaptcha' data-sitekey='6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-'></div> <br>
                        <input type='submit' value='Log In'>
                        </form>">
                         <span class="glyphicon glyphicon-log-in"></span>

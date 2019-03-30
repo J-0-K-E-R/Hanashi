@@ -122,6 +122,8 @@
                 </div>
                 <input type="password" id="cPassword" name="cPassword" placeholder="Confirm Password" onkeyup="matchPass()" required>
                 <span id="alertPassMatch"> </span><br>
+                
+                <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div> <br>
                 <input type="submit" class="btn btn-success" value="Sign Up">
             </form>
         </div>

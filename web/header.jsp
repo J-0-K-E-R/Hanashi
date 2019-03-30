@@ -63,6 +63,10 @@
     whichNav();
 </script>
 
+<!--Include reCAPTCHA js file-->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 <%@include file="/navbar.jsp"%>
 
 <%@include file="/sidenav.jsp"%>
@@ -136,4 +140,5 @@
                 });
             });
         </script>
-        
+
+

@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import pojos.User;
 import utilities.PasswordService;
 import java.io.PrintWriter;
+import utilities.Recaptcha;
 
 /**
  *
@@ -32,6 +33,7 @@ public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private HttpSession session;
     private String url;
+    private static final String reCaptchaSecretKey = "6Lf9DJsUAAAAAL7SULc7Yg0tGeZAcXNbsb1h6Jo5";
     
     /**
      * Servlet constructor
@@ -62,6 +64,9 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()){
+            
+            
+            
             //get our current session
             session = request.getSession();
             
@@ -80,8 +85,13 @@ public class LoginController extends HttpServlet {
             //create a user helper class to make database calls, and call authenticate user method
             UserDAO uh = new UserDAO();
             User user = uh.authenticateUser(Username, encryptedPass);
+            
+            //verify reCaptcha
+            String reCaptchaResponse = request.getParameter("g-recaptcha-response");
+            boolean verify = Recaptcha.verify(reCaptchaSecretKey, reCaptchaResponse);
+
             //we've found a user that matches the credentials
-            if(user != null){
+            if(user != null && verify){
                 //invalidate current session, then get new session for our user (combats: session hijacking)
                 session.invalidate();
                 session=request.getSession(true);
@@ -91,7 +101,11 @@ public class LoginController extends HttpServlet {
             }
             // user doesn't exist, redirect to previous page and show error
             else{
-                String errorMessage = "Error: Unrecognized Username or Password";
+                String errorMessage;
+                if(verify)
+                    errorMessage = "Error: Unrecognized Username or Password";
+                else
+                    errorMessage = "You missed the reCAPTCHA";
                 request.setAttribute("errorMessage", errorMessage);
                 url = "/loginpage";
                 RequestDispatcher dispatcher = request.getRequestDispatcher(url);
