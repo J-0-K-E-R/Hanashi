@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.jasper.tagplugins.jstl.ForEach;
 import pojos.Post;
+import pojos.Tag;
 import pojos.Thread;
 
 /**
@@ -112,5 +113,17 @@ public class ObjectToHTML {
             result = "<a id=\"userPostEdit\" href=\"#\" onclick=\"editUserPost("+ postID +");\"><span class=\"glyphicon glyphicon-edit\"></span></a>";
         }
         return result;
+    }
+    
+    public String tagsListToHTML(ArrayList<Tag> tagsList) {
+        String tags="";
+        
+        for(Tag tag: tagsList) {
+            tags = tags.concat("<div class=\"tag-div\"> <a href=\"#\" class=\"tag-name\">"+tag.getTag() +"</a> "
+                    + "<span class=\"tag-count-span\"> <span class=\"tag-count-x\"> x </span> "
+                    + "<span class=\"tag-count\">"+tag.getCount()+"</span></span> </div>\n");
+        }
+        
+        return tags;
     }
 }

@@ -59,7 +59,7 @@ body {
 /* Table CSS */
 #table-wrapper {
   position:relative;
-  border:solid 2px green;
+  /*border:solid 2px green;*/
   overflow: hidden;
   width: 30%;
   left:50%;
@@ -336,3 +336,40 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     text-align: right;
 }
 
+
+/*Styling tags-list*/
+#tags-list-wrapper {
+    position: relative;
+    width: 60%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border: solid 2px #0481ff;
+    padding: 5px;
+}
+
+.grid-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 6px;
+    padding: 10px;
+    background: azure;
+}
+
+.grid-container .tag-div {
+    font-size: 16px;
+    background: background;
+    /*text-align: center;*/
+    padding: 10px; 
+    /*border: solid 1px red;*/
+}
+
+.grid-container .tag-name {
+    color: green;
+    /*font-size: 15px;*/
+}
+
+.grid-container .tag-count {
+    color: #0481ff;
+    /*font-size: 13px;*/
+}

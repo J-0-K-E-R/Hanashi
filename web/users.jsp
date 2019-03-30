@@ -22,6 +22,7 @@
         %>
         <div id="main" class="main">
         <div id="table-wrapper">
+            <h4> Users </h4>
             <div id="table-scroll">
                 ${userTable}
             </div>

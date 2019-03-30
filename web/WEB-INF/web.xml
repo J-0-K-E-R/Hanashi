@@ -58,6 +58,14 @@
         <servlet-name>editthread</servlet-name>
         <jsp-file>/editthread.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>tags</servlet-name>
+        <jsp-file>/tags.jsp</jsp-file>
+    </servlet>
+    <servlet>
+        <servlet-name>TagsListController</servlet-name>
+        <servlet-class>controller.TagsListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -101,6 +109,14 @@
     <servlet-mapping>
         <servlet-name>editthread</servlet-name>
         <url-pattern>/editthread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tags</servlet-name>
+        <url-pattern>/tags</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TagsListController</servlet-name>
+        <url-pattern>/TagsList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

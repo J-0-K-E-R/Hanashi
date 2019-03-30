@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojos.Tag;
 import utilities.TagsService;
 
 /**
@@ -98,11 +99,35 @@ public class TagsDAO {
             deleteTagsStatement = conn.prepareStatement("delete from tags where count = 0");
             deleteTagsStatement.executeUpdate();
             message="Done";
-            } catch (ClassNotFoundException | SQLException ex) {
+        } 
+        catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             message = ex.getMessage();
         }
         
         return message;
+    }
+    
+    public ArrayList<Tag> fetchTags() {
+        ArrayList<Tag> tagsList = new ArrayList();
+        Tag tag;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            deleteTagsStatement = conn.prepareStatement("select * from tags order by count desc;");
+            ResultSet rs = deleteTagsStatement.executeQuery();
+            while(rs.next()) {
+                tag = new Tag();
+                tag.setTag(rs.getString("tag"));
+                tag.setCount(rs.getInt("count"));
+                tagsList.add(tag);
+            }
+        } 
+        catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
+            tagsList = null;
+        }
+        
+        return tagsList;
     }
 }
