@@ -64,11 +64,13 @@ public class SignUpController extends HttpServlet {
             boolean verify = Recaptcha.verify(reCaptchaSecretKey, reCaptchaResponse);
             
             if(message.equals("Done") && verify) {
-                request.setAttribute("Username", username);
-                request.setAttribute("Password", password);
-                request.setAttribute("g-recaptcha-response", reCaptchaResponse);
-                RequestDispatcher rd = request.getRequestDispatcher("/Login");
-                rd.forward(request, response);
+                String url;
+                url=(String)session.getAttribute("currentURI");
+                session.invalidate();
+                session=request.getSession(true);
+                user = ud.authenticateUser(username, encryptPassword);
+                session.setAttribute("user", user);
+                response.sendRedirect(url);
             }
             else {
                 if(!verify)

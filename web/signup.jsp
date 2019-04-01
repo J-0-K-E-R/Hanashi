@@ -110,8 +110,8 @@
     <body onload="init();">
         <div id="main" class="main">
         <div id="signupform">
-            <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
-            <form  action="/Hanashi/SignUp?returnto=<%= session.getAttribute("currentURI") %>" method="post">
+            <span id="alertError" class='alert alert-danger' hidden>  ${errorMessage} </span>
+            <form  action="/Hanashi/SignUp" method="post">
                 <h3> Sign Up </h3>
                 <input type="text" id="uname" name="Username" placeholder="Username" onkeyup="alreadyExists();" required> 
                 <span id="alertUsernameExists" hidden> </span><br>

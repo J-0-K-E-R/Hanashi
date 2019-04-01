@@ -29,7 +29,7 @@
         <div id="main" class="main">
         <div id='loginform-cotainer'>
         <span id="alertError" class='alert alert-danger' hidden> ${errorMessage} </span>
-        <form action="/Hanashi/Login?returnto=<%= session.getAttribute("currentURI") %>" method="post">
+        <form action="/Hanashi/Login" method="post">
             <h3>Login</h3> <br>
             <input type="text" name="Username" placeholder="Username" required> <br>
             <input type="password" name="Password" placeholder="Password" required> <br>

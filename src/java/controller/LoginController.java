@@ -93,10 +93,10 @@ public class LoginController extends HttpServlet {
             //we've found a user that matches the credentials
             if(user != null && verify){
                 //invalidate current session, then get new session for our user (combats: session hijacking)
+                url=(String)session.getAttribute("currentURI");
                 session.invalidate();
                 session=request.getSession(true);
                 session.setAttribute("user", user);
-                url=request.getParameter("returnto");
                 response.sendRedirect(url);
             }
             // user doesn't exist, redirect to previous page and show error
@@ -106,10 +106,9 @@ public class LoginController extends HttpServlet {
                     errorMessage = "Error: Unrecognized Username or Password";
                 else
                     errorMessage = "You missed the reCAPTCHA";
-                request.setAttribute("errorMessage", errorMessage);
-                url = "/loginpage";
-                RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-                dispatcher.forward(request, response);
+                session.setAttribute("errorMessage", errorMessage);
+                url = "/Hanashi/loginpage";
+                response.sendRedirect(url);
             }
         }
     }
