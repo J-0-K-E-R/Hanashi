@@ -49,9 +49,11 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //User has clicked the logout link
         session = request.getSession();
-        logout();
+        url=(String)session.getAttribute("currentURI");
         
-        url="/Hanashi/index.jsp";
+        
+        logout();
+        session=request.getSession(true);
         
         //forward our request along
         response.sendRedirect(url);
