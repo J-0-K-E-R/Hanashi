@@ -9,6 +9,10 @@
 <html>
     <head>
         <%@include file="/header.jsp"%>
+        
+        <!--Include reCAPTCHA js file-->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
         <script>
             function init() {
                 

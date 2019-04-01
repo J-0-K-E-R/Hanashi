@@ -1,3 +1,12 @@
+<script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('recaptcha-div', {
+          'sitekey' : '6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-'
+        });
+      };
+</script>
+
+
 <nav class="navbar navbar-inverse mynavbar">
     <div class="container-fluid">
         <!-- Logo -->
@@ -14,6 +23,7 @@
                     </div>
                 </div>
             </form>
+            
         </div>
         
         <div hidden id="GuestDiv">
@@ -28,9 +38,14 @@
                        data-content="<form action='/Hanashi/Login' method='post'>
                        <input type='text' name='Username' placeholder='Username' required autofocus>
                        <input type='password' name='Password' placeholder='Password' required>
-                       <div class='g-recaptcha' data-sitekey='6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-'></div> <br>
+                       <div id = 'recaptcha-div'></div> <br>
                        <input type='submit' value='Log In'>
-                       </form>">
+                       </form>
+                       
+                    
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'
+        async defer>
+</script>">
                         <span class="glyphicon glyphicon-log-in"></span>
                         Log In
                     </a>
@@ -63,3 +78,4 @@
         </div>
     </div>
 </nav>
+                       

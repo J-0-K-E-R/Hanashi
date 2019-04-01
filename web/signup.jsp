@@ -11,12 +11,16 @@
     <head>
         <%@include file="/header.jsp"%>
         
+        <!--Include reCAPTCHA js file-->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        
         <script>
             function init() {
                 
 //                Check if errorMessage is null or not
                 var errMessage = <%=session.getAttribute("errorMessage")%>;
-                if(errMessage === null || errMessage === "") {
+                if(errMessage === null || errMessage === "" || errMessage.length === 0) {
                     $("#alertError").hide();
                 }
                 else {
