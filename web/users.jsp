@@ -13,7 +13,7 @@
     <body>
         <% 
             
-            String ut = (String)session.getAttribute("userTable");
+            String ut = (String)session.getAttribute("usersList");
             if(ut == null) {
                 RequestDispatcher rd = request.getRequestDispatcher("/UsersList");
                 rd.forward(request, response);
@@ -21,10 +21,10 @@
 
         %>
         <div id="main" class="main">
-        <div id="table-wrapper">
+        <div id="users-list-wrapper">
             <h4> Users </h4>
-            <div id="table-scroll">
-                ${userTable}
+            <div id="div-scroll">
+                ${usersList}
             </div>
         </div>
         </div>

@@ -9,6 +9,7 @@ import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pojos.User;
 import utilities.ObjectToHTML;
 
 /**
@@ -39,13 +41,13 @@ public class UsersListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             UserDAO ud = new UserDAO();
-            ResultSet rs = ud.fetchUserList();
+            ArrayList<User> usersList = ud.fetchUserList();
             
             ObjectToHTML prs = new ObjectToHTML();
-            String userTable = prs.resultSetToTable(rs, "myTable", "myTableRow", "myTableData", "myPicture");
+            String usersListHTML = prs.usersListToHTML(usersList);
             
             HttpSession session = request.getSession();
-            session.setAttribute("userTable", userTable);
+            session.setAttribute("usersList", usersListHTML);
             
             response.sendRedirect("/Hanashi/users");
         }

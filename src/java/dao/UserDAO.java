@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -126,7 +127,14 @@ public class UserDAO {
             
             //if we've returned a row, turn that row into a new user object
             if (rs.next()) {
-                user = new User(rs.getInt("ID"), rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getInt("FollowersCount"), rs.getInt("FollowingCount"), rs.getInt("FollowingTagsCount"), rs.getInt("Points"));
+                user = new User(rs.getInt("ID"), 
+                        rs.getString("Username"), 
+                        rs.getString("Password"), 
+                        rs.getString("Email"),
+                        rs.getInt("FollowersCount"), 
+                        rs.getInt("FollowingCount"),
+                        rs.getInt("FollowingTagsCount"), 
+                        rs.getInt("Points"));
             }
         } catch (SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
@@ -156,21 +164,34 @@ public class UserDAO {
         return message;
     }
     
-    public ResultSet fetchUserList() {
-        ResultSet rs = null;
+    public ArrayList<User> fetchUserList() {
+        ArrayList<User> list = new ArrayList<>();
+        User user;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
-            String fetchQuery = "select Username, Points from users order by Points desc";
+            String fetchQuery = "select * from users order by Points desc";
             Statement fetchStatement = conn.createStatement();
-            rs = fetchStatement.executeQuery(fetchQuery);
+            ResultSet rs = fetchStatement.executeQuery(fetchQuery);
+            while(rs.next()) {
+                user = new User(rs.getInt("ID"), 
+                        rs.getString("Username"), 
+                        rs.getString("Password"), 
+                        rs.getString("Email"),
+                        rs.getInt("FollowersCount"), 
+                        rs.getInt("FollowingCount"),
+                        rs.getInt("FollowingTagsCount"), 
+                        rs.getInt("Points"));
+                list.add(user);
+            }
             
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            list = null;
         }
-        return rs;
+        return list;
     }
 }
