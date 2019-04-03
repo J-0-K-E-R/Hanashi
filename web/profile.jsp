@@ -78,8 +78,10 @@
         <div id="user-profile-container">
             
             <div id="top">
-                <div id="profile-picture">
-                    Picture
+                <div class="profile-picture">
+                    <a href="/Hanashi/users/${profileUser.getUsername()}">
+                        <img src="${profileUser.getAvatarPath()}" class="profile-picture">
+                    </a>
                 </div>
                 <div id="username">
                     ${profileUser.getUsername()}
