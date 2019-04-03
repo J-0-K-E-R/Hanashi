@@ -19,6 +19,7 @@ public class User {
 	private int FollowingCount;
 	private int FollowingTagsCount;
 	private int Points;
+	private String AvatarPath;
 	
 	/**
 	 * Constructor
@@ -34,9 +35,10 @@ public class User {
             this.FollowingCount = 0;
             this.FollowingTagsCount = 0;
             this.Points = 1;
+            this.AvatarPath = "/Hanashi/user.png";
 	}
 
-        public User(int Id, String Username, String Password, String Email, int FollowersCount, int FollowingCount, int FollowingTagsCount, int Points) {
+        public User(int Id, String Username, String Password, String Email, int FollowersCount, int FollowingCount, int FollowingTagsCount, int Points, String AvatarPath) {
             this.Id=Id;
             this.Username = Username;
             this.Password = Password;
@@ -45,6 +47,7 @@ public class User {
             this.FollowingCount = FollowingCount;
             this.FollowingTagsCount = FollowingTagsCount;
             this.Points = Points;
+            this.AvatarPath = AvatarPath;
         }
 	/**
 	 * Return the id
@@ -156,5 +159,19 @@ public class User {
 	 */
 	public void setPoints(int Points) {
 		this.Points = Points;
+	}
+
+	/**
+	 * Return the user's AvatarPath
+	 */
+	public String getAvatarPath() {
+		return AvatarPath;
+	}
+
+	/**
+	 * Set a new AvatarPath
+	 */
+	public void setAvatartPath(String Email) {
+		this.AvatarPath = Email;
 	}
 }
