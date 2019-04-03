@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <div>
-            <a href="/Hanashi/index.jsp" class="pull-left"><img src="/Hanashi/logoD.png" id="logo"></a>
+            <a href="/Hanashi/index.jsp" class="pull-left"><img src="/Hanashi/images/logoD.png" id="logo"></a>
         </div>
         <div class="navbar-header">
             <a href="/Hanashi/index.jsp" class="navbar-brand">Hanashi</a>

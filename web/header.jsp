@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-<link rel="shortcut icon" type="image/png" href="/Hanashi/favicon.png">
+<link rel="shortcut icon" type="image/png" href="/Hanashi/images/favicon.png">
 
 <!-- setting the value of currentURI -->
 <% 
