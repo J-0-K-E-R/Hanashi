@@ -15,6 +15,13 @@ color: #0481ff;*/
     color: #0481ff;
 }
 
+#logo {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
 body {
     margin: 0;
     padding: 0;
