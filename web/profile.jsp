@@ -53,8 +53,8 @@
                 function() {
                     if(<%=session.getAttribute("isFollowing")%> === null) {
                         $("#UserFollow").hide();
-                $("#GuestFollow").show();
-                $("#Unfollow").hide();
+                        $("#GuestFollow").show();
+                        $("#Unfollow").hide();
             }
             else if(<%=session.getAttribute("isFollowing")%> === true) {
                 $("#UserFollow").hide();

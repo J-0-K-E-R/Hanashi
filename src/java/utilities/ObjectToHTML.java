@@ -27,7 +27,7 @@ public class ObjectToHTML {
         usersList = "<div id='users-list-container'>";
         for(User user: users) {
             usersList = usersList.concat("<div class='user-item'>" 
-                    + "<div class='user-profile-image'> Picture </div>"
+                    + "<div class='user-profile-image'><a href=\"/Hanashi/users/"+user.getUsername()+"\"><img src=\""+user.getAvatarPath()+"\" class=\"user-profile-image\"></div>"
                     + "<div class='username'>"
                     + "<a href='/Hanashi/users/"+user.getUsername()+"'> " + user.getUsername() + "</a></div>"                           
                     + "<div class='user-points'>" + user.getPoints() + "</div>"
