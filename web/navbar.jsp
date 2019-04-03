@@ -10,6 +10,9 @@
 <nav class="navbar navbar-inverse mynavbar">
     <div class="container-fluid">
         <!-- Logo -->
+        <div>
+            <a href="/Hanashi/index.jsp" class="pull-left"><img src="/Hanashi/logoD.png" id="logo"></a>
+        </div>
         <div class="navbar-header">
             <a href="/Hanashi/index.jsp" class="navbar-brand">Hanashi</a>
         </div>
@@ -42,10 +45,9 @@
                        <input type='submit' value='Log In'>
                        </form>
                        
-                    
-<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'
-        async defer>
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer>
 </script>">
+                        
                         <span class="glyphicon glyphicon-log-in"></span>
                         Log In
                     </a>
