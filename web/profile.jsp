@@ -28,6 +28,10 @@
                 RequestDispatcher rd = request.getRequestDispatcher("/Profile");
                 rd.forward(request, response);
             }
+            else if(user != null && user.getUsername().equals(username)) {
+                RequestDispatcher rd = request.getRequestDispatcher("/selfprofile.jsp");
+                rd.forward(request, response);                
+            }
             else {
                 System.out.println("Log::::: Profile Found");
                 if(session.getAttribute("user") == null ) {
