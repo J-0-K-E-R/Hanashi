@@ -35,7 +35,7 @@ CREATE TABLE `followers` (
 
 LOCK TABLES `followers` WRITE;
 /*!40000 ALTER TABLE `followers` DISABLE KEYS */;
-INSERT INTO `followers` VALUES ('test','Admin'),('test','test11'),('test','test3'),('test','test8'),('test','test9'),('test10','test2'),('test2','Admin'),('test2','test'),('test2','test5');
+INSERT INTO `followers` VALUES ('test','Admin'),('test','test11'),('test','test2'),('test','test3'),('test','test8'),('test','test9'),('test10','test2'),('test2','Admin'),('test2','test'),('test2','test5');
 /*!40000 ALTER TABLE `followers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +98,31 @@ INSERT INTO `tags` VALUES (1,'php',1),(2,'mysql',3),(3,'sql',2),(4,'sql-update',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `thread_votes`
+--
+
+DROP TABLE IF EXISTS `thread_votes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `thread_votes` (
+  `Thread_ID` int(11) NOT NULL,
+  `Username` varchar(16) NOT NULL,
+  `Vote` int(11) NOT NULL,
+  PRIMARY KEY (`Thread_ID`,`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `thread_votes`
+--
+
+LOCK TABLES `thread_votes` WRITE;
+/*!40000 ALTER TABLE `thread_votes` DISABLE KEYS */;
+INSERT INTO `thread_votes` VALUES (7,'test',1),(10,'test',-1),(11,'test',1);
+/*!40000 ALTER TABLE `thread_votes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `threads`
 --
 
@@ -123,7 +148,7 @@ CREATE TABLE `threads` (
 
 LOCK TABLES `threads` WRITE;
 /*!40000 ALTER TABLE `threads` DISABLE KEYS */;
-INSERT INTO `threads` VALUES (7,'Test Thread','<p>dsjflka</p>','','test',0,'2019-03-26 07:44:09','2019-03-26 07:44:09'),(9,'Increment value in mysql update query','<div itemprop=\"text\"><p>I have made this code for giving out +1 point, but it doesn&#39;t work properly.</p><pre><code>mysql_query(&quot;\r\n    UPDATE member_profile \r\n    SET points= &#39; &quot;.$points.&quot; &#39; + 1 \r\n    WHERE user_id = &#39;&quot;.$userid.&quot;&#39;\r\n&quot;);</code></pre><p>the $points variable is the user&acute;s points right now.. I want it to plus one to it.. so example if he had like 5 points, it should be 5+1 = 6.. <strong>but it doesnt, it just changes to 1</strong></p><p>What have i done wrong? thank you</p></div>',' php;mysql;sql;sql-update','test3',0,'2019-03-26 18:07:03','2019-03-26 18:07:03'),(10,'How to import an SQL file using the command line in MySQL?','<div itemprop=\"text\"><p>I have a <code>.sql</code> file with an export from <code>phpMyAdmin</code>. I want to import it into a different server using the command line.</p><p>I have a <a href=\"http://en.wikipedia.org/wiki/Windows_Server_2008\" rel=\"noreferrer\">Windows Server 2008</a> R2 installation. I placed the <code>.sql</code> file on the <strong><em>C drive</em></strong>, and I tried this command</p><pre><code>database_name &lt; file.sql</code></pre><p>It is not working I get syntax errors.</p><ul><li>How can I import this file without a problem?</li><li>Do I need to create a database first?</li></ul></div>',' mysql;sql;command-line;import','test3',0,'2019-03-26 18:09:44','2019-03-26 18:09:44'),(11,'Design Patterns web based applications','<div itemprop=\"text\"><p>I am designing a simple web-based application. I am new to this web-based domain.I needed your advice regarding the design patterns like how responsibility should be distributed among Servlets, criteria to make new Servlet, etc.</p><p>Actually, I have few entities on my home page and corresponding to each one of them we have few options like add, edit and delete. Earlier I was using one Servlet per options like Servlet1 for add entity1, Servlet2 for edit entity1 and so on and in this way we ended up having a large number of servlets.</p><p>Now we are changing our design. My question is how you exactly choose how you choose the responsibility of a servlet. Should we have one Servlet per entity which will process all it&#39;s options and forward request to the service layer. Or should we have one servlet for the whole page which will process the whole page request and then forward it to the corresponding service layer? Also, should the request object forwarded to service layer or not.</p></div>',' java; design-patterns; jsp; servlets','test8',0,'2019-03-29 15:17:08','2019-03-29 15:17:08'),(12,'RequestDispatcher.forward() vs HttpServletResponse.sendRedirect()','<div itemprop=\"text\"><p>What is the conceptual difference between <code>forward()</code> and <code>sendRedirect()</code>?</p></div>',' jsp ;redirect; servlets ;forward','test10',0,'2019-03-29 15:39:01','2019-03-29 15:39:01'),(13,'How to update a timestamp field of a mysql table ?','<p>have tried to update the column in different ways, but am not able to update the time</p>',' mysql;timestamp;field','test5',0,'2019-03-29 18:44:41','2019-03-29 18:44:41');
+INSERT INTO `threads` VALUES (7,'Test Thread','<p>dsjflka</p>','','test',1,'2019-03-26 07:44:09','2019-03-26 07:44:09'),(9,'Increment value in mysql update query','<div itemprop=\"text\"><p>I have made this code for giving out +1 point, but it doesn&#39;t work properly.</p><pre><code>mysql_query(&quot;\r\n    UPDATE member_profile \r\n    SET points= &#39; &quot;.$points.&quot; &#39; + 1 \r\n    WHERE user_id = &#39;&quot;.$userid.&quot;&#39;\r\n&quot;);</code></pre><p>the $points variable is the user&acute;s points right now.. I want it to plus one to it.. so example if he had like 5 points, it should be 5+1 = 6.. <strong>but it doesnt, it just changes to 1</strong></p><p>What have i done wrong? thank you</p></div>',' php;mysql;sql;sql-update','test3',0,'2019-03-26 18:07:03','2019-03-26 18:07:03'),(10,'How to import an SQL file using the command line in MySQL?','<div itemprop=\"text\"><p>I have a <code>.sql</code> file with an export from <code>phpMyAdmin</code>. I want to import it into a different server using the command line.</p><p>I have a <a href=\"http://en.wikipedia.org/wiki/Windows_Server_2008\" rel=\"noreferrer\">Windows Server 2008</a> R2 installation. I placed the <code>.sql</code> file on the <strong><em>C drive</em></strong>, and I tried this command</p><pre><code>database_name &lt; file.sql</code></pre><p>It is not working I get syntax errors.</p><ul><li>How can I import this file without a problem?</li><li>Do I need to create a database first?</li></ul></div>',' mysql;sql;command-line;import','test3',0,'2019-03-26 18:09:44','2019-03-26 18:09:44'),(11,'Design Patterns web based applications','<div itemprop=\"text\"><p>I am designing a simple web-based application. I am new to this web-based domain.I needed your advice regarding the design patterns like how responsibility should be distributed among Servlets, criteria to make new Servlet, etc.</p><p>Actually, I have few entities on my home page and corresponding to each one of them we have few options like add, edit and delete. Earlier I was using one Servlet per options like Servlet1 for add entity1, Servlet2 for edit entity1 and so on and in this way we ended up having a large number of servlets.</p><p>Now we are changing our design. My question is how you exactly choose how you choose the responsibility of a servlet. Should we have one Servlet per entity which will process all it&#39;s options and forward request to the service layer. Or should we have one servlet for the whole page which will process the whole page request and then forward it to the corresponding service layer? Also, should the request object forwarded to service layer or not.</p></div>',' java; design-patterns; jsp; servlets','test8',1,'2019-03-29 15:17:08','2019-03-29 15:17:08'),(12,'RequestDispatcher.forward() vs HttpServletResponse.sendRedirect()','<div itemprop=\"text\"><p>What is the conceptual difference between <code>forward()</code> and <code>sendRedirect()</code>?</p></div>',' jsp ;redirect; servlets ;forward','test10',0,'2019-03-29 15:39:01','2019-03-29 15:39:01'),(13,'How to update a timestamp field of a mysql table ?','<p>have tried to update the column in different ways, but am not able to update the time</p>',' mysql;timestamp;field','test5',0,'2019-03-29 18:44:41','2019-03-29 18:44:41');
 /*!40000 ALTER TABLE `threads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +181,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','fx7DIUfWYgKzLEsztpT7OUzGzZu8G25r4V6y0AijHr4=','hanashiteam@gmail.com',2,0,0,-1,'/Hanashi/images/admin.png'),(2,'test','n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=','testemail',1,5,0,1,'/Hanashi/images/user.png'),(3,'test2','YDA64iuZiGG847KPM+7BvnWKITyGyTwHbb6fVYwRx1I=','test2email',1,3,0,1,'/Hanashi/images/user.png'),(4,'test3','/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM=','test3email',1,0,0,1,'/Hanashi/images/user.png'),(5,'test4','pOYk1obgPtJ2fAq9hcFEJrCxFX0s6B0nu0/k9vAdaIo=','test4email',0,0,0,1,'/Hanashi/images/user.png'),(6,'test5','oUDAwe2i3vK4MDY7o2KqTX0lXCYpYFRIIfVW4WZhtv8=','test5email',1,0,0,1,'/Hanashi/images/user.png'),(7,'test8','H5v+sV/uihDE0HEcfrDAg5YhI+GRjkYbalCOcUbBibI=','test8email@somo.com',1,0,0,1,'/Hanashi/images/user.png'),(8,'test9','tEUQNNO2WQBgzpSEoouI3TMqgKIq6OOcnFy3NXqybJ8=','test9@something.com',1,0,0,1,'/Hanashi/images/user.png'),(9,'test10','7Cc4/rK7sLx4PrRmeQM5FBY3K6bti43dvrvbN+UQJHM=','test10\'semail',0,1,0,1,'/Hanashi/images/user.png'),(10,'test11','dE6p7G+gqD6XZLTjI9W+a1WlrM/H/kwI6rao3h/KSFU=','test11email',1,0,0,1,'/Hanashi/images/user.png'),(11,'test21','rv1XyMKv2q0KU1KwzocTGoWgj1yHqH8Wbwzh4hP0wP0=','test21@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(12,'test22','dZz94mWq3bb3KO0I2Xhiu9m1b9Od6XoEnGQLTFtwqsk=','test22@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(13,'test1','G08OmFGXGZjnMgeFRMlrNsPQHO33yqMyNZ1vHYNWcBQ=','test1@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(14,'test44','rVntd7/TdXqHkzLpVkTjIvCAi8lMYhejSQ+F8XZEi30=','test44@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(15,'test51','KdddJY4D3IdYOC1r15NBRnCGASXISIYSJNHozA4omcY=','test51@gmail.com',0,0,0,1,'/Hanashi/images/user.png'),(16,'ina','T8grJq7LR9KGjE7741gXMqPny8xsLvsyBiwIFwoF7rg=','zuma',0,0,0,1,'/Hanashi/images/user.png');
+INSERT INTO `users` VALUES (1,'Admin','fx7DIUfWYgKzLEsztpT7OUzGzZu8G25r4V6y0AijHr4=','hanashiteam@gmail.com',2,0,0,-1,'/Hanashi/images/admin.png'),(2,'test','n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=','testemail',1,6,0,1,'/Hanashi/images/user.png'),(3,'test2','YDA64iuZiGG847KPM+7BvnWKITyGyTwHbb6fVYwRx1I=','test2email',2,3,0,1,'/Hanashi/images/user.png'),(4,'test3','/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM=','test3email',1,0,0,1,'/Hanashi/images/user.png'),(5,'test4','pOYk1obgPtJ2fAq9hcFEJrCxFX0s6B0nu0/k9vAdaIo=','test4email',0,0,0,1,'/Hanashi/images/user.png'),(6,'test5','oUDAwe2i3vK4MDY7o2KqTX0lXCYpYFRIIfVW4WZhtv8=','test5email',1,0,0,1,'/Hanashi/images/user.png'),(7,'test8','H5v+sV/uihDE0HEcfrDAg5YhI+GRjkYbalCOcUbBibI=','test8email@somo.com',1,0,0,1,'/Hanashi/images/user.png'),(8,'test9','tEUQNNO2WQBgzpSEoouI3TMqgKIq6OOcnFy3NXqybJ8=','test9@something.com',1,0,0,1,'/Hanashi/images/user.png'),(9,'test10','7Cc4/rK7sLx4PrRmeQM5FBY3K6bti43dvrvbN+UQJHM=','test10\'semail',0,1,0,1,'/Hanashi/images/user.png'),(10,'test11','dE6p7G+gqD6XZLTjI9W+a1WlrM/H/kwI6rao3h/KSFU=','test11email',1,0,0,1,'/Hanashi/images/user.png'),(11,'test21','rv1XyMKv2q0KU1KwzocTGoWgj1yHqH8Wbwzh4hP0wP0=','test21@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(12,'test22','dZz94mWq3bb3KO0I2Xhiu9m1b9Od6XoEnGQLTFtwqsk=','test22@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(13,'test1','G08OmFGXGZjnMgeFRMlrNsPQHO33yqMyNZ1vHYNWcBQ=','test1@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(14,'test44','rVntd7/TdXqHkzLpVkTjIvCAi8lMYhejSQ+F8XZEi30=','test44@domain.com',0,0,0,1,'/Hanashi/images/user.png'),(15,'test51','KdddJY4D3IdYOC1r15NBRnCGASXISIYSJNHozA4omcY=','test51@gmail.com',0,0,0,1,'/Hanashi/images/user.png'),(16,'ina','T8grJq7LR9KGjE7741gXMqPny8xsLvsyBiwIFwoF7rg=','zuma',0,0,0,1,'/Hanashi/images/user.png');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -169,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-04  0:49:36
+-- Dump completed on 2019-04-05 14:18:24
