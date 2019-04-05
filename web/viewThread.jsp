@@ -69,33 +69,27 @@
             }
         </script>
         
-         <script>
-            function upvote() {
-                var votesspan = document.getElementById("votes-span");
-                var xhttp = new XMLHttpRequest();
-                var vote = parseInt(votesspan.innerHTML);
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        vote = parseInt(this.responseText);
-                        votesspan.innerHTML = vote+"";
-                    }
-                };
-                xhttp.open("GET", "/Hanashi/ThreadUpvote", true);
-                xhttp.send();
-            }
-            
-            function downvote() {
-                var votesspan = document.getElementById("votes-span");
-                var xhttp = new XMLHttpRequest();
-                var vote = parseInt(votesspan.innerHTML);
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        vote = parseInt(this.responseText);
-                        votesspan.innerHTML = vote+"";
-                    }
-                };
-                xhttp.open("GET", "/Hanashi/ThreadDownvote", true);
-                xhttp.send();
+        <script>
+            function vote(uri) {
+                if(<%=isLoggedIn%> === false) {
+                    $(function () {
+                    $('[data-toggle=popover]').popover('toggle');
+                });
+                }
+                
+                else {
+                    var votesspan = document.getElementById("votes-span");
+                    var xhttp = new XMLHttpRequest();
+                    var vote = parseInt(votesspan.innerHTML);
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            vote = parseInt(this.responseText);
+                            votesspan.innerHTML = vote+"";
+                        }
+                    };
+                    xhttp.open("GET", uri, true);
+                    xhttp.send();
+                }
             }
         </script>
 
@@ -108,13 +102,13 @@
             <div id="originalPost">
                 <div id="thread-header">
                 <div id="votes-div">
-                    <a href="#" onclick="upvote();">
+                    <a href="#" onclick="vote('/Hanashi/ThreadUpvote');">
                         <span class="glyphicon glyphicon-plus-sign"></span>
                     </a> 
                     <br>    
                     <span id="votes-span"> ${currentThread.getVotes()} </span>
                     <br>
-                    <a href="#" onclick="downvote();">
+                    <a href="#" onclick="vote('/Hanashi/ThreadDownvote');">
                         <span class="glyphicon glyphicon-minus-sign"></span>
                     </a>
                 </div>

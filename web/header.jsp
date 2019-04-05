@@ -96,6 +96,11 @@
     session.setAttribute("isLoggedIn", !(session.getAttribute("user") == null) );
 %>
 
+
+
+
+<!--Froala Editor stuff-->
+
 <!-- Include Editor style. -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href='https://cdn.jsdelivr.net/npm/froala-editor@2.9.3/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
@@ -117,27 +122,24 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
     
-
+    
 <script>
-            $(function() {
-                $('textarea#froala-editor').froalaEditor({
-//                    toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-//                     'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
-//                     'emoticons', 'fontAwesome', 'specialCharacters', '-', 
-//                     'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
-//                     'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
-//                     'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
-//                      'undo', 'redo'],
-                    toolbarButtons: ['undo', 'redo' , '|', 
-                        'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
-                        'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
-                        'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
-                        'insertLink', 'insertImage', 'html', 'fullscreen']
-//                    toolbarButtonsMD: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
-//                    toolbarButtonsSM: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen'],
-//                    toolbarButtonsXS: ['undo', 'redo' , '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'inlineClass', 'quote', 'clearFormatting', 'insertLink', 'html', 'fullscreen']
-                });
-            });
-        </script>
+    $(function() {
+        $('textarea#froala-editor').froalaEditor({
+            // toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+            // 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
+            // 'emoticons', 'fontAwesome', 'specialCharacters', '-', 
+            // 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
+            // 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
+            // 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
+            // 'undo', 'redo'],
+            toolbarButtons: ['undo', 'redo' , '|', 
+                'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
+                'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
+                'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
+                'insertLink', 'insertImage', 'html', 'fullscreen']
+        });
+    });
+</script>
 
 
