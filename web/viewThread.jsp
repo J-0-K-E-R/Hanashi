@@ -68,6 +68,26 @@
                 $('#edit-'+postid+'').hide();
             }
         </script>
+        
+         <script>
+            function upvote() {
+                var votesspan = document.getElementById("votes-span");
+                var vote = parseInt(votesspan.innerHTML);
+                alert("sup");
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        if(this.responseText === "Done") {
+                            alert("sup agaign");
+                            vote = vote+1;
+                            votesspan.innerHTML = vote+"";
+                        }
+                    }
+                };
+                xhttp.open("GET", "/Hanashi/ThreadUpvote", true);
+                xhttp.send();
+            }
+        </script>
 
         
     </head>
@@ -76,8 +96,23 @@
         <div id="main" class="main">
         <div id="view-thread-container">
             <div id="originalPost">
+                <div id="thread-header">
+                <div id="votes-div">
+                    <a href="#" onclick="upvote();">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </a> 
+                    <br>    
+                    <span id="votes-span"> ${currentThread.getVotes()} </span>
+                    <br>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-minus-sign"></span>
+                    </a>
+                </div>
+                
                 <h3>${currentThread.getTitle()} </h3>
                 <div id="editthread" ><a href="/Hanashi/editthread"><span class="glyphicon glyphicon-edit"></span></a></div>
+                
+                </div><br>
                 <div>
                     ${currentThread.getPost()}
                 </div>

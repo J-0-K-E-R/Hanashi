@@ -28,6 +28,7 @@ public class ThreadDAO {
     private PreparedStatement updateThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
     private PreparedStatement fetchUserThreadsStatement;
+    private static PreparedStatement updateVotesStatement;
     
     public Thread addNewThread(Thread thread) {
         Thread returnThread = null;
@@ -164,7 +165,7 @@ public class ThreadDAO {
         return threads;
     }
     
-     public Thread updateThread(Thread thread) {
+    public Thread updateThread(Thread thread) {
         Thread returnThread = null;
         try {
             //Set up connection
@@ -193,5 +194,22 @@ public class ThreadDAO {
         }
         
         return returnThread;
+    }
+    public static void updateThreadVotes(int threadID, int votes) {
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            System.out.println("Log:::: ThreadDAO");
+            //Create the preparedstatement(s)
+            updateVotesStatement = conn.prepareStatement("update threads set votes = ? where Thread_ID = ?");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            updateVotesStatement.setInt(1, votes);
+            updateVotesStatement.setInt(2, threadID);
+            updateVotesStatement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
 }

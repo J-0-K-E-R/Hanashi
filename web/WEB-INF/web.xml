@@ -66,6 +66,10 @@
         <servlet-name>TagsListController</servlet-name>
         <servlet-class>controller.TagsListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThreadUpvoteController</servlet-name>
+        <servlet-class>controller.ThreadUpvoteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -117,6 +121,10 @@
     <servlet-mapping>
         <servlet-name>TagsListController</servlet-name>
         <url-pattern>/TagsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThreadUpvoteController</servlet-name>
+        <url-pattern>/ThreadUpvote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
