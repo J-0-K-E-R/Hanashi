@@ -73,18 +73,32 @@
             function upvote() {
                 var votesspan = document.getElementById("votes-span");
                 var vote = parseInt(votesspan.innerHTML);
-                alert("sup");
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
                         if(this.responseText === "Done") {
-                            alert("sup agaign");
                             vote = vote+1;
                             votesspan.innerHTML = vote+"";
                         }
                     }
                 };
                 xhttp.open("GET", "/Hanashi/ThreadUpvote", true);
+                xhttp.send();
+            }
+            
+            function downvote() {
+                var votesspan = document.getElementById("votes-span");
+                var vote = parseInt(votesspan.innerHTML);
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        if(this.responseText === "Done") {
+                            vote = vote-1;
+                            votesspan.innerHTML = vote+"";
+                        }
+                    }
+                };
+                xhttp.open("GET", "/Hanashi/ThreadDownvote", true);
                 xhttp.send();
             }
         </script>
@@ -104,7 +118,7 @@
                     <br>    
                     <span id="votes-span"> ${currentThread.getVotes()} </span>
                     <br>
-                    <a href="#">
+                    <a href="#" onclick="downvote();">
                         <span class="glyphicon glyphicon-minus-sign"></span>
                     </a>
                 </div>

@@ -70,6 +70,10 @@
         <servlet-name>ThreadUpvoteController</servlet-name>
         <servlet-class>controller.ThreadUpvoteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThreadDownvoteController</servlet-name>
+        <servlet-class>controller.ThreadDownvoteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -125,6 +129,10 @@
     <servlet-mapping>
         <servlet-name>ThreadUpvoteController</servlet-name>
         <url-pattern>/ThreadUpvote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThreadDownvoteController</servlet-name>
+        <url-pattern>/ThreadDownvote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
