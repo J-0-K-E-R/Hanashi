@@ -38,10 +38,29 @@ public class ThreadUpvoteController extends HttpServlet {
             pojos.Thread currentThread = (pojos.Thread) session.getAttribute("currentThread");
             pojos.User user = (pojos.User) session.getAttribute("user");
             
+            int threadID = currentThread.getThreadID();
+            String username =  user.getUsername();
+            String message="";
             
-            String message =  dao.ThreadVotesDAO.voteThread(currentThread.getThreadID(), user.getUsername(), 1);
-            dao.ThreadDAO.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes()+1);
-            out.write("Done");
+            int doesExist = dao.ThreadVotesDAO.doesExist(threadID, username);
+            switch (doesExist) {
+                case 1:
+                    message =  dao.ThreadVotesDAO.removeThreadVote(threadID, username); 
+                    currentThread.setVotes(currentThread.getVotes()-1);
+                    dao.ThreadDAO.updateThreadVotes(threadID, currentThread.getVotes());
+                    break;
+                case -1:
+                    message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
+                    currentThread.setVotes(currentThread.getVotes()+2);
+                    dao.ThreadDAO.updateThreadVotes(threadID, currentThread.getVotes());
+                    break;
+                default:
+                    message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
+                    currentThread.setVotes(currentThread.getVotes()+1);
+                    dao.ThreadDAO.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
+                    break;
+            }
+            out.write(""+currentThread.getVotes());
         }
     }
 

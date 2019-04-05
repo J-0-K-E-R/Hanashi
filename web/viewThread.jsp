@@ -72,14 +72,12 @@
          <script>
             function upvote() {
                 var votesspan = document.getElementById("votes-span");
-                var vote = parseInt(votesspan.innerHTML);
                 var xhttp = new XMLHttpRequest();
+                var vote = parseInt(votesspan.innerHTML);
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
-                        if(this.responseText === "Done") {
-                            vote = vote+1;
-                            votesspan.innerHTML = vote+"";
-                        }
+                        vote = parseInt(this.responseText);
+                        votesspan.innerHTML = vote+"";
                     }
                 };
                 xhttp.open("GET", "/Hanashi/ThreadUpvote", true);
@@ -88,14 +86,12 @@
             
             function downvote() {
                 var votesspan = document.getElementById("votes-span");
-                var vote = parseInt(votesspan.innerHTML);
                 var xhttp = new XMLHttpRequest();
+                var vote = parseInt(votesspan.innerHTML);
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
-                        if(this.responseText === "Done") {
-                            vote = vote-1;
-                            votesspan.innerHTML = vote+"";
-                        }
+                        vote = parseInt(this.responseText);
+                        votesspan.innerHTML = vote+"";
                     }
                 };
                 xhttp.open("GET", "/Hanashi/ThreadDownvote", true);

@@ -115,7 +115,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes");
+            fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes desc");
             
             ResultSet rs = fetchThreadIDStatement.executeQuery();
             while(rs.next()) {
@@ -195,6 +195,7 @@ public class ThreadDAO {
         
         return returnThread;
     }
+    
     public static void updateThreadVotes(int threadID, int votes) {
         try {
             //Set up connection
