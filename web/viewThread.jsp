@@ -16,6 +16,7 @@
         <%! boolean canEdit;
             Thread thread;
             int doesExist;
+            String timestampModified;
         %>
         <% 
             String uri = request.getRequestURI();
@@ -38,6 +39,9 @@
             }
             else {
                 System.out.println("Log:::: View Thread Found");
+                
+                timestampModified = utilities.DateService.relativeDate(thread.getTimestampModified());
+                
                 String requiredTitle = ThreadsService.encodeTitleToURL(thread.getTitle());
                 if(!title.equals(requiredTitle))
                     response.sendRedirect("/Hanashi/threads/"+threadID+"/"+requiredTitle); 
@@ -192,7 +196,7 @@
                 <div>
                     ${currentThread.getUsername()}
                     <div>
-                        ${currentThread.getTimestampModified().getTime()}
+                        <%=timestampModified%>
                     </div>
                 </div>
             </div>

@@ -5,12 +5,7 @@
  */
 package utilities;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 import pojos.Post;
 import pojos.Tag;
 import pojos.Thread;
@@ -46,7 +41,7 @@ public class ObjectToHTML {
         
         for(Post post: posts) {
             temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + "</div>";
-            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampModified().getTime() + "</div> </div>");
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + utilities.DateService.relativeDate(post.getTimestampModified()) + "</div> </div>");
             
             out = out.concat(temp);
         }
@@ -60,7 +55,7 @@ public class ObjectToHTML {
         
         for(Post post: posts) {
             temp = "<div class=\"post-container\" id='" + post.getPostID() +"'>  <div id='user'>" + post.getUsername() + this.editTag(post.getPostID(), post.getUsername(), currentUser) + "</div>";
-            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + post.getTimestampModified().getTime() + "</div> </div>");
+            temp = temp.concat("<div id='post-content'>"+post.getPost() + "</div>" + "<div id='timestamp'>" + utilities.DateService.relativeDate(post.getTimestampModified()) + "</div> </div>");
             
             temp = temp.concat("<div id='edit-" + post.getPostID() +"' hidden>"+ 
                     "<form action=\"/Hanashi/EditPost?editPostID="+ post.getPostID() +"\" id=\"create-post-form\" method=\"post\">\n" +
@@ -82,7 +77,7 @@ public class ObjectToHTML {
         for(Thread thread: threads) {
             temp = "<div id='thread-container'> <div id='votes'> Votes: " + thread.getVotes() + "</div>";
             temp = temp.concat("<div id='thread-title'> <a href='/Hanashi/threads/"+thread.getThreadID() + "'>"+thread.getTitle() + "</a></div>");
-            temp = temp.concat("<div id='timestamp'>" + thread.getTimestampModified().getTime() + "</div> </div>");
+            temp = temp.concat("<div id='timestamp'>" + DateService.relativeDate(thread.getTimestampModified()) + "</div> </div>");
             out = out.concat(temp);
         }
         
