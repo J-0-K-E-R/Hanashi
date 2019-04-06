@@ -41,6 +41,7 @@ public class ThreadDownvoteController extends HttpServlet {
             int threadID = currentThread.getThreadID();
             String username =  user.getUsername();
             String message="";
+            int retVal = -1;
             
             int doesExist = dao.ThreadVotesDAO.doesExist(threadID, username);
             switch (doesExist) {
@@ -48,6 +49,7 @@ public class ThreadDownvoteController extends HttpServlet {
                     message =  dao.ThreadVotesDAO.removeThreadVote(threadID, username); 
                     currentThread.setVotes(currentThread.getVotes()+1);
                     dao.ThreadDAO.updateThreadVotes(threadID, currentThread.getVotes());
+                    retVal = 0;
                     break;
                 case 1:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
@@ -60,7 +62,7 @@ public class ThreadDownvoteController extends HttpServlet {
                     dao.ThreadDAO.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
                     break;
             }
-            out.write(""+currentThread.getVotes());
+            out.write(currentThread.getVotes()+";"+retVal);
         }
     }
 

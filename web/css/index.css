@@ -222,6 +222,15 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     top: -5px;
 }
 
+#view-thread-container .sign {
+    transition: .2s;
+}
+
+#view-thread-container .active-vote-sign {
+    font-size: 18px;
+    color: darkgreen;
+}
+
 .post-container {
     border: solid 2px chartreuse;
     margin: 5px;

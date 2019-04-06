@@ -13,7 +13,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="/header.jsp" %>
         
-        <%! boolean canEdit;%>
+        <%! boolean canEdit;
+            Thread thread;
+            int doesExist;
+        %>
         <% 
             String uri = request.getRequestURI();
             int threadID = -1;
@@ -26,7 +29,7 @@
                 System.out.println(ex.getMessage());
             }
             System.out.println("Log:::: View Thread");
-            Thread thread = (Thread)session.getAttribute("currentThread");
+            thread = (Thread)session.getAttribute("currentThread");
             if(thread == null || thread.getThreadID() != threadID) {
                 System.out.println("Log::::  View Thread Not Found");
                 request.setAttribute("threadID", threadID);
@@ -45,6 +48,15 @@
                 else {
                     canEdit = true;
                 }
+                
+                
+            }
+            
+            if(isLoggedIn && thread != null) {
+                doesExist = dao.ThreadVotesDAO.doesExist(thread.getThreadID(), user.getUsername());
+            }    
+            else {
+                doesExist = 0;
             }
         %>
         
@@ -56,6 +68,8 @@
                 else {
                     $("#editthread").hide();
                 }
+                
+                changeVoteCSS();
             }
             
             function editUserPost(postid) {
@@ -70,6 +84,59 @@
         </script>
         
         <script>
+            function changeVoteCSS() {
+                
+                if(<%= doesExist %> === -1) {
+                    $(document).ready(function() {
+                        $("#minus-sign").addClass("active-vote-sign");
+                        if ($('#plus-sign').hasClass('active-vote-sign'))
+                            $("#plus-sign").removeClass("active-vote-sign");
+                    });
+                }
+                else if(<%= doesExist %> === 1) {
+                    $(document).ready(function() {
+                        $("#plus-sign").addClass("active-vote-sign");
+                        if ($('#minus-sign').hasClass('active-vote-sign'))
+                            $("#minus-sign").removeClass("active-vote-sign");
+                    });
+                }
+                
+                else {
+                    $(document).ready(function() {
+                        if ($('#plus-sign').hasClass('active-vote-sign'))
+                            $("#plus-sign").removeClass("active-vote-sign");
+                        if ($('#minus-sign').hasClass('active-vote-sign'))
+                            $("#minus-sign").removeClass("active-vote-sign");
+                    });
+                }   
+            }
+            
+            function changeVoteCSSWithParam(doesExist) {
+                if(doesExist === -1) {
+                    $(document).ready(function() {
+                        $("#minus-sign").addClass("active-vote-sign");
+                        if ($('#plus-sign').hasClass('active-vote-sign'))
+                            $("#plus-sign").removeClass("active-vote-sign");
+                    });
+                }
+                else if(doesExist === 1) {
+                    $(document).ready(function() {
+                        $("#plus-sign").addClass("active-vote-sign");
+                        if ($('#minus-sign').hasClass('active-vote-sign'))
+                            $("#minus-sign").removeClass("active-vote-sign");
+                    });
+                }
+                
+                else {
+                    $(document).ready(function() {
+                        if ($('#plus-sign').hasClass('active-vote-sign'))
+                            $("#plus-sign").removeClass("active-vote-sign");
+                        if ($('#minus-sign').hasClass('active-vote-sign'))
+                            $("#minus-sign").removeClass("active-vote-sign");
+                    });
+                }   
+            }
+            
             function vote(uri) {
                 if(<%=isLoggedIn%> === false) {
                     $(function () {
@@ -83,8 +150,10 @@
                     var vote = parseInt(votesspan.innerHTML);
                     xhttp.onreadystatechange = function() {
                         if (this.readyState === 4 && this.status === 200) {
-                            vote = parseInt(this.responseText);
+                            var res = this.responseText.split(';');
+                            vote = parseInt(res[0]);
                             votesspan.innerHTML = vote+"";
+                            changeVoteCSSWithParam(parseInt(res[1]));
                         }
                     };
                     xhttp.open("GET", uri, true);
@@ -103,13 +172,13 @@
                 <div id="thread-header">
                 <div id="votes-div">
                     <a href="#" onclick="vote('/Hanashi/ThreadUpvote');">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span id="plus-sign" class="glyphicon glyphicon-plus-sign sign"></span>
                     </a> 
                     <br>    
                     <span id="votes-span"> ${currentThread.getVotes()} </span>
                     <br>
                     <a href="#" onclick="vote('/Hanashi/ThreadDownvote');">
-                        <span class="glyphicon glyphicon-minus-sign"></span>
+                        <span id="minus-sign" class="glyphicon glyphicon-minus-sign sign"></span>
                     </a>
                 </div>
                 

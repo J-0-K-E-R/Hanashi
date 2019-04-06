@@ -101,7 +101,7 @@
                 </div>
                 
                 <div id="follow-button">
-                    <a id="follow-button-anchor" class= "btn btn-default" href="<%=followButtonURI%>" > Loading... </a>    
+                    <a id="follow-button-anchor" class= "btn btn-default" href="<%=followButtonURI%>" > ... </a>    
                 </div>
             
                 <br style="clear:both;"/>
