@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.User;
-import utilities.ObjectToHTML;
 
 /**
  *
@@ -43,11 +42,8 @@ public class UsersListController extends HttpServlet {
             UserDAO ud = new UserDAO();
             ArrayList<User> usersList = ud.fetchUserList();
             
-            ObjectToHTML prs = new ObjectToHTML();
-            String usersListHTML = prs.usersListToHTML(usersList);
-            
             HttpSession session = request.getSession();
-            session.setAttribute("usersList", usersListHTML);
+            session.setAttribute("usersList", usersList);
             
             response.sendRedirect("/Hanashi/users");
         }

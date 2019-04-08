@@ -17,24 +17,6 @@ import pojos.User;
  */
 public class ObjectToHTML {
     
-    public String usersListToHTML(ArrayList<User> users){
-        String usersList = "";
-        usersList = "<div id='users-list-container'>";
-        for(User user: users) {
-            usersList = usersList.concat("<div class='user-item'>" 
-                    + "<div class='user-profile-image'><a href=\"/Hanashi/users/"+user.getUsername()+"\"><img src=\""+user.getAvatarPath()+"\" class=\"user-profile-image\"></a></div>"
-                    + "<div class='username'>"
-                    + "<a href='/Hanashi/users/"+user.getUsername()+"'> " + user.getUsername() + "</a></div>"                           
-                    + "<div class='user-points'>" + user.getPoints() + "</div>"
-                    + "</div>"
-            );
-        }
-        
-        usersList = usersList.concat("</div>");
-        return usersList;
-    }
-    
-    
     public String postsToHTML(ArrayList<Post> posts) {
         String out="";
         String temp;
