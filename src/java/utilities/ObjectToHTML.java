@@ -52,20 +52,6 @@ public class ObjectToHTML {
         return out;
     }
     
-    public String threadsToHTML(ArrayList<Thread> threads) {
-        String out="";
-        String temp;
-        
-        for(Thread thread: threads) {
-            temp = "<div id='thread-container'> <div id='votes'> Votes: " + thread.getVotes() + "</div>";
-            temp = temp.concat("<div id='thread-title'> <a href='/Hanashi/threads/"+thread.getThreadID() + "'>"+thread.getTitle() + "</a></div>");
-            temp = temp.concat("<div id='timestamp'>" + DateService.relativeDate(thread.getTimestampModified()) + "</div> </div>");
-            out = out.concat(temp);
-        }
-        
-        return out;
-    }
-    
     private String editTag (int postID, String user1, String user2) {
         String result = "";
         if(user1.equals(user2)){

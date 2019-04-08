@@ -4,6 +4,8 @@
     Author     : robogod
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="utilities.DateService"%>
 <%@page import="dao.FollowersDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -63,7 +65,15 @@
                 <br style="clear:both;"/>
             </div>
             <div id="user-threads">
-                ${userThreads}
+                <%
+                    for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("userThreads")) {
+                %>
+                <div id='thread-container'>
+                    <div id='votes'> Votes: <%= thread.getVotes() %></div>
+                    <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+                    <div id='timestamp'><%= DateService.relativeDate(thread.getTimestampModified()) %></div>
+                </div>
+                <% } %>
             </div>
         </div>
         </div>

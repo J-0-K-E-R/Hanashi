@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.User;
-import utilities.ObjectToHTML;
 
 /**
  *
@@ -63,10 +62,7 @@ public class ProfileController extends HttpServlet {
                 System.out.println("Log::::: User is "+ username);
                 ArrayList<pojos.Thread> threadsList = td.fetchUserThreads(username);
                 
-                ObjectToHTML oh = new ObjectToHTML();
-                String threads = oh.threadsToHTML(threadsList);
-                
-                session.setAttribute("userThreads", threads);
+                session.setAttribute("userThreads", threadsList);
                 response.sendRedirect("/Hanashi/users/"+username);
             }
         }

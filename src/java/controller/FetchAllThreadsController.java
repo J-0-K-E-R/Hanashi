@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utilities.ObjectToHTML;
 
 /**
  *
@@ -41,10 +40,7 @@ public class FetchAllThreadsController extends HttpServlet {
             ThreadDAO td = new ThreadDAO();
             ArrayList<pojos.Thread> threadsList = td.fetchAllThreads();
             
-            ObjectToHTML oh = new ObjectToHTML();
-            String threads = oh.threadsToHTML(threadsList);
-            
-            session.setAttribute("threads", threads);
+            session.setAttribute("threads", threadsList);
             response.sendRedirect("/Hanashi/index.jsp");
         }
     }
