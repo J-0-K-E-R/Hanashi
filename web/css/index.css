@@ -45,11 +45,15 @@ body {
     /*height:400px;*/
     background-color: #454545;
 }
-/* Popover Header */
+/* Popover Header
+    border: 2px solid #0481ff;
+    max-width: 800px;
+    width:350px;
+    /*height:400p */
 .popover-title {
     background-color: #222; 
     color: #0481ff; 
-    font-size: 28px;
+    font-size: 100px;
     text-align: center;
 }
 /* Popover Body */
@@ -63,14 +67,10 @@ body {
 .arrow {
     border-color: red;
 }
-/* Popover Logo */
-#popover-logo {
-    width: 100px;
-    height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
+.pop-useravatar {
+    width: 100px;
+}
 /* Table CSS */
 #users-list-wrapper {
   position:relative;
