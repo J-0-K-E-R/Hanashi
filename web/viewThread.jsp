@@ -4,6 +4,8 @@
     Author     : robogod
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="pojos.Post"%>
 <%@page import="utilities.ThreadsService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="pojos.Thread"%>
@@ -201,7 +203,35 @@
                 </div>
             </div>
             <div id="replies">
-                ${posts}
+                <%
+                    for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
+                %>
+                <div class="post-container" id='<%= post.getPostID() %>'> 
+                    <div id='user'> <%= post.getUsername()  %>  
+                        <%
+                            if(user != null && user.getUsername().equals(post.getUsername())) {
+                        %>
+                                <a id="userPostEdit" href="#" onclick="editUserPost('<%=post.getPostID()%>');">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                        <%
+                            }
+                        %>
+                    </div>
+                    <div id='post-content'> <%= post.getPost() %> </div> 
+                    <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> </div> 
+                </div>
+            
+                <div id='edit-<%=post.getPostID() %>' hidden> 
+                    <form action="/Hanashi/EditPost?editPostID=<%= post.getPostID() %>" id="create-post-form" method="post">
+                    <textarea id="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> <br>
+                    <input class="btn btn-success" type="submit" value="Update">
+                    <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
+                    </form>
+                </div>
+                
+                <% } %>
+            
             </div>
             <div id="newreply">
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">

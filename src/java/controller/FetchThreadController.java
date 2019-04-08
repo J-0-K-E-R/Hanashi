@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.Post;
 import pojos.User;
-import utilities.ObjectToHTML;
 import utilities.ThreadsService;
 
 /**
@@ -65,14 +64,8 @@ public class FetchThreadController extends HttpServlet {
                 PostDAO pd = new PostDAO();
                 ArrayList<Post> postsList = pd.fetchPosts(threadID);
             
-                ObjectToHTML oh = new ObjectToHTML();
-                String posts;
-                if(currentUser!=null)
-                    posts = oh.postsToHTML(postsList, currentUser.getUsername());
-                else 
-                    posts = oh.postsToHTML(postsList);
                 System.out.println("Log::: Fetched Thread");
-                session.setAttribute("posts", posts);
+                session.setAttribute("posts", postsList);
                 session.setAttribute("currentThread", thread);
                 response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(thread.getTitle()));
             }
