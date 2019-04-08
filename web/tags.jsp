@@ -4,6 +4,8 @@
     Author     : robogod
 --%>
 
+<%@page import="pojos.Tag"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
     <body>
         <% 
             
-            String tagsList = (String)session.getAttribute("tagsList");
+            ArrayList<Tag> tagsList = (ArrayList<Tag>)session.getAttribute("tagsList");
             if(tagsList == null) {
                 RequestDispatcher rd = request.getRequestDispatcher("/TagsList");
                 rd.forward(request, response);
@@ -24,7 +26,17 @@
             <div id="tags-list-wrapper">
             <h3>Tags</h3>
             <div class="grid-container">
-                ${tagsList}
+                <%
+                    for(Tag tag: (ArrayList<Tag>)session.getAttribute("tagsList")) {
+                %>
+                <div class="tag-div">
+                    <a href="#" class="tag-name"><%= tag.getTag() %></a>
+                    <span class="tag-count-span">
+                        <span class="tag-count-x"> x </span>
+                        <span class="tag-count"><%= tag.getCount() %></span>
+                    </span>
+                </div>
+                <% } %>
             </div>
             </div>
         </div>

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pojos.Tag;
-import utilities.ObjectToHTML;
 
 /**
  *
@@ -39,11 +38,8 @@ public class TagsListController extends HttpServlet {
             TagsDAO td = new TagsDAO();
             ArrayList<Tag> tagsList = td.fetchTags();
             
-            ObjectToHTML oh = new ObjectToHTML();
-            String tags = oh.tagsListToHTML(tagsList);
-            
             HttpSession session = request.getSession();
-            session.setAttribute("tagsList", tags);
+            session.setAttribute("tagsList", tagsList);
             
             response.sendRedirect("/Hanashi/tags");
         }

@@ -59,16 +59,4 @@ public class ObjectToHTML {
         }
         return result;
     }
-    
-    public String tagsListToHTML(ArrayList<Tag> tagsList) {
-        String tags="";
-        
-        for(Tag tag: tagsList) {
-            tags = tags.concat("<div class=\"tag-div\"> <a href=\"#\" class=\"tag-name\">"+tag.getTag() +"</a> "
-                    + "<span class=\"tag-count-span\"> <span class=\"tag-count-x\"> x </span> "
-                    + "<span class=\"tag-count\">"+tag.getCount()+"</span></span> </div>\n");
-        }
-        
-        return tags;
-    }
 }
