@@ -36,7 +36,7 @@
                        class="btn pop"
                        data-html="true"
                        data-toggle="popover"
-                       title="<img src='/Hanashi/images/logoD.png' id='popover-logo'><br>Hanashi"
+                       title="<img src='/Hanashi/images/logoD.png' id='popover-logo'>"
                        data-placement="bottom"
                        data-content="<form action='/Hanashi/Login' method='post'>
                        <input type='text' name='Username' placeholder='Username' required autofocus>
@@ -63,11 +63,11 @@
                        class="btn pop"
                        data-html="true"
                        data-toggle="popover"
-                       title="<img src='/Hanashi/images/logoD.png' id='popover-logo'><br>Hanashi"
+                       title="<img src='/Hanashi/images/logoD.png' id='popover-logo'>"
                        data-placement="bottom"
-                       data-content="<div>
-                       <div>Picture</div>
-                       <div>Username: ${user.getUsername()}</div>
+                       data-content="<a href='/Hanashi/users/${user.getUsername()}'><img src='${user.getAvatarPath()}' style='width:100px; float: left; margin-bottom: 20px;'><div>
+                       
+                       <div>${user.getUsername()}</div></a>
                        <div>Email: ${user.getEmail()}</div>
                        <div>Points: ${user.getPoints()}</div>
                        </div>">
