@@ -244,9 +244,25 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     padding: 10px;
 }
 
-.post-container #user {
+.post-container .user {
     color: green;
     font-size: 20px;
+}
+
+.post-container .votes-div {
+    float: right;
+    font-size: 15px;
+    text-align: center;
+    padding: 6px;
+}
+
+.post-container .sign {
+    transition: .2s;
+}
+
+.post-container .active-vote-sign {
+    font-size: 18px;
+    color: darkgreen;
 }
 
 

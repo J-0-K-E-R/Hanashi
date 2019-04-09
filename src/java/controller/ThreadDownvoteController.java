@@ -37,6 +37,7 @@ public class ThreadDownvoteController extends HttpServlet {
             
             pojos.Thread currentThread = (pojos.Thread) session.getAttribute("currentThread");
             pojos.User user = (pojos.User) session.getAttribute("user");
+            dao.ThreadDAO td = new dao.ThreadDAO();
             
             int threadID = currentThread.getThreadID();
             String username =  user.getUsername();
@@ -48,18 +49,18 @@ public class ThreadDownvoteController extends HttpServlet {
                 case -1:
                     message =  dao.ThreadVotesDAO.removeThreadVote(threadID, username); 
                     currentThread.setVotes(currentThread.getVotes()+1);
-                    dao.ThreadDAO.updateThreadVotes(threadID, currentThread.getVotes());
+                    td.updateThreadVotes(threadID, currentThread.getVotes());
                     retVal = 0;
                     break;
                 case 1:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
                     currentThread.setVotes(currentThread.getVotes()-2);
-                    dao.ThreadDAO.updateThreadVotes(threadID, currentThread.getVotes());
+                    td.updateThreadVotes(threadID, currentThread.getVotes());
                     break;
                 default:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
                     currentThread.setVotes(currentThread.getVotes()-1);
-                    dao.ThreadDAO.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
+                    td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
                     break;
             }
             out.write(currentThread.getVotes()+";"+retVal);

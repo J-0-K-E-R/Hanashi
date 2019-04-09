@@ -143,6 +143,32 @@
                 }   
             }
             
+            function changePostVoteCSS(doesExist, postID) {
+                if(doesExist === -1) {
+                    $(document).ready(function() {
+                        $("#minus-sign-"+postID).addClass("active-vote-sign");
+                        if ($('#plus-sign-'+postID).hasClass('active-vote-sign'))
+                            $("#plus-sign-"+postID).removeClass("active-vote-sign");
+                    });
+                }
+                else if(doesExist === 1) {
+                    $(document).ready(function() {
+                        $("#plus-sign-"+postID).addClass("active-vote-sign");
+                        if ($('#minus-sign-'+postID).hasClass('active-vote-sign'))
+                            $("#minus-sign-"+postID).removeClass("active-vote-sign");
+                    });
+                }
+                
+                else {
+                    $(document).ready(function() {
+                        if ($('#plus-sign-'+postID).hasClass('active-vote-sign'))
+                            $("#plus-sign-"+postID).removeClass("active-vote-sign");
+                        if ($('#minus-sign-'+postID).hasClass('active-vote-sign'))
+                            $("#minus-sign-"+postID).removeClass("active-vote-sign");
+                    });
+                }   
+            }
+            
             function vote(uri) {
                 if(<%=isLoggedIn%> === false) {
                     $(function () {
@@ -163,6 +189,30 @@
                         }
                     };
                     xhttp.open("GET", uri, true);
+                    xhttp.send();
+                }
+            }
+            
+            function vote_post(postID, uri) {
+                if(<%=isLoggedIn%> === false) {
+                    $(function () {
+                    $('[data-toggle=popover]').popover('toggle');
+                });
+                }
+                
+                else {
+                    var votesspan = document.getElementById("votes-span-"+postID);
+                    var xhttp = new XMLHttpRequest();
+                    var vote = parseInt(votesspan.innerHTML);
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            var res = this.responseText.split(';');
+                            vote = parseInt(res[0]);
+                            votesspan.innerHTML = vote+"";
+                            changePostVoteCSS(parseInt(res[1]), postID);
+                        }
+                    };
+                    xhttp.open("GET", uri+"?postID="+postID, true);
                     xhttp.send();
                 }
             }
@@ -206,17 +256,30 @@
                 <%
                     for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
                 %>
-                <div class="post-container" id='<%= post.getPostID() %>'> 
-                    <div id='user'> <%= post.getUsername()  %>  
-                        <%
-                            if(user != null && user.getUsername().equals(post.getUsername())) {
-                        %>
-                                <a id="userPostEdit" href="#" onclick="editUserPost('<%=post.getPostID()%>');">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </a>
-                        <%
-                            }
-                        %>
+                <div class="post-container" id='<%= post.getPostID() %>'>
+                    <div class="post-header">
+                        <div class="votes-div">
+                            <a href="#" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostUpvote');">
+                                <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
+                            </a>    
+                            <span class="votes-span" id="votes-span-<%= post.getPostID() %>"> <%= post.getVotes() %> </span>
+                            <a href="#" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
+                                <span id="minus-sign-<%= post.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
+                            </a>
+                        </div>
+                        
+                        <div class='user'> <%= post.getUsername()  %>  
+                            <%
+                                if(user != null && user.getUsername().equals(post.getUsername())) {
+                            %>
+                                    <a id="userPostEdit" href="#" onclick="editUserPost('<%=post.getPostID()%>');">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </a>
+                            <%
+                                }
+                            %>
+                        </div>
+                    
                     </div>
                     <div id='post-content'> <%= post.getPost() %> </div> 
                     <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> </div> 

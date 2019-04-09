@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author robogod
  */
-public class ThreadUpvoteController extends HttpServlet {
+public class PostDownvoteController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,38 +33,38 @@ public class ThreadUpvoteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            System.out.println("Log:::: ThreadVotes");
+            System.out.println("Log:::: PostVotes");
             
-            pojos.Thread currentThread = (pojos.Thread) session.getAttribute("currentThread");
             pojos.User user = (pojos.User) session.getAttribute("user");
-            dao.ThreadDAO td = new dao.ThreadDAO();
-
+            dao.PostDAO pd = new dao.PostDAO();
+            int postID = Integer.parseInt(request.getParameter("postID"));
+            pojos.Post currentPost = pd.fetchPost(postID);
             
-            int threadID = currentThread.getThreadID();
             String username =  user.getUsername();
             String message="";
-            int retVal = 1;
+            int retVal = -1;
             
-            int doesExist = dao.ThreadVotesDAO.doesExist(threadID, username);
+            int doesExist = dao.PostVotesDAO.doesExist(postID, username);
             switch (doesExist) {
-                case 1:
-                    message =  dao.ThreadVotesDAO.removeThreadVote(threadID, username); 
-                    currentThread.setVotes(currentThread.getVotes()-1);
-                    td.updateThreadVotes(threadID, currentThread.getVotes());
+                case -1:
+                    message =  dao.PostVotesDAO.removePostVote(postID, username); 
+                    currentPost.setVotes(currentPost.getVotes()+1);
+                    pd.updatePostVotes(postID, currentPost.getVotes());
                     retVal = 0;
                     break;
-                case -1:
-                    message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
-                    currentThread.setVotes(currentThread.getVotes()+2);
-                    td.updateThreadVotes(threadID, currentThread.getVotes());
+                case 1:
+                    message =  dao.PostVotesDAO.votePost(postID, username , -1);
+                    currentPost.setVotes(currentPost.getVotes()-2);
+                    pd.updatePostVotes(postID, currentPost.getVotes());
                     break;
                 default:
-                    message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
-                    currentThread.setVotes(currentThread.getVotes()+1);
-                    td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
+                    message =  dao.PostVotesDAO.votePost(postID, username , -1);
+                    currentPost.setVotes(currentPost.getVotes()-1);
+                    pd.updatePostVotes(currentPost.getPostID(), currentPost.getVotes());
                     break;
             }
-            out.write(currentThread.getVotes()+";"+retVal);
+            out.write(currentPost.getVotes()+";"+retVal);
+            
         }
     }
 

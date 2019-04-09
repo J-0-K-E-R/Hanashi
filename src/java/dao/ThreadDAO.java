@@ -28,7 +28,7 @@ public class ThreadDAO {
     private PreparedStatement updateThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
     private PreparedStatement fetchUserThreadsStatement;
-    private static PreparedStatement updateVotesStatement;
+    private PreparedStatement updateVotesStatement;
     
     public Thread addNewThread(Thread thread) {
         Thread returnThread = null;
@@ -196,7 +196,7 @@ public class ThreadDAO {
         return returnThread;
     }
     
-    public static void updateThreadVotes(int threadID, int votes) {
+    public void updateThreadVotes(int threadID, int votes) {
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");

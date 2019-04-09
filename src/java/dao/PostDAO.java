@@ -22,6 +22,8 @@ public class PostDAO {
     private PreparedStatement createPostStatement;
     private PreparedStatement editPostStatement;
     private PreparedStatement fetchPostsStatement;
+    private PreparedStatement updateVotesStatement;
+
     
     public String addNewPost(Post post) {
         String message;
@@ -83,6 +85,34 @@ public class PostDAO {
         }
         return posts;
     }
+    
+    public pojos.Post fetchPost(int postID) {
+        Post post = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Post_ID=?");
+            fetchPostsStatement.setInt(1, postID);
+            
+            ResultSet rs = fetchPostsStatement.executeQuery();
+            if(rs.next()) {
+                post = new Post();
+                post.setThreadID(postID);
+                post.setPostID(rs.getInt("Post_ID"));
+                post.setPost(rs.getString("Post"));
+                post.setReplyTo(rs.getString("Reply_to"));
+                post.setUsername(rs.getString("Username"));
+                post.setVotes(rs.getInt("Votes"));
+                post.setTimestampCreated(rs.getTimestamp("Timestamp_Created").getTime());
+                post.setTimestampModified(rs.getTimestamp("Timestamp_Modified").getTime());
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return post;
+    }
 
     public String updatePost(Post post) {       
         String message;
@@ -116,4 +146,24 @@ public class PostDAO {
         }
         return message;
     }
+    
+    public void updatePostVotes(int postID, int votes) {
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            System.out.println("Log:::: PostDAO");
+            //Create the preparedstatement(s)
+            updateVotesStatement = conn.prepareStatement("update posts set votes = ? where Post_ID = ?");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            updateVotesStatement.setInt(1, votes);
+            updateVotesStatement.setInt(2, postID);
+            updateVotesStatement.executeUpdate();
+            System.out.println("Log::: PostID: "+postID +" Votes: "+ votes);
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+    
 }

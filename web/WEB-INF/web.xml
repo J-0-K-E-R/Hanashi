@@ -74,6 +74,14 @@
         <servlet-name>ThreadDownvoteController</servlet-name>
         <servlet-class>controller.ThreadDownvoteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostUpvoteController</servlet-name>
+        <servlet-class>controller.PostUpvoteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostDownvoteController</servlet-name>
+        <servlet-class>controller.PostDownvoteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -133,6 +141,14 @@
     <servlet-mapping>
         <servlet-name>ThreadDownvoteController</servlet-name>
         <url-pattern>/ThreadDownvote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostUpvoteController</servlet-name>
+        <url-pattern>/PostUpvote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostDownvoteController</servlet-name>
+        <url-pattern>/PostDownvote</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
