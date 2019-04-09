@@ -239,9 +239,9 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 .post-container {
-    border: solid 2px chartreuse;
+    border: solid 2px blueviolet;
     margin: 5px;
-    padding: 5px;
+    padding: 10px;
 }
 
 .post-container #user {
@@ -415,4 +415,18 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 #tags-list-wrapper .grid-container .tag-count {
     color: #0481ff;
     /*font-size: 13px;*/
+}
+
+
+/*Froala classes*/
+.fr-class-highlighted {
+    background: yellow;
+    color: black;
+} 
+
+.fr-class-code {
+    display: block;
+    background: #d6d6d6;
+    padding: 5px;
+    font-family: inconsolata,consolas,monospace;
 }

@@ -137,7 +137,12 @@
                 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
                 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
                 'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
-                'insertLink', 'insertImage', 'html', 'fullscreen']
+                'insertLink', 'insertImage', 'html', 'fullscreen'],
+            
+           inlineClasses: {
+                'fr-class-code': 'Code',
+                'fr-class-highlighted': 'Highlighted'
+            }
         });
     });
 </script>
