@@ -30,7 +30,7 @@
                     for(Tag tag: (ArrayList<Tag>)session.getAttribute("tagsList")) {
                 %>
                 <div class="tag-div">
-                    <a href="#" class="tag-name"><%= tag.getTag() %></a>
+                    <a href="#/" class="tag-name"><%= tag.getTag() %></a>
                     <span class="tag-count-span">
                         <span class="tag-count-x"> x </span>
                         <span class="tag-count"><%= tag.getCount() %></span>

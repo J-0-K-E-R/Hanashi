@@ -271,13 +271,13 @@
             <div id="originalPost">
                 <div id="thread-header">
                 <div id="votes-div">
-                    <a href="#" onclick="vote('/Hanashi/ThreadUpvote');">
+                    <a href="#/" onclick="vote('/Hanashi/ThreadUpvote');">
                         <span id="plus-sign" class="glyphicon glyphicon-plus-sign sign"></span>
                     </a> 
                     <br>    
                     <span id="votes-span"> ${currentThread.getVotes()} </span>
                     <br>
-                    <a href="#" onclick="vote('/Hanashi/ThreadDownvote');">
+                    <a href="#/" onclick="vote('/Hanashi/ThreadDownvote');">
                         <span id="minus-sign" class="glyphicon glyphicon-minus-sign sign"></span>
                     </a>
                 </div>
@@ -303,11 +303,11 @@
                 <div class="post-container" id='<%= post.getPostID() %>'>
                     <div class="post-header">
                         <div class="votes-div">
-                            <a href="#" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostUpvote');">
+                            <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostUpvote');">
                                 <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
                             </a>    
                             <span class="votes-span" id="votes-span-<%= post.getPostID() %>"> <%= post.getVotes() %> </span>
-                            <a href="#" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
+                            <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
                                 <span id="minus-sign-<%= post.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
                             </a>
                         </div>
@@ -316,7 +316,7 @@
                             <%
                                 if(user != null && user.getUsername().equals(post.getUsername())) {
                             %>
-                                    <a id="userPostEdit" href="#" onclick="editUserPost('<%=post.getPostID()%>');">
+                                    <a id="userPostEdit" href="#/" onclick="editUserPost('<%=post.getPostID()%>');">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
                             <%
@@ -334,7 +334,7 @@
                     
                        
                     
-                    <a href="#" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);">
+                    <a href="#/" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);">
                         Show replies 
                     </a>
                     
@@ -352,11 +352,11 @@
                             
                             <div class="post-header">
                                 <div class="votes-div">
-                                    <a href="#" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
+                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
                                         <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
                                     </a>    
                                     <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
-                                    <a href="#" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
+                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
                                         <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
                                     </a>
                                 </div>
@@ -365,7 +365,7 @@
                                     <%
                                         if(user != null && user.getUsername().equals(reply.getUsername())) {
                                     %>
-                                            <a id="userPostEdit" href="#" onclick="editUserPost('<%=reply.getPostID()%>');">
+                                            <a id="userPostEdit" href="#/" onclick="editUserPost('<%=reply.getPostID()%>');">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                             </a>
                                     <%
