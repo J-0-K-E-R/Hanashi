@@ -211,7 +211,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     border: solid 2px #0481ff;
 }
 
-#view-thread-container #replies {
+#view-thread-container #posts {
     overflow: auto;
 }
 
@@ -263,6 +263,31 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 .post-container .active-vote-sign {
     font-size: 18px;
     color: darkgreen;
+}
+
+.post-container .replies {
+    display: none;
+    transition: display .2s ease-in;
+}
+
+.post-container .btn-reply {
+    float: right;
+}
+
+#newreply .reply_to {
+    display: none;
+    width: 100%;
+}
+
+.post-container .replies {
+    margin-left: 20px;
+}
+
+.post-container .reply-container {
+    border: solid 2px darkblue;
+    padding: 10px;
+    padding-bottom: 15px;
+    margin-top: 6px;
 }
 
 

@@ -63,7 +63,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=?");
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL;");
             fetchPostsStatement.setInt(1, threadID);
             
             ResultSet rs = fetchPostsStatement.executeQuery();
@@ -127,15 +127,13 @@ public class PostDAO {
             //Create the preparedstatement(s)
             editPostStatement = conn.prepareStatement("update posts set "
                     + "Post = ?,"
-                    + "Reply_to = ? ,"
                     + "Timestamp_Modified = ?"
                     + "where Post_ID=?;");
             
             
             editPostStatement.setString(1, post.getPost());
-            editPostStatement.setString(2, post.getReplyTo());
-            editPostStatement.setTimestamp(3, modified);
-            editPostStatement.setInt(4, post.getPostID());
+            editPostStatement.setTimestamp(2, modified);
+            editPostStatement.setInt(3, post.getPostID());
             editPostStatement.executeUpdate();
             
             message = "Done";
@@ -164,6 +162,36 @@ public class PostDAO {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
+    }
+    
+    public ArrayList<pojos.Post> fetchReplies(int postID) {
+        ArrayList<Post> posts = new ArrayList<>();
+        Post post;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Reply_to=?");
+            fetchPostsStatement.setString(1, String.valueOf(postID));
+            
+            ResultSet rs = fetchPostsStatement.executeQuery();
+            while(rs.next()) {
+                post = new Post();
+                post.setThreadID(rs.getInt("Thread_ID"));
+                post.setPostID(rs.getInt("Post_ID"));
+                post.setPost(rs.getString("Post"));
+                post.setReplyTo(rs.getString("Reply_to"));
+                post.setUsername(rs.getString("Username"));
+                post.setVotes(rs.getInt("Votes"));
+                post.setTimestampCreated(rs.getTimestamp("Timestamp_Created").getTime());
+                post.setTimestampModified(rs.getTimestamp("Timestamp_Modified").getTime());
+                posts.add(post);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        return posts;
     }
     
 }

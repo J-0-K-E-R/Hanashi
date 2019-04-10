@@ -144,6 +144,26 @@
                 'fr-class-highlighted': 'Highlighted'
             }
         });
+        
+        $('textarea.froala-editor').froalaEditor({
+            // toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+            // 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
+            // 'emoticons', 'fontAwesome', 'specialCharacters', '-', 
+            // 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
+            // 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
+            // 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
+            // 'undo', 'redo'],
+            toolbarButtons: ['undo', 'redo' , '|', 
+                'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
+                'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
+                'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
+                'insertLink', 'insertImage', 'html', 'fullscreen'],
+            
+           inlineClasses: {
+                'fr-class-code': 'Code',
+                'fr-class-highlighted': 'Highlighted'
+            }
+        });
     });
 </script>
 

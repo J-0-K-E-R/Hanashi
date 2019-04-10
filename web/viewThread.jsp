@@ -217,6 +217,31 @@
                 }
             }
         </script>
+        
+        <!--Show and hide replies-->
+        <script>
+            function toggle_replies(postID) {
+                var anchor = document.getElementById("toggle-post-"+postID);
+                $(document).ready(function() {
+                    $("#reply-"+postID).toggle();
+                    if(anchor.innerHTML !== "Hide replies")
+                        anchor.innerHTML = "Hide replies";
+                    else 
+                        anchor.innerHTML = "Show replies";
+                });
+            }
+            
+            
+            function reply_to(postID, uname) {
+                var ele = document.getElementById("reply_to");
+                ele.value = "@"+postID+";"+uname;
+                $(document).ready(function() {
+                    $("#reply_to").show();
+                    $('#froala-editor').froalaEditor('events.focus', true);
+                    window.scrollTo(0,document.body.scrollHeight);
+                });
+            }
+        </script>
 
         
     </head>
@@ -252,7 +277,7 @@
                     </div>
                 </div>
             </div>
-            <div id="replies">
+            <div id="posts">
                 <%
                     for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
                 %>
@@ -282,12 +307,79 @@
                     
                     </div>
                     <div id='post-content'> <%= post.getPost() %> </div> 
-                    <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> </div> 
+                    
+                    <div class="btn btn-primary btn-reply" onclick="reply_to(<%=post.getPostID()%>, '<%=post.getUsername()%>');">
+                        Reply
+                    </div>
+                    <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> </div>
+                    
+                       
+                    
+                    <a href="#" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);">
+                        Show replies 
+                    </a>
+                    
+          
+                    
+                    <div id="reply-<%= post.getPostID() %>" class="replies"> 
+                        
+                        <% 
+                            dao.PostDAO pd = new dao.PostDAO();
+                            ArrayList<Post> replies = pd.fetchReplies(post.getPostID()); 
+                            for(Post reply: replies) {
+                        %>
+                        
+                        <div class="reply-container" id='<%= reply.getPostID() %>'>
+                            
+                            <div class="post-header">
+                                <div class="votes-div">
+                                    <a href="#" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
+                                        <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
+                                    </a>    
+                                    <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
+                                    <a href="#" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
+                                        <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
+                                    </a>
+                                </div>
+                        
+                                <div class='user'> <%= reply.getUsername()  %>  
+                                    <%
+                                        if(user != null && user.getUsername().equals(reply.getUsername())) {
+                                    %>
+                                            <a id="userPostEdit" href="#" onclick="editUserPost('<%=reply.getPostID()%>');">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </a>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+                    
+                            </div>
+                            <div id='post-content'> <%= reply.getPost() %> </div> 
+                    
+                            <div class="btn btn-primary btn-reply" onclick="reply_to(<%=reply.getPostID()%>, '<%=reply.getUsername()%>');">
+                                Reply
+                            </div>
+                            <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> </div>
+ 
+                        </div>
+                            
+                        <div id='edit-<%=reply.getPostID() %>' hidden> 
+                            <form action="/Hanashi/EditPost?editPostID=<%= reply.getPostID() %>" id="create-post-form" method="post">
+                            <textarea id="froala-editor-<%=reply.getPostID() %>" class="froala-editor" name="post-content" required > <%= reply.getPost() %> </textarea> <br>
+                            <input class="btn btn-success" type="submit" value="Update">
+                            <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=reply.getPostID() %>');">
+                            </form>
+                        </div>
+                        
+                        <% } %>
+                    </div>
+                    
                 </div>
             
                 <div id='edit-<%=post.getPostID() %>' hidden> 
                     <form action="/Hanashi/EditPost?editPostID=<%= post.getPostID() %>" id="create-post-form" method="post">
-                    <textarea id="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> <br>
+                    <textarea id="froala-editor-<%=post.getPostID() %>" class="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> <br>
                     <input class="btn btn-success" type="submit" value="Update">
                     <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
                     </form>
@@ -299,6 +391,7 @@
             <div id="newreply">
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">
                     <h4> Your Reply </h4>
+                    <input type="text" name="reply_to" id="reply_to" class="reply_to" value="">
                     <textarea id="froala-editor" name="post-content" required></textarea> <br>
                     <input class="btn btn-success" type="submit" value="Post">
                 </form>

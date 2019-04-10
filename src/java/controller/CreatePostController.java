@@ -49,6 +49,22 @@ public class CreatePostController extends HttpServlet {
             post.setUsername(user.getUsername());
             post.setPost(request.getParameter("post-content"));
             
+  
+            String reply_to = request.getParameter("reply_to");
+            String replyPostID = null;
+            if(reply_to != null && !"".equals(reply_to)) {
+                try{
+                    replyPostID = String.valueOf(Integer.parseInt(reply_to.split("@")[1].split(";")[0].trim()));
+                }
+                catch(NumberFormatException e) {
+                    replyPostID = null;
+                }
+            }
+            if(replyPostID != null && !"".equals(replyPostID)) 
+                post.setReplyTo(replyPostID);
+                
+                
+            
             String message = pd.addNewPost(post);
             
             if(!message.equals("Done")) {
