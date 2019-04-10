@@ -115,7 +115,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes desc");
+            fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes desc limit 50");
             
             ResultSet rs = fetchThreadIDStatement.executeQuery();
             while(rs.next()) {
