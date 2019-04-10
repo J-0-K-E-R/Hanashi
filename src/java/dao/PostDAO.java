@@ -63,7 +63,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL;");
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL order by votes desc;");
             fetchPostsStatement.setInt(1, threadID);
             
             ResultSet rs = fetchPostsStatement.executeQuery();

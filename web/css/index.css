@@ -290,6 +290,10 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     margin-top: 6px;
 }
 
+.reply-to-username {
+    color: #0481ff;
+}
+
 
 /*User profile styling*/
 

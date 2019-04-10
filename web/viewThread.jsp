@@ -237,7 +237,16 @@
                 ele.value = "@"+postID+";"+uname;
                 $(document).ready(function() {
                     $("#reply_to").show();
+                    
+                    $('#froala-editor').froalaEditor('html.set',
+                    '<span class="reply-to-username fr-deletable" contenteditable="false">@'+uname+'</span> <span contenteditable="true"> </span>');
+                    
                     $('#froala-editor').froalaEditor('events.focus', true);
+                    
+                    var editor = $('#froala-editor').data('froala.editor');
+                    editor.selection.setAtEnd(editor.$el.get(0));
+                    editor.selection.restore();
+                    
                     window.scrollTo(0,document.body.scrollHeight);
                 });
             }
@@ -357,7 +366,7 @@
                             </div>
                             <div id='post-content'> <%= reply.getPost() %> </div> 
                     
-                            <div class="btn btn-primary btn-reply" onclick="reply_to(<%=reply.getPostID()%>, '<%=reply.getUsername()%>');">
+                            <div class="btn btn-primary btn-reply" onclick="reply_to(<%=post.getPostID()%>, '<%=reply.getUsername()%>');">
                                 Reply
                             </div>
                             <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> </div>
