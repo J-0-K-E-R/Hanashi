@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import pojos.Thread;
 import pojos.User;
 
+import utilities.DBUtil;
+
 /**
  *
  * @author robogod
@@ -32,10 +34,11 @@ public class ThreadDAO {
     
     public Thread addNewThread(Thread thread) {
         Thread returnThread = null;
+        Connection conn = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             createThreadStatement = conn.prepareStatement("insert into threads("
@@ -56,6 +59,9 @@ public class ThreadDAO {
             
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(createThreadStatement);
+            DBUtil.close(conn);
         }
         
         return returnThread;
@@ -63,33 +69,41 @@ public class ThreadDAO {
     
     public int getNextThreadID() {
         int tid = -1;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchThreadIDStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND   TABLE_NAME   = 'threads';");
             
-            ResultSet rs = fetchThreadIDStatement.executeQuery();
+            rs = fetchThreadIDStatement.executeQuery();
             if(rs.next()) {
                 tid = rs.getInt("AUTO_INCREMENT");
             }
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
         }
         return tid;
     }
     
     public Thread fetchThread(int threadID) {
         Thread thread = null;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchThreadIDStatement = conn.prepareStatement("select * from threads where Thread_ID=?");
             fetchThreadIDStatement.setInt(1, threadID);
             
-            ResultSet rs = fetchThreadIDStatement.executeQuery();
+            rs = fetchThreadIDStatement.executeQuery();
             if(rs.next()) {
                 thread = new Thread();
                 thread.setThreadID(threadID);
@@ -104,6 +118,10 @@ public class ThreadDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
         }
         return thread;
     }
@@ -111,13 +129,15 @@ public class ThreadDAO {
      public ArrayList<Thread> fetchAllThreads() {
         ArrayList<Thread> threads = new ArrayList<>();
         Thread thread;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes desc limit 50");
             
-            ResultSet rs = fetchThreadIDStatement.executeQuery();
+            rs = fetchThreadIDStatement.executeQuery();
             while(rs.next()) {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));
@@ -133,19 +153,26 @@ public class ThreadDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
         }
+        
         return threads;
     }
      public ArrayList<Thread> fetchUserThreads(String profileUsername) {
         ArrayList<Thread> threads = new ArrayList<>();
         Thread thread;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchUserThreadsStatement = conn.prepareStatement("select * from threads where username=? order by Timestamp_Modified desc");
             fetchUserThreadsStatement.setString(1, profileUsername);
-            ResultSet rs = fetchUserThreadsStatement.executeQuery();
+            rs = fetchUserThreadsStatement.executeQuery();
             while(rs.next()) {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));
@@ -161,16 +188,21 @@ public class ThreadDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchUserThreadsStatement);
+            DBUtil.close(conn);
         }
         return threads;
     }
     
     public Thread updateThread(Thread thread) {
         Thread returnThread = null;
+        Connection conn = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             Timestamp modified = new Timestamp(thread.getTimestampModified().getTime().getTime());
             
@@ -191,16 +223,20 @@ public class ThreadDAO {
             returnThread = this.fetchThread(thread.getThreadID());
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateThreadStatement);
+            DBUtil.close(conn);
         }
         
         return returnThread;
     }
     
     public void updateThreadVotes(int threadID, int votes) {
+        Connection conn = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             System.out.println("Log:::: ThreadDAO");
             //Create the preparedstatement(s)
             updateVotesStatement = conn.prepareStatement("update threads set votes = ? where Thread_ID = ?");
@@ -211,6 +247,9 @@ public class ThreadDAO {
             updateVotesStatement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateVotesStatement);
+            DBUtil.close(conn);
         }
     }
 }
