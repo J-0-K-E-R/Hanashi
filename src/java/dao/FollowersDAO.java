@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import utilities.DBUtil;
 
 /**
  *
@@ -20,10 +21,12 @@ public class FollowersDAO {
     
     public String addFollowers(String user1, String user2) {
         String message = "";
+        Connection conn = null;
+        
         try {
                 //Set up connection
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
                 insertStatement = conn.prepareStatement("insert into followers values(?, ?)");
@@ -34,16 +37,22 @@ public class FollowersDAO {
             } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
                     message = e.getMessage();
+            } finally {
+                DBUtil.close(insertStatement);
+                DBUtil.close(conn);
             }
+        
         return message;
     }
     
     public String deleteFollowers(String user1, String user2) {
         String message = "";
+        Connection conn = null;
+        
         try {
                 //Set up connection
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
                 deleteStatement = conn.prepareStatement("delete from followers where Username1=? and Username2=?");
@@ -54,28 +63,40 @@ public class FollowersDAO {
             } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
                     message = e.getMessage();
+            } finally {
+                DBUtil.close(deleteStatement);
+                DBUtil.close(conn);
             }
+        
         return message;
     }
     
     public boolean isFollowing(String user1, String user2) {
         boolean message = false;
+        Connection conn = null;
+        ResultSet rs = null;
+        
         try {
                 //Set up connection
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
                 queryStatement = conn.prepareStatement("select * from followers where Username1=? and Username2=?");
                 queryStatement.setString(1, user1);
                 queryStatement.setString(2, user2);
-                ResultSet rs = queryStatement.executeQuery();
+                rs = queryStatement.executeQuery();
                 if(rs.next()) {
                     message = true;
                 }
             } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            } finally {
+                DBUtil.close(rs);
+                DBUtil.close(queryStatement);
+                DBUtil.close(conn);
             }
+        
         return message;
     }
 }

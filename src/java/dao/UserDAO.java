@@ -52,6 +52,7 @@ public class UserDAO {
         User user = null;
         Connection conn = null;
         ResultSet rs = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -86,6 +87,7 @@ public class UserDAO {
         String message="";
         Connection conn = null;
         ResultSet rs = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -125,6 +127,7 @@ public class UserDAO {
         User user = null;
         Connection conn = null;
         ResultSet rs = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -165,6 +168,7 @@ public class UserDAO {
     public String updateUser(User user) {
         String message="";
         Connection conn = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -194,6 +198,7 @@ public class UserDAO {
         Connection conn = null;
         ResultSet rs = null;
         Statement fetchStatement = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
