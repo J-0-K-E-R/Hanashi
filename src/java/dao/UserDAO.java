@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import pojos.User;
+import utilities.DBUtil;
 /**
  *
  * @author Joker
@@ -49,10 +50,12 @@ public class UserDAO {
      */
     public User authenticateUser(String username, String password) {
         User user = null;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             authenticateUserStatement = conn.prepareStatement("select * from users where Username=? and Password=?");
@@ -63,7 +66,7 @@ public class UserDAO {
             //Add parameters to the ?'s in the preparedstatement and execute
             authenticateUserStatement.setString(1, username);
             authenticateUserStatement.setString(2, password);
-            ResultSet rs = authenticateUserStatement.executeQuery();
+            rs = authenticateUserStatement.executeQuery();
             
             //if we've returned a row, turn that row into a new user object
             if (rs.next()) {
@@ -71,21 +74,27 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(authenticateUserStatement);
+            DBUtil.close(conn);
         }
         return user;
     }
     
     public String signUpUser(User user){
         String message="";
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Checking if Email already exists
             checkEmail = conn.prepareStatement("select * from users where Email = ?");
             checkEmail.setString(1, user.getEmail());
-            ResultSet rs = checkEmail.executeQuery();
+            rs = checkEmail.executeQuery();
             
             //if Email already exists
             if (rs.next()) {
@@ -103,6 +112,10 @@ public class UserDAO {
         }
         catch (Exception e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(signUpUserStatement);
+            DBUtil.close(conn);
         }
         
         return message;
@@ -110,10 +123,12 @@ public class UserDAO {
     
     public User fetchUser(String username) {
         User user = null;
+        Connection conn = null;
+        ResultSet rs = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the prepfetchUserStatementaredstatement(s)
             fetchUserStatement = conn.prepareStatement("select * from users where Username=?");
@@ -123,7 +138,7 @@ public class UserDAO {
         try {
             //Add parameters to the ?'s in the preparedstatement and execute
             fetchUserStatement.setString(1, username);
-            ResultSet rs = fetchUserStatement.executeQuery();
+            rs = fetchUserStatement.executeQuery();
             
             //if we've returned a row, turn that row into a new user object
             if (rs.next()) {
@@ -139,16 +154,21 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchUserStatement);
+            DBUtil.close(conn);
         }
         return user;
     }
     
     public String updateUser(User user) {
         String message="";
+        Connection conn = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             updateStatement = conn.prepareStatement("update users set FollowersCount = ?, FollowingCount = ?, FollowingTagsCount = ?, Points = ? where Username = ?");
             updateStatement.setInt(1, user.getFollowersCount());
             updateStatement.setInt(2, user.getFollowingCount());
@@ -160,6 +180,9 @@ public class UserDAO {
         }
         catch (Exception e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
         }
         
         return message;
@@ -167,16 +190,19 @@ public class UserDAO {
     
     public ArrayList<User> fetchUserList() {
         ArrayList<User> list = new ArrayList<>();
-        User user;
+        User user = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        Statement fetchStatement = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             String fetchQuery = "select * from users order by Points desc";
-            Statement fetchStatement = conn.createStatement();
-            ResultSet rs = fetchStatement.executeQuery(fetchQuery);
+            fetchStatement = conn.createStatement();
+            rs = fetchStatement.executeQuery(fetchQuery);
             while(rs.next()) {
                 user = new User(rs.getInt("ID"), 
                         rs.getString("Username"), 
@@ -190,9 +216,13 @@ public class UserDAO {
                 list.add(user);
             }
             
+            fetchStatement.close();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             list = null;
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(conn);
         }
         return list;
     }
