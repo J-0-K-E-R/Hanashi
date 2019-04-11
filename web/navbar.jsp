@@ -33,6 +33,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 
+                       id='login-pop'
                        class="btn pop"
                        data-html="true"
                        data-toggle="popover"
@@ -60,6 +61,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 
+                       id='profile-pop'
                        class="btn pop"
                        data-html="true"
                        data-toggle="popover"
