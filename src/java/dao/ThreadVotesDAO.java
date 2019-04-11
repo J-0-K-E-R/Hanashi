@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import utilities.DBUtil;
 /**
  *
  * @author robogod
@@ -22,52 +23,63 @@ public class ThreadVotesDAO {
     
     public static String voteThread(int threadID, String username,  int vote) {
         String message;
+        Connection conn = null;
+        
         try {
-                //Set up connection
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
-                //Create the preparedstatement(s)
-                if(doesExist(threadID, username) == 0)  {
-                    insertStatement = conn.prepareStatement("insert into thread_votes values(?, ?, ?) ");
-                    insertStatement.setInt(1, threadID);
-                    insertStatement.setString(2, username);
-                    insertStatement.setInt(3, vote);
-                }
-                else {
-                    insertStatement = conn.prepareStatement("update thread_votes set vote = ? where username=? and thread_id = ?");
-                    insertStatement.setInt(1, vote);
-                    insertStatement.setString(2, username);
-                    insertStatement.setInt(3, threadID);
-                }
-                
-                insertStatement.executeUpdate();
-                message = "Done";
-            } catch (SQLException | ClassNotFoundException e) {
-                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
-                    message = e.getMessage();
+            //Create the preparedstatement(s)
+            if(doesExist(threadID, username) == 0)  {
+                insertStatement = conn.prepareStatement("insert into thread_votes values(?, ?, ?) ");
+                insertStatement.setInt(1, threadID);
+                insertStatement.setString(2, username);
+                insertStatement.setInt(3, vote);
             }
+            else {
+                insertStatement = conn.prepareStatement("update thread_votes set vote = ? where username=? and thread_id = ?");
+                insertStatement.setInt(1, vote);
+                insertStatement.setString(2, username);
+                insertStatement.setInt(3, threadID);
+            }
+                
+            insertStatement.executeUpdate();
+            message = "Done";
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getMessage();
+        } finally {
+            DBUtil.close(insertStatement);
+            DBUtil.close(conn);
+        }
         return message;
     }
     
     public static int doesExist(int threadID, String username) {
         int doesExist = 0;
+        Connection conn = null;
+        ResultSet rs = null;
         
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             
             fetchStatement = conn.prepareStatement("select * from thread_votes where thread_id = ? and username = ? ");
             fetchStatement.setInt(1, threadID);
             fetchStatement.setString(2, username);
-            ResultSet rs = fetchStatement.executeQuery();
+            rs = fetchStatement.executeQuery();
             if(rs.next())
                 doesExist = rs.getInt("vote");
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchStatement);
+            DBUtil.close(conn);
         }
         
         return doesExist;
@@ -75,11 +87,12 @@ public class ThreadVotesDAO {
     
     public static String removeThreadVote(int threadID, String username) {
         String message;
+        Connection conn = null;
         
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             
@@ -91,8 +104,10 @@ public class ThreadVotesDAO {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             message = e.getMessage();
+        } finally {
+            DBUtil.close(deleteStatement);
+            DBUtil.close(conn);
         }
-
         
         return message;
     }
