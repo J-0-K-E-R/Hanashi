@@ -215,13 +215,12 @@ public class UserDAO {
                         rs.getString("AvatarPath"));
                 list.add(user);
             }
-            
-            fetchStatement.close();
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             list = null;
         } finally {
             DBUtil.close(rs);
+            DBUtil.close(fetchStatement);
             DBUtil.close(conn);
         }
         return list;

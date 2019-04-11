@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import pojos.Post;
+import utilities.DBUtil;
 
 /**
  *
@@ -27,10 +28,12 @@ public class PostDAO {
     
     public String addNewPost(Post post) {
         String message;
+        Connection conn = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             createPostStatement = conn.prepareStatement("insert into posts("
@@ -52,6 +55,9 @@ public class PostDAO {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             message = e.getMessage();
+        } finally {
+            DBUtil.close(createPostStatement);
+            DBUtil.close(conn);
         }
         return message;
     }    
@@ -59,14 +65,17 @@ public class PostDAO {
     public ArrayList<pojos.Post> fetchPosts(int threadID) {
         ArrayList<Post> posts = new ArrayList<>();
         Post post;
+        Connection conn = null;
+        ResultSet rs = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL order by votes desc;");
             fetchPostsStatement.setInt(1, threadID);
             
-            ResultSet rs = fetchPostsStatement.executeQuery();
+            rs = fetchPostsStatement.executeQuery();
             while(rs.next()) {
                 post = new Post();
                 post.setThreadID(threadID);
@@ -82,20 +91,28 @@ public class PostDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostsStatement);
+            DBUtil.close(conn);
         }
+        
         return posts;
     }
     
     public pojos.Post fetchPost(int postID) {
         Post post = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchPostsStatement = conn.prepareStatement("select * from posts where Post_ID=?");
             fetchPostsStatement.setInt(1, postID);
             
-            ResultSet rs = fetchPostsStatement.executeQuery();
+            rs = fetchPostsStatement.executeQuery();
             if(rs.next()) {
                 post = new Post();
                 post.setThreadID(postID);
@@ -110,16 +127,23 @@ public class PostDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostsStatement);
+            DBUtil.close(conn);
         }
+        
         return post;
     }
 
     public String updatePost(Post post) {       
         String message;
+        Connection conn = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             Timestamp modified = new Timestamp(post.getTimestampModified().getTime().getTime());
 
@@ -141,15 +165,21 @@ public class PostDAO {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             message = e.getMessage();
+        } finally {
+            DBUtil.close(editPostStatement);
+            DBUtil.close(conn);
         }
+        
         return message;
     }
     
     public void updatePostVotes(int postID, int votes) {
+        Connection conn = null;
+        
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             System.out.println("Log:::: PostDAO");
             //Create the preparedstatement(s)
             updateVotesStatement = conn.prepareStatement("update posts set votes = ? where Post_ID = ?");
@@ -161,20 +191,26 @@ public class PostDAO {
             System.out.println("Log::: PostID: "+postID +" Votes: "+ votes);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateVotesStatement);
+            DBUtil.close(conn);
         }
     }
     
     public ArrayList<pojos.Post> fetchReplies(int postID) {
         ArrayList<Post> posts = new ArrayList<>();
         Post post;
+        Connection conn = null;
+        ResultSet rs = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             fetchPostsStatement = conn.prepareStatement("select * from posts where Reply_to=?");
             fetchPostsStatement.setString(1, String.valueOf(postID));
             
-            ResultSet rs = fetchPostsStatement.executeQuery();
+            rs = fetchPostsStatement.executeQuery();
             while(rs.next()) {
                 post = new Post();
                 post.setThreadID(rs.getInt("Thread_ID"));
@@ -190,6 +226,10 @@ public class PostDAO {
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostsStatement);
+            DBUtil.close(conn);
         }
         return posts;
     }
