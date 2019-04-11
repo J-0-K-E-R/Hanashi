@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import utilities.DBUtil;
 
 /**
  *
@@ -22,10 +23,12 @@ public class PostVotesDAO {
     
     public static String votePost(int postID, String username,  int vote) {
         String message;
+        Connection conn = null;
+        
         try {
                 //Set up connection
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
                 if(doesExist(postID, username) == 0)  {
@@ -46,28 +49,38 @@ public class PostVotesDAO {
             } catch (SQLException | ClassNotFoundException e) {
                     System.out.println(e.getClass().getName() + ": " + e.getMessage());
                     message = e.getMessage();
+            } finally {
+                DBUtil.close(insertStatement);
+                DBUtil.close(conn);
             }
+        
         return message;
     }
     
     public static int doesExist(int postID, String username) {
         int doesExist = 0;
+        Connection conn = null;
+        ResultSet rs = null;
         
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             
             fetchStatement = conn.prepareStatement("select * from post_votes where post_id = ? and username = ? ");
             fetchStatement.setInt(1, postID);
             fetchStatement.setString(2, username);
-            ResultSet rs = fetchStatement.executeQuery();
+            rs = fetchStatement.executeQuery();
             if(rs.next())
                 doesExist = rs.getInt("vote");
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchStatement);
+            DBUtil.close(conn);
         }
         
         return doesExist;
@@ -75,11 +88,12 @@ public class PostVotesDAO {
     
     public static String removePostVote(int postID, String username) {
         String message;
+        Connection conn = null;
         
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             //Create the preparedstatement(s)
             
@@ -91,6 +105,9 @@ public class PostVotesDAO {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             message = e.getMessage();
+        } finally {
+            DBUtil.close(deleteStatement);
+            DBUtil.close(conn);
         }
 
         
