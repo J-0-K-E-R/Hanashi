@@ -63,6 +63,13 @@ body {
     padding: 25px;
     text-align: center;
 }
+
+#popover-logo {
+    width: 140px;
+    height: 140px;
+    padding: 10px;
+}
+
 /* Popover Arrow */
 .arrow {
     border-color: red;
