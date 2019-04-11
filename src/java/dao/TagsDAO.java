@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pojos.Tag;
+import utilities.DBUtil;
 import utilities.TagsService;
 
 /**
@@ -27,9 +28,11 @@ public class TagsDAO {
     public String updateTags(String tagsList) {
         String message="";
         ArrayList<String> tags = TagsService.tagsToArrayList(tagsList);
+        Connection conn = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             for(String tag: tags) {
                 if(doesExist(tag)) 
@@ -44,6 +47,9 @@ public class TagsDAO {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             message = ex.getMessage();
+        } finally {
+            DBUtil.close(updateTagsStatement);
+            DBUtil.close(conn);
         }
         
         return message;
@@ -51,51 +57,67 @@ public class TagsDAO {
     
     public boolean doesExist(String tag) {
         boolean answer = false;
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement fetchResult = null;
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            PreparedStatement fetchResult = conn.prepareStatement("SELECT * FROM tags WHERE tag=?;");
+            fetchResult = conn.prepareStatement("SELECT * FROM tags WHERE tag=?;");
             fetchResult.setString(1, tag);
             
-            ResultSet rs = fetchResult.executeQuery();
+            rs = fetchResult.executeQuery();
             if(rs.next()) {
                 answer = true;
             }
         }
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchResult);
+            DBUtil.close(conn);
         }
+        
         return answer;
     }
     public String deleteTags(String tagsList) {
         String message="";
         ArrayList<String> tags = TagsService.tagsToArrayList(tagsList);
+        Connection conn = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
             for(String tag: tags) {
                 if(doesExist(tag)) {
                     deleteTagsStatement = conn.prepareStatement("update tags set count = count - 1 where tag=?");
-                deleteTagsStatement.setString(1, tag);
-                deleteTagsStatement.executeUpdate();
-                this.removeZeroTags();}
+                    deleteTagsStatement.setString(1, tag);
+                    deleteTagsStatement.executeUpdate();
+                    this.removeZeroTags();
+                }
             }
             message="Done";
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             message = ex.getMessage();
+        } finally {
+            DBUtil.close(deleteTagsStatement);
+            DBUtil.close(conn);
         }
         
         return message;
     }
     public String removeZeroTags() {
         String message="";
+        Connection conn = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             deleteTagsStatement = conn.prepareStatement("delete from tags where count = 0");
             deleteTagsStatement.executeUpdate();
             message="Done";
@@ -103,6 +125,9 @@ public class TagsDAO {
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             message = ex.getMessage();
+        } finally {
+            DBUtil.close(deleteTagsStatement);
+            DBUtil.close(conn);
         }
         
         return message;
@@ -111,11 +136,14 @@ public class TagsDAO {
     public ArrayList<Tag> fetchTags() {
         ArrayList<Tag> tagsList = new ArrayList();
         Tag tag;
+        Connection conn = null;
+        ResultSet rs = null;
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             deleteTagsStatement = conn.prepareStatement("select * from tags order by count desc;");
-            ResultSet rs = deleteTagsStatement.executeQuery();
+            rs = deleteTagsStatement.executeQuery();
             while(rs.next()) {
                 tag = new Tag();
                 tag.setTag(rs.getString("tag"));
@@ -126,6 +154,10 @@ public class TagsDAO {
         catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
             tagsList = null;
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(deleteTagsStatement);
+            DBUtil.close(conn);
         }
         
         return tagsList;
