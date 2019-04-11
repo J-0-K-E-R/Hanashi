@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pojos.Points;
+import pojos.User;
 
 /**
  *
@@ -39,10 +42,13 @@ public class PostUpvoteController extends HttpServlet {
             dao.PostDAO pd = new dao.PostDAO();
             int postID = Integer.parseInt(request.getParameter("postID"));
             pojos.Post currentPost = pd.fetchPost(postID);
+            UserDAO ud = new UserDAO();
+            User currentPostUser = ud.fetchUser(currentPost.getUsername());
             
             String username =  user.getUsername();
             String message="";
             int retVal = 1;
+            
             
             int doesExist = dao.PostVotesDAO.doesExist(postID, username);
             switch (doesExist) {
@@ -50,19 +56,31 @@ public class PostUpvoteController extends HttpServlet {
                     message =  dao.PostVotesDAO.removePostVote(postID, username); 
                     currentPost.setVotes(currentPost.getVotes()-1);
                     pd.updatePostVotes(postID, currentPost.getVotes());
+                    
+                    
+                    currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostUpvote());
                     retVal = 0;
                     break;
                 case -1:
                     message =  dao.PostVotesDAO.votePost(postID, username , 1);
                     currentPost.setVotes(currentPost.getVotes()+2);
                     pd.updatePostVotes(postID, currentPost.getVotes());
+                    user.setPoints(user.getPoints()+Points.getSelfDownvote());
+                    currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote()+Points.getPostUpvote());
+                    
+                    ud.updateUser(user);
                     break;
                 default:
                     message =  dao.PostVotesDAO.votePost(postID, username , 1);
                     currentPost.setVotes(currentPost.getVotes()+1);
                     pd.updatePostVotes(currentPost.getPostID(), currentPost.getVotes());
+                    
+                    currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostUpvote());
                     break;
             }
+            
+            ud.updateUser(currentPostUser);
+            
             out.write(currentPost.getVotes()+";"+retVal);
         }
     }

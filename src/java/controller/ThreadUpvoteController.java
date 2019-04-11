@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pojos.Points;
+import pojos.User;
 
 /**
  *
@@ -38,6 +41,8 @@ public class ThreadUpvoteController extends HttpServlet {
             pojos.Thread currentThread = (pojos.Thread) session.getAttribute("currentThread");
             pojos.User user = (pojos.User) session.getAttribute("user");
             dao.ThreadDAO td = new dao.ThreadDAO();
+            UserDAO ud = new UserDAO();
+            User currentThreadUser = ud.fetchUser(currentThread.getUsername());
 
             
             int threadID = currentThread.getThreadID();
@@ -52,18 +57,29 @@ public class ThreadUpvoteController extends HttpServlet {
                     currentThread.setVotes(currentThread.getVotes()-1);
                     td.updateThreadVotes(threadID, currentThread.getVotes());
                     retVal = 0;
+                    
+                    // Nullify user points
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadUpvote());
                     break;
                 case -1:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
                     currentThread.setVotes(currentThread.getVotes()+2);
                     td.updateThreadVotes(threadID, currentThread.getVotes());
+                    
+                    // Increment user points
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadDownvote()+Points.getThreadUpvote());
+                    
                     break;
                 default:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
                     currentThread.setVotes(currentThread.getVotes()+1);
                     td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
+                    
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadUpvote());
                     break;
             }
+            
+            ud.updateUser(currentThreadUser);
             out.write(currentThread.getVotes()+";"+retVal);
         }
     }

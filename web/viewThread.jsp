@@ -241,8 +241,11 @@
                 else {
                     var ele = document.getElementById("reply_to");
                     ele.value = "@"+postID+";"+uname;
-                    $(document).ready(function() {
                     
+                    $(document).ready(function() {
+                        //show reply_to
+                        $('#reply_to').show();
+                        
                         //show username in froala
                         $('#froala-editor').froalaEditor('html.set',
                         '<span class="reply-to-username fr-deletable" contenteditable="false">@'+uname+'</span> <span contenteditable="true"> </span>');

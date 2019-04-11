@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import pojos.Points;
+import pojos.User;
 
 /**
  *
@@ -43,6 +46,8 @@ public class ThreadDownvoteController extends HttpServlet {
             String username =  user.getUsername();
             String message="";
             int retVal = -1;
+            UserDAO ud = new UserDAO();
+            User currentThreadUser = ud.fetchUser(currentThread.getUsername());
             
             int doesExist = dao.ThreadVotesDAO.doesExist(threadID, username);
             switch (doesExist) {
@@ -51,18 +56,28 @@ public class ThreadDownvoteController extends HttpServlet {
                     currentThread.setVotes(currentThread.getVotes()+1);
                     td.updateThreadVotes(threadID, currentThread.getVotes());
                     retVal = 0;
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadDownvote());
+
                     break;
                 case 1:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
                     currentThread.setVotes(currentThread.getVotes()-2);
                     td.updateThreadVotes(threadID, currentThread.getVotes());
+                    
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadUpvote()-Points.getThreadDownvote());
                     break;
                 default:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
                     currentThread.setVotes(currentThread.getVotes()-1);
                     td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
+                    
+                    currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadDownvote());
                     break;
             }
+            
+            
+            ud.updateUser(currentThreadUser);
+            
             out.write(currentThread.getVotes()+";"+retVal);
         }
     }
