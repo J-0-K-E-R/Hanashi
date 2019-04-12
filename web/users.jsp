@@ -12,14 +12,10 @@
         <%@include file="/header.jsp"%>
     </head>
     <body>
-        <% 
-            
-            ArrayList ut = (ArrayList <User>)session.getAttribute("usersList");
-            if(ut == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/UsersList");
-                rd.forward(request, response);
-            }
-
+        <%
+            dao.UserDAO ud = new dao.UserDAO();
+            ArrayList<User> usersList = ud.fetchUserList();
+            session.setAttribute("usersList", usersList);
         %>
         <div id="main" class="main">
         <div id="users-list-wrapper">
