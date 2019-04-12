@@ -94,6 +94,7 @@ public class TagsDAO {
             
             for(String tag: tags) {
                 if(doesExist(tag)) {
+                    System.out.println("Log:::: Removing Tag: "+tag);
                     deleteTagsStatement = conn.prepareStatement("update tags set count = count - 1 where tag=?");
                     deleteTagsStatement.setString(1, tag);
                     deleteTagsStatement.executeUpdate();

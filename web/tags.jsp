@@ -87,11 +87,9 @@
     <body>
         <% 
             
-            ArrayList<Tag> tagsList = (ArrayList<Tag>)session.getAttribute("tagsList");
-            if(tagsList == null) {
-                RequestDispatcher rd = request.getRequestDispatcher("/TagsList");
-                rd.forward(request, response);
-            }
+            dao.TagsDAO td = new dao.TagsDAO();
+            ArrayList<Tag> tagsList = td.fetchTags();
+            session.setAttribute("tagsList", tagsList);
 
         %>
         <div id="main" class="main">
