@@ -365,9 +365,14 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     padding: 5px;
 }
 
-#all-threads-container #thread-title,#user-threads #thread-title {
-    font-size: 15px;
-    color: green;
+#all-threads-container #thread-title a,#user-threads #thread-title a{
+    font-size: 18px;
+    color: darkblue;
+}
+
+#all-threads-container .username a {
+    float: right;
+    color: blueviolet;
 }
 
 /* The side navigation menu */

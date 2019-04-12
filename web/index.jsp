@@ -38,6 +38,7 @@
             <div id='thread-container'>
                 <div id='votes'> Votes: <%= thread.getVotes() %></div>
                 <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+                <div id="username" class="username"><a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
                 <div id='timestamp'><%= DateService.relativeDate(thread.getTimestampModified()) %></div>
             </div>
             <% } %>
