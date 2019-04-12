@@ -82,6 +82,10 @@
         <servlet-name>PostDownvoteController</servlet-name>
         <servlet-class>controller.PostDownvoteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FollowTagUpdateController</servlet-name>
+        <servlet-class>controller.FollowTagUpdateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -149,6 +153,10 @@
     <servlet-mapping>
         <servlet-name>PostDownvoteController</servlet-name>
         <url-pattern>/PostDownvote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FollowTagUpdateController</servlet-name>
+        <url-pattern>/FollowTag</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

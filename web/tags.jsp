@@ -39,21 +39,46 @@
             function isFollowing(tag) {
                 var tag_btn = document.getElementById("follow-tag-"+tag);
                 if(<%=isLoggedIn%> === true) {
-                    
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            var res = JSON.parse(this.responseText);
+                            if(res.doesExist) 
+                                tag_btn.value = "Unfollow";
+                            else 
+                                tag_btn.value = "Follow";
+                                
+                        }
+                    };
+                    xhttp.open("GET", "/Hanashi/TagFollowed?tag="+tag, true);
+                    xhttp.send();
                 }
                 else {
                     tag_btn.value = "Follow";
                 }
             }
             
-            function followTag() {
+            function followTag(tag) {
                 if(<%=isLoggedIn%> === false) {
                     $(function () {
                         $('#login-pop').popover('toggle');
                     });
                 }
                 else {
-                    
+                    var tag_btn = document.getElementById("follow-tag-"+tag);
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            var res = JSON.parse(this.responseText);
+                            if(res.doesExist) 
+                                tag_btn.value = "Unfollow";
+                            else 
+                                tag_btn.value = "Follow";
+                                
+                        }
+                    };
+                    xhttp.open("GET", "/Hanashi/FollowTag?tag="+tag, true);
+                    xhttp.send();
                 }
             }
         </script>
@@ -76,7 +101,7 @@
                 <%
                     for(Tag tag: (ArrayList<Tag>)session.getAttribute("tagsList")) {
                 %>
-                <div class="tag-div">
+                <div class="tag-div" onclick='isFollowing("<%= tag.getTag() %>");'>
                     <a href="#/"
                        id='<%= tag.getTag() %>'
                        class="pop tag-name"
@@ -84,10 +109,9 @@
                        data-toggle="popover"
                        title="<%= tag.getTag() %>"
                        data-placement="bottom"
-                       data-content=
-                       "<input type='button' id='follow-tag-<%= tag.getTag() %>' value='...' onclick='followTag();'>"
-                       onclick='isFollowing("<%= tag.getTag() %>");'>
-                        <%= tag.getTag() %>
+                       data-content="<input type='button' id='follow-tag-<%= tag.getTag() %>' value='...' onclick='followTag(&quot;<%= tag.getTag() %>&quot;);'>"
+                        >
+                        <span > <%= tag.getTag() %> </span>
                     </a>
                     <span class="tag-count-span">
                         <span class="tag-count-x"> x </span>

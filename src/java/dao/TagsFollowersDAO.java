@@ -18,6 +18,7 @@ import utilities.DBUtil;
  */
 public class TagsFollowersDAO {
     private PreparedStatement insertStatement;
+    private PreparedStatement deleteStatement;
     
     public String addFollower(String tag, String username) {
         String message="";
@@ -37,6 +38,30 @@ public class TagsFollowersDAO {
             message = ex.getMessage();
         } finally {
             DBUtil.close(insertStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
+    
+    public String removeFollower(String tag, String username) {
+        String message="";
+        Connection conn = null;
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            deleteStatement = conn.prepareStatement("delete from tags_followers where tag=? and username=?");            
+            deleteStatement.setString(1, tag);
+            deleteStatement.setString(2, username);
+            deleteStatement.executeUpdate();
+            message="Done";
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
+            message = ex.getMessage();
+        } finally {
+            DBUtil.close(deleteStatement);
             DBUtil.close(conn);
         }
         
