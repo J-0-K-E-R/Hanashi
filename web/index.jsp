@@ -14,41 +14,23 @@
         <%@include file="/header.jsp"%>
         
         <% 
-            if(session.getAttribute("threads") == null) {
-                request.getRequestDispatcher("/FetchAllThreads").forward(request, response);
-            }
+            dao.ThreadDAO td = new dao.ThreadDAO();
+            ArrayList<pojos.Thread> threadsList = td.fetchAllThreads();
+            
+            session.setAttribute("threads", threadsList);
         %>
-        
-        <script>
-            
-            function onIndexPageLoad() {
-                $(document).ready(
-                        function() {
-                            if(<%=session.getAttribute("isLoggedIn")%>) {
-                                $("#userQuestion").show();
-                        $("#guestQuestion").hide();
-                    }
-                    else {
-                        
-                        $("#guestQuestion").show();
-                        $("#userQuestion").hide();                
-                    }
-                });
-            }
-        </script>
-            
+
     </head>
     
-    <body onload="onIndexPageLoad()">
+    <body>
         
         <div id="main" class="main">
 
         
         <div id="all-threads-container">
             <div id="sortby" class="nav ">
-                <a href="#" class="btn btn-default btn-active"> Time </a>
-                <a href="#" class="btn btn-default"> Relevance </a>
-                <a href="#" class="btn btn-default"> Popularity </a>
+                <a href="#" class="btn btn-default btn-active"> Newest </a>
+                <a href="#" class="btn btn-default"> Popular </a>
             </div>
             <%
                 for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("threads")) {
