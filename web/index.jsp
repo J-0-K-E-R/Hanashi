@@ -15,8 +15,26 @@
         
         <% 
             dao.ThreadDAO td = new dao.ThreadDAO();
-            ArrayList<pojos.Thread> threadsList = td.fetchAllThreads();
+            String query;
+            try {
+                query = request.getQueryString().split("=")[1].trim();
+                if(!query.equals("Votes") && !query.equals("Timestamp_Modified")) {
+                    System.out.println("Log ::::: Unknown sort by +"+query);
+                    query="";
+                }
+                else {
+                    System.out.println("Log :::: sort by " + query);
+                }
+            } catch(Exception e) {
+                query="";
+            }
             
+            
+            ArrayList<pojos.Thread> threadsList;
+            if(query.equals(""))
+                threadsList = td.fetchAllThreads();
+            else
+                threadsList = td.fetchAllThreads(query);
             session.setAttribute("threads", threadsList);
         %>
 
@@ -29,8 +47,8 @@
         
         <div id="all-threads-container">
             <div id="sortby" class="nav ">
-                <a href="#" class="btn btn-default btn-active"> Newest </a>
-                <a href="#" class="btn btn-default"> Popular </a>
+                <a href="/Hanashi/index.jsp?sortby=Timestamp_Modified" class="btn btn-default btn-active"> Newest </a>
+                <a href="/Hanashi/index.jsp?sortby=Votes" class="btn btn-default"> Popular </a>
             </div>
             <%
                 for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("threads")) {

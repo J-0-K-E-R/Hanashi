@@ -29,6 +29,7 @@ public class ThreadDAO {
     private PreparedStatement createThreadStatement;
     private PreparedStatement updateThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
+    private PreparedStatement fetchThreadsStatement;
     private PreparedStatement fetchUserThreadsStatement;
     private PreparedStatement updateVotesStatement;
     
@@ -126,7 +127,7 @@ public class ThreadDAO {
         return thread;
     }
     
-     public ArrayList<Thread> fetchAllThreads() {
+    public ArrayList<Thread> fetchAllThreads() {
         ArrayList<Thread> threads = new ArrayList<>();
         Thread thread;
         Connection conn = null;
@@ -135,9 +136,9 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("select * from threads order by Votes desc limit 50");
+            fetchThreadsStatement = conn.prepareStatement("select * from threads order by Votes desc limit 50");
             
-            rs = fetchThreadIDStatement.executeQuery();
+            rs = fetchThreadsStatement.executeQuery();
             while(rs.next()) {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));
@@ -155,12 +156,49 @@ public class ThreadDAO {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             DBUtil.close(rs);
-            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(fetchThreadsStatement);
             DBUtil.close(conn);
         }
         
         return threads;
     }
+    
+    public ArrayList<Thread> fetchAllThreads(String sortby) {
+        ArrayList<Thread> threads = new ArrayList<>();
+        Thread thread;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchThreadsStatement = conn.prepareStatement("select * from threads order by "+sortby+" desc limit 50");
+            
+            rs = fetchThreadsStatement.executeQuery();
+            while(rs.next()) {
+                thread = new Thread();
+                thread.setThreadID(rs.getInt("Thread_ID"));
+                thread.setTitle(rs.getString("Title"));
+//                thread.setPost(rs.getString("Post"));
+                thread.setTagsList(rs.getString("Tags_List"));
+                thread.setUsername(rs.getString("Username"));
+                thread.setVotes(rs.getInt("Votes"));
+                thread.setTimestampCreated(rs.getTimestamp("Timestamp_Created").getTime());
+                thread.setTimestampModified(rs.getTimestamp("Timestamp_Modified").getTime());
+                threads.add(thread);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadsStatement);
+            DBUtil.close(conn);
+        }
+        
+        return threads;
+    }
+    
      public ArrayList<Thread> fetchUserThreads(String profileUsername) {
         ArrayList<Thread> threads = new ArrayList<>();
         Thread thread;
