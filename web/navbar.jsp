@@ -40,7 +40,7 @@
                        title="<img src='/Hanashi/images/logoD.png' id='popover-logo'>"
                        data-placement="bottom"
                        data-content="<form action='/Hanashi/Login' method='post'>
-                       <input type='text' name='Username' placeholder='Username' required autofocus>
+                       <input type='text' name='Username' placeholder='Username' maxlength='16' required autofocus>
                        <input type='password' name='Password' placeholder='Password' required>
                        <div id = 'recaptcha-div'></div> <br>
                        <input type='submit' value='Log In'>

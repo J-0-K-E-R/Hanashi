@@ -35,7 +35,7 @@
         <span id="alertError" class='alert alert-danger' hidden> ${errorMessage} </span>
         <form action="/Hanashi/Login" method="post">
             <h3>Login</h3> <br>
-            <input type="text" name="Username" placeholder="Username" required> <br>
+            <input type="text" name="Username" placeholder="Username" maxlength="16" required> <br>
             <input type="password" name="Password" placeholder="Password" required> <br>
             <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div> <br>
 

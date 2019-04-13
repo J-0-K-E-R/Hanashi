@@ -106,6 +106,8 @@
             
             function validateUser() {
                 var uname = document.getElementById("uname").value;
+                var unametext = document.getElementById("uname");
+               
                 if(uname === "") 
                     $("#validateUserAlert").hide();
                 else 
@@ -117,7 +119,24 @@
                 }
                 else {
                     var span = document.getElementById("validateUserAlert");
+//                    unametext.value = uname.slice(0, -1);
                     span.innerHTML = "Invalid Username";
+                    span.className = "alert alert-danger";
+                }
+            }
+            
+            function validateEmail() {
+                var mail = document.getElementById("email").value;
+               
+                if(mail === "") 
+                    $("#validateEmailAlert").hide();
+                else 
+                    $("#validateEmailAlert").show();
+                if (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(mail)) {
+                    $("#validateEmailAlert").hide();
+                } else {
+                    var span = document.getElementById("validateEmailAlert");
+                    span.innerHTML = "Invalid Email";
                     span.className = "alert alert-danger";
                 }
             }
@@ -135,7 +154,8 @@
                 <h3> Sign Up </h3>
                 <input type="text" id="uname" name="Username" placeholder="Username" maxlength="16" onkeyup="validateUser();" required> 
                 <span id="validateUserAlert" hidden> </span><br>
-                <input type="text" name="Email" placeholder="Email" required><br>
+                <input type="text" id="email" name="Email" placeholder="Email" maxlength="50" onkeyup="validateEmail()" required>
+                <span id="validateEmailAlert" hidden> </span><br>
                 <div id="password-div">
                     <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required><span id="password-strength-text"></span> <br>
                     <meter max="4" id="password-strength-meter"></meter> 
