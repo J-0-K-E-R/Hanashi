@@ -81,31 +81,47 @@
         </script>
         
         <script>
-            function alreadyExists() {
-                var uname = document.getElementById("uname").value;
-                if(uname === "") {
-                    $("#alertUsernameExists").hide();
-                }
-                else {
-                    $("#alertUsernameExists").show();
-                }
+            function alreadyExists(uname) {
                 
                 var xhttp = new XMLHttpRequest();
-                var span = document.getElementById("alertUsernameExists");
+                var span = document.getElementById("validateUserAlert");
                 xhttp.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
-                        span.innerHTML = this.responseText;
-                        if(this.responseText === "<span> Available </span>") {
+                        var res = JSON.parse(this.responseText);
+                        if(!res.doesExist) {
+                            span.innerHTML = "Available";
                             span.className = "alert alert-success";
                         }
                         else {
+                            span.innerHTML = "Not Available";
                             span.className = "alert alert-danger";
                         }
+                        return res.doesExist();
                     }
                 };
                 xhttp.open("GET", "/Hanashi/UsernameExists?uname="+uname, true);
                 xhttp.send();
             }
+            
+            
+            function validateUser() {
+                var uname = document.getElementById("uname").value;
+                if(uname === "") 
+                    $("#validateUserAlert").hide();
+                else 
+                    $("#validateUserAlert").show();
+                
+                var unameregex = /^[a-zA-Z0-9_]+$/;
+                if(unameregex.test(uname) === true) {
+                    alreadyExists(uname);
+                }
+                else {
+                    var span = document.getElementById("validateUserAlert");
+                    span.innerHTML = "Invalid Username";
+                    span.className = "alert alert-danger";
+                }
+            }
+            
         </script>
         
         
@@ -117,8 +133,8 @@
             <span id="alertError" class='alert alert-danger' hidden>  ${errorMessage} </span>
             <form  action="/Hanashi/SignUp" method="post">
                 <h3> Sign Up </h3>
-                <input type="text" id="uname" name="Username" placeholder="Username" onkeyup="alreadyExists();" required> 
-                <span id="alertUsernameExists" hidden> </span><br>
+                <input type="text" id="uname" name="Username" placeholder="Username" maxlength="16" onkeyup="validateUser();" required> 
+                <span id="validateUserAlert" hidden> </span><br>
                 <input type="text" name="Email" placeholder="Email" required><br>
                 <div id="password-div">
                     <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required><span id="password-strength-text"></span> <br>

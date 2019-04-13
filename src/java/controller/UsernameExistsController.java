@@ -32,17 +32,16 @@ public class UsernameExistsController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             UserDAO ud = new UserDAO();
             User user = ud.fetchUser(request.getParameter("uname"));
+            boolean doesExist = (user != null);
             
-            if(user == null) {
-                out.write("<span> Available </span>");
-            }
-            else {
-                out.write("<span> Not available </span>");
-            }
+            String outString = "{\"doesExist\": "+ doesExist +"}";
+            
+            out.print(outString);
+            out.flush();
             
         }
     }

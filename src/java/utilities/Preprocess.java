@@ -37,10 +37,7 @@ class Stopwords {
             return true;
         if(word.charAt(0) >= '0' && word.charAt(0) <= '9')
             return true; //remove numbers, "25th", etc
-        if(stopWordSet.contains(word))
-            return true;
-        else
-            return false;
+        return stopWordSet.contains(word);
     }
     
     public static String removeStopWords(String string) {
@@ -116,6 +113,7 @@ class Stemmer {
      * reference to the internal buffer can be retrieved by getResultBuffer and
      * getResultLength (which is generally more efficient.)
      */
+    @Override
     public String toString() {
         return new String(b, 0, i_end);
     }
