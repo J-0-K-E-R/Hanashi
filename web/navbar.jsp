@@ -17,9 +17,9 @@
             <a href="/Hanashi/index.jsp" class="navbar-brand">Hanashi</a>
         </div>
         
-        <div class="nav nav-item col-sm-3 col-md-3">
+        <div class="nav nav-item col-sm-4 col-md-4">
             <form class="navbar-form" role="search">
-                <div class="input-group">
+                <div class="input-group col-sm-9 col-md-9">
                     <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
