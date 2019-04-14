@@ -57,8 +57,8 @@ public class PostDownvoteController extends HttpServlet {
                     pd.updatePostVotes(postID, currentPost.getVotes());
                     retVal = 0;
                     if(!username.equals(currentPostUser.getUsername())) {
-                        currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote());
-                        user.setPoints(user.getPoints()+Points.getSelfDownvote());
+                        currentPostUser.setPoints(Math.max(1, currentPostUser.getPoints()+Points.getPostDownvote()));
+                        user.setPoints(Math.max(1, user.getPoints()+Points.getSelfDownvote()));
                     }
                     break;
                 case 1:
@@ -67,8 +67,8 @@ public class PostDownvoteController extends HttpServlet {
                     pd.updatePostVotes(postID, currentPost.getVotes());
                     
                     if(!username.equals(currentPostUser.getUsername())) {
-                        currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote()-Points.getPostUpvote());
-                        user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                        currentPostUser.setPoints(Math.max(1, currentPostUser.getPoints()-Points.getPostDownvote()-Points.getPostUpvote()));
+                        user.setPoints(Math.max(1, user.getPoints()-Points.getSelfDownvote()));
                     }
                     break;
                 default:
@@ -77,8 +77,8 @@ public class PostDownvoteController extends HttpServlet {
                     pd.updatePostVotes(currentPost.getPostID(), currentPost.getVotes());
                     
                     if(!username.equals(currentPostUser.getUsername())) {
-                        currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote());
-                        user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                        currentPostUser.setPoints(Math.max(1, currentPostUser.getPoints()-Points.getPostDownvote()));
+                        user.setPoints(Math.max(1, user.getPoints()-Points.getSelfDownvote()));
                     }
                     break;
             }

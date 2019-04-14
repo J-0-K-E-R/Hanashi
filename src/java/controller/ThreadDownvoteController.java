@@ -57,7 +57,7 @@ public class ThreadDownvoteController extends HttpServlet {
                     td.updateThreadVotes(threadID, currentThread.getVotes());
                     retVal = 0;
                     if(!username.equals(currentThreadUser.getUsername()))
-                        currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadDownvote());
+                        currentThreadUser.setPoints(Math.max(1, currentThreadUser.getPoints()+Points.getThreadDownvote()));
 
                     break;
                 case 1:
@@ -65,14 +65,14 @@ public class ThreadDownvoteController extends HttpServlet {
                     currentThread.setVotes(currentThread.getVotes()-2);
                     td.updateThreadVotes(threadID, currentThread.getVotes());
                     if(!username.equals(currentThreadUser.getUsername()))
-                        currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadUpvote()-Points.getThreadDownvote());
+                        currentThreadUser.setPoints(Math.max(1, currentThreadUser.getPoints()-Points.getThreadUpvote()-Points.getThreadDownvote()));
                     break;
                 default:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , -1);
                     currentThread.setVotes(currentThread.getVotes()-1);
                     td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
                     if(!username.equals(currentThreadUser.getUsername()))
-                        currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadDownvote());
+                        currentThreadUser.setPoints(Math.max(1, currentThreadUser.getPoints()-Points.getThreadDownvote()));
                     break;
             }
             
