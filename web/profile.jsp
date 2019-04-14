@@ -32,7 +32,7 @@
                 rd.forward(request, response);
             }
             else if(user != null && user.getUsername().equals(username)) {
-                RequestDispatcher rd = request.getRequestDispatcher("/selfprofile.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/myprofile/"+username);
                 rd.forward(request, response);                
             }
             else {

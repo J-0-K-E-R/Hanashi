@@ -18,8 +18,17 @@
             
             User proUser = (User)session.getAttribute("user");
             if(proUser == null) {
+                String uri = request.getRequestURI();
+                String username = null;
+                try {
+                    username = uri.split("/")[3];              
+                }
+                catch(Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
                 System.out.println("Log:::::: User not logged in!");
-                response.sendRedirect("/Hanashi/index.jsp");
+                request.getRequestDispatcher("/users/"+username).forward(request, response);
             }
             else {
                 System.out.println("Log::::: Current Profile Found");
