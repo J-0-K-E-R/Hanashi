@@ -56,25 +56,30 @@ public class PostDownvoteController extends HttpServlet {
                     currentPost.setVotes(currentPost.getVotes()+1);
                     pd.updatePostVotes(postID, currentPost.getVotes());
                     retVal = 0;
-                    
-                    currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote());
-                    user.setPoints(user.getPoints()+Points.getSelfDownvote());
+                    if(!username.equals(currentPostUser.getUsername())) {
+                        currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote());
+                        user.setPoints(user.getPoints()+Points.getSelfDownvote());
+                    }
                     break;
                 case 1:
                     message =  dao.PostVotesDAO.votePost(postID, username , -1);
                     currentPost.setVotes(currentPost.getVotes()-2);
                     pd.updatePostVotes(postID, currentPost.getVotes());
                     
-                    currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote()-Points.getPostUpvote());
-                    user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                    if(!username.equals(currentPostUser.getUsername())) {
+                        currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote()-Points.getPostUpvote());
+                        user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                    }
                     break;
                 default:
                     message =  dao.PostVotesDAO.votePost(postID, username , -1);
                     currentPost.setVotes(currentPost.getVotes()-1);
                     pd.updatePostVotes(currentPost.getPostID(), currentPost.getVotes());
                     
-                    currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote());
-                    user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                    if(!username.equals(currentPostUser.getUsername())) {
+                        currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostDownvote());
+                        user.setPoints(user.getPoints()-Points.getSelfDownvote());
+                    }
                     break;
             }
             

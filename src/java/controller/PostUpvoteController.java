@@ -57,29 +57,33 @@ public class PostUpvoteController extends HttpServlet {
                     currentPost.setVotes(currentPost.getVotes()-1);
                     pd.updatePostVotes(postID, currentPost.getVotes());
                     
-                    
-                    currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostUpvote());
+                    if(!username.equals(currentPostUser.getUsername())) 
+                        currentPostUser.setPoints(currentPostUser.getPoints()-Points.getPostUpvote());
                     retVal = 0;
                     break;
                 case -1:
                     message =  dao.PostVotesDAO.votePost(postID, username , 1);
                     currentPost.setVotes(currentPost.getVotes()+2);
                     pd.updatePostVotes(postID, currentPost.getVotes());
-                    user.setPoints(user.getPoints()+Points.getSelfDownvote());
-                    currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote()+Points.getPostUpvote());
                     
-                    ud.updateUser(user);
+                    if(!username.equals(currentPostUser.getUsername())) {
+                        user.setPoints(user.getPoints()+Points.getSelfDownvote());
+                        currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostDownvote()+Points.getPostUpvote());
+                    }
                     break;
                 default:
                     message =  dao.PostVotesDAO.votePost(postID, username , 1);
                     currentPost.setVotes(currentPost.getVotes()+1);
                     pd.updatePostVotes(currentPost.getPostID(), currentPost.getVotes());
                     
-                    currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostUpvote());
+                    if(!username.equals(currentPostUser.getUsername())) {
+                        currentPostUser.setPoints(currentPostUser.getPoints()+Points.getPostUpvote());
+                    }
                     break;
             }
             
             ud.updateUser(currentPostUser);
+            ud.updateUser(user);
             
             out.write(currentPost.getVotes()+";"+retVal);
         }

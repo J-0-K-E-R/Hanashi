@@ -59,7 +59,8 @@ public class ThreadUpvoteController extends HttpServlet {
                     retVal = 0;
                     
                     // Nullify user points
-                    currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadUpvote());
+                    if(!username.equals(currentThreadUser.getUsername()))
+                        currentThreadUser.setPoints(currentThreadUser.getPoints()-Points.getThreadUpvote());
                     break;
                 case -1:
                     message =  dao.ThreadVotesDAO.voteThread(threadID, username , 1);
@@ -67,7 +68,8 @@ public class ThreadUpvoteController extends HttpServlet {
                     td.updateThreadVotes(threadID, currentThread.getVotes());
                     
                     // Increment user points
-                    currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadDownvote()+Points.getThreadUpvote());
+                    if(!username.equals(currentThreadUser.getUsername()))
+                        currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadDownvote()+Points.getThreadUpvote());
                     
                     break;
                 default:
@@ -75,7 +77,8 @@ public class ThreadUpvoteController extends HttpServlet {
                     currentThread.setVotes(currentThread.getVotes()+1);
                     td.updateThreadVotes(currentThread.getThreadID(), currentThread.getVotes());
                     
-                    currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadUpvote());
+                    if(!username.equals(currentThreadUser.getUsername()))
+                        currentThreadUser.setPoints(currentThreadUser.getPoints()+Points.getThreadUpvote());
                     break;
             }
             
