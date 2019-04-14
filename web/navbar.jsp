@@ -42,12 +42,11 @@
                        data-content="<form action='/Hanashi/Login' method='post'>
                        <input type='text' name='Username' placeholder='Username' maxlength='16' required autofocus>
                        <input type='password' name='Password' placeholder='Password' required>
-                       <div id = 'recaptcha-div'></div> <br>
+                       <div id = 'recaptcha-div' style=''></div> 
                        <input type='submit' value='Log In'>
                        </form>
-                       
-<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer>
-</script>">
+                       <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit' async defer></script>"
+                       >
                         
                         <span class="glyphicon glyphicon-log-in"></span>
                         Log In

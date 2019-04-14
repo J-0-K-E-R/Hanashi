@@ -40,8 +40,9 @@ body {
 /* Popover */
 .popover {
     border: 2px solid #0481ff;
+    padding: 0;
     max-width: 800px;
-    width:350px;
+    width:260px;;
     /*height:400px;*/
     background-color: #454545;
 }
@@ -60,13 +61,26 @@ body {
 .popover-content {
     background-color: #454545;
     color: #0481ff;
-    padding: 25px;
+    padding: 10px;
     text-align: center;
+}
+
+.popover-content input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.popover-content #recaptcha-div {
+    transform:scale(0.77);
+    -webkit-transform:scale(0.77);
+    transform-origin:0 0;
+    -webkit-transform-origin:0 0;
 }
 
 #popover-logo {
     width: 140px;
     height: 140px;
+    text-align: center;
     padding: 10px;
 }
 
