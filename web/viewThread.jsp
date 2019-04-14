@@ -306,13 +306,13 @@
                 <div class="post-container" id='<%= post.getPostID() %>'>
                     <div class="post-header">
                         <div class="votes-div">
-                            <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostUpvote');">
-                                <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
-                            </a>    
-                            <span class="votes-span" id="votes-span-<%= post.getPostID() %>"> <%= post.getVotes() %> </span>
                             <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
                                 <span id="minus-sign-<%= post.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
-                            </a>
+                            </a>   
+                            <span class="votes-span" id="votes-span-<%= post.getPostID() %>"> <%= post.getVotes() %> </span>
+                            <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostUpvote');">
+                                <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
+                            </a>                             
                         </div>
                         
                         <div class='user'> <%= post.getUsername()  %>  
@@ -355,12 +355,12 @@
                             
                             <div class="post-header">
                                 <div class="votes-div">
-                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
-                                        <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
-                                    </a>    
-                                    <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
                                     <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
                                         <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
+                                    </a>    
+                                    <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
+                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
+                                        <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
                                     </a>
                                 </div>
                         
