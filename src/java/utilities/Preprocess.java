@@ -13,12 +13,18 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
+import org.jsoup.Jsoup;
 
 
 
 public class Preprocess {
+    
+    public static String htmlToText(String html) {
+        return Jsoup.parse(html).text();
+    }
+    
     public static String preprocess (String text) {
-        String result = "";
+        String result;
         text = Stopwords.removeStopWords(text);
         result = Stemmer.stem(text);
         return result;

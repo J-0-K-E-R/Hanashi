@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import pojos.Post;
 import utilities.DBUtil;
+import utilities.Preprocess;
 
 /**
  *
@@ -24,11 +25,14 @@ public class PostDAO {
     private PreparedStatement editPostStatement;
     private PreparedStatement fetchPostsStatement;
     private PreparedStatement updateVotesStatement;
+    private PreparedStatement fetchPostIDStatement;
 
     
     public String addNewPost(Post post) {
         String message;
         Connection conn = null;
+        
+        post.setPostID(getNextPostID());
         
         try {
             //Set up connection
@@ -51,6 +55,7 @@ public class PostDAO {
             createPostStatement.executeUpdate();
             
             message = "Done";
+            addProcessedPost(post);
             
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
@@ -60,7 +65,32 @@ public class PostDAO {
             DBUtil.close(conn);
         }
         return message;
-    }    
+    }
+
+    public int getNextPostID() {
+        int tid = -1;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchPostIDStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND   TABLE_NAME   = 'posts';");
+            
+            rs = fetchPostIDStatement.executeQuery();
+            if(rs.next()) {
+                tid = rs.getInt("AUTO_INCREMENT");
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostIDStatement);
+            DBUtil.close(conn);
+        }
+        return tid;
+    }
     
     public ArrayList<pojos.Post> fetchPosts(int threadID) {
         ArrayList<Post> posts = new ArrayList<>();
@@ -161,6 +191,7 @@ public class PostDAO {
             editPostStatement.executeUpdate();
             
             message = "Done";
+            updateProcessedPost(post);
             
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
@@ -234,4 +265,109 @@ public class PostDAO {
         return posts;
     }
     
+    public String addProcessedPost(Post post) {
+        String message;
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            createPostStatement = conn.prepareStatement("insert into processed_posts("
+                    + "Thread_ID,"
+                    + "Post,"
+                    + "Username,"
+                    + "Post_ID"
+                    + ") values(?, ?, ?, ?)");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            createPostStatement.setInt(1, post.getThreadID());
+            createPostStatement.setString(2, Preprocess.preprocess(Preprocess.htmlToText(post.getPost())));
+            createPostStatement.setString(3, post.getUsername());
+            createPostStatement.setInt(4, post.getPostID());
+            createPostStatement.executeUpdate();
+            
+            message = "Done";
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getMessage();
+        } finally {
+            DBUtil.close(createPostStatement);
+            DBUtil.close(conn);
+        }
+        return message;
+    }    
+    
+    public String updateProcessedPost(Post post) {       
+        String message;
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            
+            //Create the preparedstatement(s)
+            editPostStatement = conn.prepareStatement("update posts set "
+                    + "Post = ? "
+                    + "where Post_ID=?;");
+            
+            
+            editPostStatement.setString(1, Preprocess.preprocess(Preprocess.htmlToText(post.getPost())));
+            editPostStatement.setInt(2, post.getPostID());
+            editPostStatement.executeUpdate();
+            
+            message = "Done";
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getMessage();
+        } finally {
+            DBUtil.close(editPostStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
+    
+    public ArrayList<pojos.Post> fetchAllPosts() {
+        ArrayList<Post> posts = new ArrayList<>();
+        Post post;
+        Connection conn = null;
+        ResultSet rs = null;
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchPostsStatement = conn.prepareStatement("select * from posts;");
+            
+            rs = fetchPostsStatement.executeQuery();
+            while(rs.next()) {
+                post = new Post();
+                post.setThreadID(rs.getInt("Thread_ID"));
+                post.setPostID(rs.getInt("Post_ID"));
+                post.setPost(rs.getString("Post"));
+                post.setReplyTo(rs.getString("Reply_to"));
+                post.setUsername(rs.getString("Username"));
+                post.setVotes(rs.getInt("Votes"));
+                post.setTimestampCreated(rs.getTimestamp("Timestamp_Created").getTime());
+                post.setTimestampModified(rs.getTimestamp("Timestamp_Modified").getTime());
+                posts.add(post);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostsStatement);
+            DBUtil.close(conn);
+        }
+        
+        return posts;
+    }
 }

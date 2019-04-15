@@ -13,13 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpSession;
 import pojos.Thread;
-import pojos.User;
 
 import utilities.DBUtil;
+import utilities.Preprocess;
 
 /**
  *
@@ -57,7 +54,7 @@ public class ThreadDAO {
             createThreadStatement.executeUpdate();
             
             returnThread = this.fetchThread(thread.getThreadID());
-            
+            addNewThread(returnThread);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -143,7 +140,7 @@ public class ThreadDAO {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));
                 thread.setTitle(rs.getString("Title"));
-//                thread.setPost(rs.getString("Post"));
+                thread.setPost(rs.getString("Post"));
                 thread.setTagsList(rs.getString("Tags_List"));
                 thread.setUsername(rs.getString("Username"));
                 thread.setVotes(rs.getInt("Votes"));
@@ -179,7 +176,7 @@ public class ThreadDAO {
                 thread = new Thread();
                 thread.setThreadID(rs.getInt("Thread_ID"));
                 thread.setTitle(rs.getString("Title"));
-//                thread.setPost(rs.getString("Post"));
+                thread.setPost(rs.getString("Post"));
                 thread.setTagsList(rs.getString("Tags_List"));
                 thread.setUsername(rs.getString("Username"));
                 thread.setVotes(rs.getInt("Votes"));
@@ -259,6 +256,7 @@ public class ThreadDAO {
             updateThreadStatement.setInt(5, thread.getThreadID());
             updateThreadStatement.executeUpdate();
             returnThread = this.fetchThread(thread.getThreadID());
+            updateProcessedThread(returnThread);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -287,6 +285,77 @@ public class ThreadDAO {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             DBUtil.close(updateVotesStatement);
+            DBUtil.close(conn);
+        }
+    }
+    
+    
+    
+    /*
+     * 
+     * processed_threads operations
+     *
+     */
+    
+    
+    public void addProcessedThread(Thread thread) {
+        Connection conn = null;
+        System.out.println("Log ::::: Adding processed Thread");
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            createThreadStatement = conn.prepareStatement("insert into processed_threads("
+                    + "Thread_ID,"
+                    + "Title,"
+                    + "Post,"
+                    + "Tags_List,"
+                    + "Username"
+                    + ") values(?, ?, ?, ?, ?)");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            
+            createThreadStatement.setInt(1, thread.getThreadID());
+            createThreadStatement.setString(2, thread.getTitle());
+            createThreadStatement.setString(3, Preprocess.preprocess(Preprocess.htmlToText(thread.getPost())));
+            createThreadStatement.setString(4, String.join(" ", thread.getTagsList().split(";")));
+            createThreadStatement.setString(5, thread.getUsername());
+            createThreadStatement.executeUpdate();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(createThreadStatement);
+            DBUtil.close(conn);
+        }
+    }
+    
+    public void updateProcessedThread(Thread thread) {
+        Connection conn = null;
+        System.out.println("Log ::::: Updating processed Thread");
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            //Create the preparedstatement(s)
+            updateThreadStatement = conn.prepareStatement("update  processed_threads set " 
+                    + "Title = ?,"
+                    + "Post = ?,"
+                    + "Tags_List = ? where Thread_ID = ?");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            updateThreadStatement.setString(1, thread.getTitle());
+            updateThreadStatement.setString(2, Preprocess.preprocess(Preprocess.htmlToText(thread.getPost())));
+            updateThreadStatement.setString(3, String.join(" ", thread.getTagsList().split(";")));
+            updateThreadStatement.setInt(4, thread.getThreadID());
+            updateThreadStatement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateThreadStatement);
             DBUtil.close(conn);
         }
     }
