@@ -29,6 +29,7 @@ public class ThreadDAO {
     private PreparedStatement fetchThreadsStatement;
     private PreparedStatement fetchUserThreadsStatement;
     private PreparedStatement updateVotesStatement;
+    private PreparedStatement updateVariableStatement;
     
     public Thread addNewThread(Thread thread) {
         Thread returnThread = null;
@@ -365,18 +366,37 @@ public class ThreadDAO {
         Connection conn = null;
         ResultSet rs = null;
         query = Preprocess.preprocess(query);
+        System.out.println("Log :::: Search Query: " + query);
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement(""
-                    + "SELECT thread_id, MATCH (title,post,tags_list,username) AGAINST (?) as score "
-                    + "FROM processed_threads "
-                    + "WHERE MATCH (title,post,tags_list,username) AGAINST (?) > 0 "
-                    + "ORDER BY score DESC;");
+            updateVariableStatement = conn.prepareStatement("SET @query:=?;");
+            updateVariableStatement.setString(1, query);
+            updateVariableStatement.execute();
             
-            fetchThreadIDStatement.setString(1, query);
-            fetchThreadIDStatement.setString(2, query);
+            fetchThreadIDStatement = conn.prepareStatement("" +
+                    "SELECT " +
+                    "pt.thread_id, " +
+                    "sum(MATCH(pt.post) AGAINST(@query)) as pt_post_score, " +
+                    "sum(MATCH(pt.title) AGAINST(@query)) as pt_title_score, " +
+                    "sum(MATCH(pt.tags_list) AGAINST(@query)) as pt_tag_score, " +
+                    "sum(MATCH(pp.post) AGAINST(@query)) as pp_post_score " +
+                    "FROM processed_posts pp " +
+                    "RIGHT JOIN processed_threads pt " +
+                    "ON pp.thread_id = pt.thread_id " +
+                    "WHERE " +
+                    "(MATCH(pt.post) AGAINST(@query))  " +
+                    "OR (MATCH(pt.title) AGAINST(@query)) " +
+                    "OR (MATCH(pt.tags_list) AGAINST(@query)) " +
+                    "OR (MATCH(pp.post) AGAINST(@query)) " +
+                    "GROUP BY pt.thread_id " +
+                    "ORDER BY " +
+                    "(sum(MATCH(pt.post) AGAINST(@query)) " +
+                    "+ sum(MATCH(pt.title) AGAINST(@query)) " +
+                    "+ sum(MATCH(pt.tags_list) AGAINST(@query)) " +
+                    "+ sum(MATCH(pp.post) AGAINST(@query))) DESC;");
+            
             rs = fetchThreadIDStatement.executeQuery();
             while(rs.next()) {
                 threadIDs.add(rs.getInt("Thread_ID"));
@@ -387,6 +407,7 @@ public class ThreadDAO {
         } finally {
             DBUtil.close(rs);
             DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(updateVariableStatement);
             DBUtil.close(conn);
         }
         return threadIDs;
