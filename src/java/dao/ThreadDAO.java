@@ -359,4 +359,47 @@ public class ThreadDAO {
             DBUtil.close(conn);
         }
     }
+    
+    public ArrayList<Integer> fetchThreadIDs(String query) {
+        ArrayList<Integer> threadIDs = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        query = Preprocess.preprocess(query);
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchThreadIDStatement = conn.prepareStatement(""
+                    + "SELECT thread_id, MATCH (title,post,tags_list,username) AGAINST (?) as score "
+                    + "FROM processed_threads "
+                    + "WHERE MATCH (title,post,tags_list,username) AGAINST (?) > 0 "
+                    + "ORDER BY score DESC;");
+            
+            fetchThreadIDStatement.setString(1, query);
+            fetchThreadIDStatement.setString(2, query);
+            rs = fetchThreadIDStatement.executeQuery();
+            while(rs.next()) {
+                threadIDs.add(rs.getInt("Thread_ID"));
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
+        }
+        return threadIDs;
+    }
+    
+    public ArrayList<Thread> search(String query) {
+        ArrayList<Thread> threads = new ArrayList<>();
+        ArrayList<Integer> tids = fetchThreadIDs(query);
+        
+        tids.forEach((tid) -> {
+            threads.add(fetchThread(tid));
+        });
+        
+        return threads;
+    }
 }

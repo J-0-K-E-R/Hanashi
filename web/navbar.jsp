@@ -18,9 +18,9 @@
         </div>
         
         <div class="nav nav-item col-sm-4 col-md-4">
-            <form class="navbar-form" role="search">
+            <form class="navbar-form" role="search" action="/Hanashi/search">
                 <div class="input-group col-sm-9 col-md-9">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <input type="text" class="form-control" placeholder="Search" name="query" id="query">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                     </div>

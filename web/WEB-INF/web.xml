@@ -90,6 +90,10 @@
         <servlet-name>myprofile</servlet-name>
         <jsp-file>/selfprofile.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <jsp-file>/searchresults.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -165,6 +169,10 @@
     <servlet-mapping>
         <servlet-name>myprofile</servlet-name>
         <url-pattern>/myprofile/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
