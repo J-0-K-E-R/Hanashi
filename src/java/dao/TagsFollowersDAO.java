@@ -97,4 +97,33 @@ public class TagsFollowersDAO {
         
         return answer;
     }
+    
+    public String fetchTags(String username) {
+        String tags = "";
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement fetchResult = null;
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchResult = conn.prepareStatement("SELECT tag FROM tags_followers WHERE username=?;");
+            fetchResult.setString(1, username);
+            
+            rs = fetchResult.executeQuery();
+            while(rs.next()) {
+                tags += rs.getString("tag") + " ";
+            }
+        }
+        catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getClass().getName() + ": " + ex.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchResult);
+            DBUtil.close(conn);
+        }
+        
+        return tags;
+    }
 }
