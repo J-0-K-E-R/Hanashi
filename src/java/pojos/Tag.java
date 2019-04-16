@@ -5,11 +5,13 @@
  */
 package pojos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author robogod
  */
-public class Tag {
+public class Tag implements Serializable {
     private String tag;
     private int count;
 

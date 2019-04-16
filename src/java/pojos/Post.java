@@ -5,13 +5,14 @@
  */
 package pojos;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author robogod
  */
-public class Post {
+public class Post implements Serializable {
     private int postID;
     private int threadID;
     private String post;

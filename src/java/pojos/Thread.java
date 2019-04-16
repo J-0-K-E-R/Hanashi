@@ -6,12 +6,13 @@
 package pojos;
 
 import java.util.Calendar;
+import java.io.Serializable;
 
 /**
  *
- * @author robogod
+ * @author robogod  
  */
-public class Thread {
+public class Thread implements Serializable {
     private int threadID;
     private String title;
     private String post;

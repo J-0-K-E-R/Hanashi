@@ -5,11 +5,13 @@
  */
 package pojos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Joker
  */
-public class User {
+public class User implements Serializable {
 
 	private int Id;
 	private String Username;
