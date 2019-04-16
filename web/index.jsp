@@ -20,7 +20,7 @@
             String query;
             try {
                 query = request.getQueryString().split("=")[1].trim();
-                if(!query.equals("Votes") && !query.equals("Timestamp_Modified")) {
+                if(!query.equals("Votes") && !query.equals("Timestamp_Modified") && !query.equals("Relevance")) {
                     System.out.println("Log ::::: Unknown sort by +"+query);
                     query="";
                 }
@@ -62,7 +62,7 @@
 
         
         <div id="all-threads-container">
-            <div id="sortby" class="nav ">
+            <div id="sortby" class="">
                 <% 
                     if(isLoggedIn) { 
                 %>

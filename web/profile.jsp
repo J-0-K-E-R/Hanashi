@@ -4,6 +4,8 @@
     Author     : Joker
 --%>
 
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Comparator"%>
 <%@page import="utilities.DateService"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.FollowersDAO"%>
@@ -57,6 +59,48 @@
                     session.setAttribute("isFollowing", isFollowing);
                 }
                 
+                dao.ThreadDAO td = new dao.ThreadDAO();
+            
+                
+                String query;
+                try {
+                    query = request.getQueryString().split("=")[1].trim();
+                    if(!query.equals("Votes") && !query.equals("Timestamp_Modified")) {
+                        System.out.println("Log ::::: Unknown sort by +"+query);
+                        query="";
+                    }
+                    else {
+                        System.out.println("Log :::: sort by " + query);
+                    }
+                } catch(Exception e) {
+                    query="";
+                }
+
+
+                // Sort By options on user threads
+                ArrayList<pojos.Thread> threadsList = (ArrayList<pojos.Thread>)session.getAttribute("userThreads");
+                if(query.equals("")) {
+                    
+                }
+                else if(query.equals("Timestamp_Modified")) {
+                    Collections.sort(threadsList, new Comparator<pojos.Thread>() {
+                        @Override
+                        public int compare(pojos.Thread o1, pojos.Thread o2) {
+                            return o1.getTimestampModified().compareTo(o2.getTimestampModified());
+                        }
+                    }.reversed());
+                }
+                else if(query.equals("Votes")) {
+                    Collections.sort(threadsList, new Comparator<pojos.Thread>() {
+                        @Override
+                        public int compare(pojos.Thread o1, pojos.Thread o2) {
+                            int v1 = o1.getVotes();
+                            int v2 = o2.getVotes();
+                            return (v1 == v2) ? 0 : (v1 < v2 ? -1 : 1);
+                        }
+                    }.reversed());
+                }
+                session.setAttribute("userThreads", threadsList); 
 
             }
             
@@ -109,6 +153,10 @@
                 <br style="clear:both;"/>
             </div>
             <div id="user-threads">
+                <div id="sortby">
+                    <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Timestamp_Modified" class="btn btn-default"> Newest </a>
+                    <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Votes" class="btn btn-default"> Popular </a>
+                </div>
                 <%
                     for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("userThreads")) {
                 %>
