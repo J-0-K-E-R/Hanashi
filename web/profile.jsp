@@ -62,6 +62,8 @@
                 dao.ThreadDAO td = new dao.ThreadDAO();
             
                 
+                
+                // Sort By options on user threads
                 String query;
                 try {
                     query = request.getQueryString().split("=")[1].trim();
@@ -76,8 +78,6 @@
                     query="";
                 }
 
-
-                // Sort By options on user threads
                 ArrayList<pojos.Thread> threadsList = (ArrayList<pojos.Thread>)session.getAttribute("userThreads");
                 if(query.equals("")) {
                     
