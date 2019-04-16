@@ -92,7 +92,14 @@ body {
 .pop-useravatar {
     width: 100px;
 }
-/* Table CSS */
+
+/* Search bar css */
+#search_bar {
+    transition: 0.2s;
+}
+
+
+
 #users-list-wrapper {
   position:relative;
   /*border:solid 2px green;*/

@@ -6,6 +6,26 @@
       };
 </script>
 
+<script>
+    function expandBar() {
+        $(document).ready(function () {
+           $("#search_bar").removeClass("col-sm-9"); 
+           $("#search_bar").removeClass("col-md-9"); 
+           $("#search_bar").addClass("col-md-12"); 
+           $("#search_bar").addClass("col-sm-12"); 
+        });
+        
+    }
+    
+    function collapseBar() {
+        $(document).ready(function () {
+           $("#search_bar").addClass("col-sm-9"); 
+           $("#search_bar").addClass("col-md-9"); 
+           $("#search_bar").removeClass("col-md-12"); 
+           $("#search_bar").removeClass("col-sm-12"); 
+        });
+    }
+</script>
 
 <nav class="navbar navbar-inverse mynavbar">
     <div class="container-fluid">
@@ -17,10 +37,10 @@
             <a href="/Hanashi/index.jsp" class="navbar-brand">Hanashi</a>
         </div>
         
-        <div class="nav nav-item col-sm-4 col-md-4">
+        <div class="nav nav-item col-sm-4 col-md-4" >
             <form class="navbar-form" role="search" action="/Hanashi/search">
-                <div class="input-group col-sm-9 col-md-9">
-                    <input type="text" class="form-control" placeholder="Search" name="query" id="query">
+                <div class="input-group col-sm-9 col-md-9"  id="search_bar">
+                    <input type="text" class="form-control" onclick="expandBar();" onblur="collapseBar();" placeholder="Search" name="query" id="query">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                     </div>
