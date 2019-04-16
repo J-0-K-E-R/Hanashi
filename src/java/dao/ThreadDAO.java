@@ -55,7 +55,7 @@ public class ThreadDAO {
             createThreadStatement.executeUpdate();
             
             returnThread = this.fetchThread(thread.getThreadID());
-            addNewThread(returnThread);
+            addProcessedThread(returnThread);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
@@ -319,7 +319,7 @@ public class ThreadDAO {
             //Add parameters to the ?'s in the preparedstatement and execute
             
             createThreadStatement.setInt(1, thread.getThreadID());
-            createThreadStatement.setString(2, thread.getTitle());
+            createThreadStatement.setString(2, Preprocess.preprocess(thread.getTitle()));
             createThreadStatement.setString(3, Preprocess.preprocess(Preprocess.htmlToText(thread.getPost())));
             createThreadStatement.setString(4, String.join(" ", thread.getTagsList().split(";")));
             createThreadStatement.setString(5, thread.getUsername());
@@ -348,7 +348,7 @@ public class ThreadDAO {
                     + "Tags_List = ? where Thread_ID = ?");
             
             //Add parameters to the ?'s in the preparedstatement and execute
-            updateThreadStatement.setString(1, thread.getTitle());
+            updateThreadStatement.setString(1, Preprocess.preprocess(thread.getTitle()));
             updateThreadStatement.setString(2, Preprocess.preprocess(Preprocess.htmlToText(thread.getPost())));
             updateThreadStatement.setString(3, String.join(" ", thread.getTagsList().split(";")));
             updateThreadStatement.setInt(4, thread.getThreadID());
