@@ -239,4 +239,50 @@ public class UserDAO {
         }
         return list;
     }
+    
+    public String promote(String username) {
+        String message="";
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            updateStatement = conn.prepareStatement("update users set Privilege=Privilege-2 where Username = ?");
+            updateStatement.setString(1, username);
+            updateStatement.executeUpdate();
+            message = "Done";
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
+    
+    public String demote(String username) {
+        String message="";
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            updateStatement = conn.prepareStatement("update users set Privilege=Privilege+2 where Username = ?");
+            updateStatement.setString(1, username);
+            updateStatement.executeUpdate();
+            message = "Done";
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
 }

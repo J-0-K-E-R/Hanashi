@@ -16,7 +16,9 @@
         <%@include file="/header.jsp"%>
         
         <!--Check if profile of the current user is fetched or not-->
-        <%! String followButtonURI; %>
+        <%! String followButtonURI; 
+        User proUser;
+        %>
         <% 
             String uri = request.getRequestURI();
             String username = null;
@@ -27,7 +29,7 @@
                 System.out.println(ex.getMessage());
             }
             
-            User proUser = (User)session.getAttribute("profileUser");
+            proUser = (User)session.getAttribute("profileUser");
             if(proUser == null || !proUser.getUsername().equals(username)) {
                 request.setAttribute("profileUsername", username);
                 RequestDispatcher rd = request.getRequestDispatcher("/Profile");
@@ -141,18 +143,36 @@
             <div id="top">
                 
                 <%
-                    String proUsername = (String)(((pojos.User) session.getAttribute("profileUser")).getUsername());
+                    
+                    String proUsername = "";
+                    if(proUser != null)
+                        proUsername= proUser.getUsername();
                     String isBanned;
                     if(dao.BannedUsersDAO.isBanned(proUsername)) 
                         isBanned = "Unban User";
                     else
                         isBanned = "Ban User";
+                    String isMod;
+                    if(proUser != null && proUser.getPrivilege() == 2)
+                        isMod = "Demote";
+                    else
+                        isMod = "Promote";
+                    
                     if(isLoggedIn && user.getPrivilege() <= 2 ){
                 %>
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
                         <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                        
+                        <%
+                            if(user.getPrivilege() == 1) {
+                                %>
+                                    <a href="/Hanashi/PromoteDemoteMod"> <%=isMod%></a>
+                                <%
+                            }
+                        %>
+                        
                     </div>
                 </div>
                                 

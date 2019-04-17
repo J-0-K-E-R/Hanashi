@@ -102,6 +102,10 @@
         <servlet-name>BanUserController</servlet-name>
         <servlet-class>controller.BanUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PromoteDemoteModController</servlet-name>
+        <servlet-class>controller.PromoteDemoteModController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -189,6 +193,10 @@
     <servlet-mapping>
         <servlet-name>BanUserController</servlet-name>
         <url-pattern>/BanUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PromoteDemoteModController</servlet-name>
+        <url-pattern>/PromoteDemoteMod</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
