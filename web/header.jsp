@@ -65,10 +65,20 @@
 </script>
 
 
-
+ <!--Top Nav Bar-->
 <%@include file="/navbar.jsp"%>
 
-<%@include file="/sidenav.jsp"%>
+ 
+<!--Side Nav--> 
+<div class="sidenav">
+    <a href="/Hanashi/index.jsp"> Home </a>
+    <a href="/Hanashi/users" > Users </a>
+    <a href="/Hanashi/tags" > Tags </a>
+    <a href="/Hanashi/newthread"> Ask Question </a>
+</div>
+ 
+ 
+
 
 <script>
     $('.pop').popover({ trigger:"manual" }).click(function () {
