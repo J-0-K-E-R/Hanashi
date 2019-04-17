@@ -72,6 +72,17 @@
 <!--Side Nav--> 
 <div class="sidenav">
     <a href="/Hanashi/index.jsp"> Home </a>
+    
+    <% 
+        if(isLoggedIn) {
+            if(user.getPrivilege() <= 2) {
+                %>
+                    <a href="/Hanashi/dashboard"> Dashboard </a>
+                <%
+            }
+        }
+    %>
+    
     <a href="/Hanashi/users" > Users </a>
     <a href="/Hanashi/tags" > Tags </a>
     <a href="/Hanashi/newthread"> Ask Question </a>

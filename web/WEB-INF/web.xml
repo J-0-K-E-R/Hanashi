@@ -94,6 +94,10 @@
         <servlet-name>search</servlet-name>
         <jsp-file>/searchresults.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>dashboard</servlet-name>
+        <jsp-file>/dashboard.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -173,6 +177,10 @@
     <servlet-mapping>
         <servlet-name>search</servlet-name>
         <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboard</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
