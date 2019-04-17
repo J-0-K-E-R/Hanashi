@@ -91,9 +91,12 @@ public class LoginController extends HttpServlet {
             //verify reCaptcha
             String reCaptchaResponse = request.getParameter("g-recaptcha-response");
             boolean verify = Recaptcha.verify(reCaptchaSecretKey, reCaptchaResponse);
+            
+            //Check if user is banned or not
+            boolean isBanned = dao.BannedUsersDAO.isBanned(Username);
 
             //we've found a user that matches the credentials
-            if(user != null && verify){
+            if(user != null && verify && !isBanned){
                 //invalidate current session, then get new session for our user (combats: session hijacking)
                 url=(String)session.getAttribute("currentURI");
                 session.invalidate();
@@ -104,10 +107,12 @@ public class LoginController extends HttpServlet {
             // user doesn't exist, redirect to previous page and show error
             else{
                 String errorMessage;
-                if(verify)
-                    errorMessage = "Error: Unrecognized Username or Password";
-                else
+                if(!verify)
                     errorMessage = "You missed the reCAPTCHA";
+                else if(isBanned)
+                    errorMessage = "Error: Account is banned!";
+                else
+                    errorMessage = "Error: Invalid Username or Password";
                 session.setAttribute("errorMessage", errorMessage);
                 url = "/Hanashi/loginpage";
                 response.sendRedirect(url);
