@@ -108,6 +108,13 @@
             $(this).popover('hide');
         }
     });
+    
+    $('.dropdown').each(function () {
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.dropdown').has(e.target).length === 0) {
+            $('.dropdown-content').slideUp(200);
+        }
+    });
+    
 });
 </script>
 

@@ -121,6 +121,16 @@
             }
         </script>
         
+        
+        <script>
+//            Show drop down on click
+        $(document).ready(function() {
+            $('.dropdown').click(function() {
+                $('.dropdown-content').toggle('fast');
+            });
+        });
+        </script>
+        
     </head>
     
     <body onload="pageLoader()">
@@ -129,6 +139,27 @@
         <div id="user-profile-container">
             
             <div id="top">
+                
+                <%
+                    String proUsername = (String)(((pojos.User) session.getAttribute("profileUser")).getUsername());
+                    String isBanned;
+                    if(dao.BannedUsersDAO.isBanned(proUsername)) 
+                        isBanned = "Unban User";
+                    else
+                        isBanned = "Ban User";
+                    if(isLoggedIn && user.getPrivilege() <= 2 ){
+                %>
+                <div class="dropdown">
+                    <div class="three-dots"></div>
+                    <div class="dropdown-content">
+                        <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                    </div>
+                </div>
+                                
+                <%
+                    }              
+                %>                
+                
                 <div class="profile-picture">
                     <a href="/Hanashi/users/${profileUser.getUsername()}">
                         <img src="${profileUser.getAvatarPath()}" class="profile-picture">

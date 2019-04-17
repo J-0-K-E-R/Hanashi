@@ -98,6 +98,10 @@
         <servlet-name>dashboard</servlet-name>
         <jsp-file>/dashboard.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>BanUserController</servlet-name>
+        <servlet-class>controller.BanUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -181,6 +185,10 @@
     <servlet-mapping>
         <servlet-name>dashboard</servlet-name>
         <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BanUserController</servlet-name>
+        <url-pattern>/BanUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
