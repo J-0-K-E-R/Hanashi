@@ -16,6 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `banned_users`
+--
+
+DROP TABLE IF EXISTS `banned_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `banned_users` (
+  `Username` varchar(16) NOT NULL,
+  PRIMARY KEY (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banned_users`
+--
+
+LOCK TABLES `banned_users` WRITE;
+/*!40000 ALTER TABLE `banned_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `banned_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `followers`
 --
 
@@ -298,7 +320,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','fx7DIUfWYgKzLEsztpT7OUzGzZu8G25r4V6y0AijHr4=','hanashiteam@gmail.com',2,0,0,-1,'/Hanashi/images/admin.png',4),(2,'test','n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=','testemail',2,6,0,7,'/Hanashi/images/user.png',4),(3,'test2','YDA64iuZiGG847KPM+7BvnWKITyGyTwHbb6fVYwRx1I=','test2email',2,3,0,15,'/Hanashi/images/user.png',4),(4,'test3','/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM=','test3email',1,1,0,2,'/Hanashi/images/user.png',4),(5,'test4','pOYk1obgPtJ2fAq9hcFEJrCxFX0s6B0nu0/k9vAdaIo=','test4email',0,0,0,1,'/Hanashi/images/user.png',4),(6,'test5','oUDAwe2i3vK4MDY7o2KqTX0lXCYpYFRIIfVW4WZhtv8=','test5email',1,0,0,8,'/Hanashi/images/user.png',4),(7,'test8','H5v+sV/uihDE0HEcfrDAg5YhI+GRjkYbalCOcUbBibI=','test8email@somo.com',1,0,0,1,'/Hanashi/images/user.png',4),(8,'test9','tEUQNNO2WQBgzpSEoouI3TMqgKIq6OOcnFy3NXqybJ8=','test9@something.com',1,0,0,1,'/Hanashi/images/user.png',4),(9,'test10','7Cc4/rK7sLx4PrRmeQM5FBY3K6bti43dvrvbN+UQJHM=','test10\'semail',0,1,0,1,'/Hanashi/images/user.png',4),(10,'test11','dE6p7G+gqD6XZLTjI9W+a1WlrM/H/kwI6rao3h/KSFU=','test11email',1,0,0,1,'/Hanashi/images/user.png',4),(11,'test21','rv1XyMKv2q0KU1KwzocTGoWgj1yHqH8Wbwzh4hP0wP0=','test21@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(12,'test22','dZz94mWq3bb3KO0I2Xhiu9m1b9Od6XoEnGQLTFtwqsk=','test22@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(13,'test1','G08OmFGXGZjnMgeFRMlrNsPQHO33yqMyNZ1vHYNWcBQ=','test1@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(14,'test44','rVntd7/TdXqHkzLpVkTjIvCAi8lMYhejSQ+F8XZEi30=','test44@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(15,'test51','KdddJY4D3IdYOC1r15NBRnCGASXISIYSJNHozA4omcY=','test51@gmail.com',0,0,0,1,'/Hanashi/images/user.png',4),(16,'ina','T8grJq7LR9KGjE7741gXMqPny8xsLvsyBiwIFwoF7rg=','zuma',0,0,0,3,'/Hanashi/images/user.png',4),(17,'Goku','46noi5KG2ractpKbvOMY1zXmQFAv/fu0xcczJse7+I4=','kakarot@saiyans.com',0,0,0,1,'/Hanashi/images/user.png',4),(18,'whis','AnjgSZuq5geVOH3fBxpmDUpQkozLxFWzO1TLGzxTEfc=','whis@daddysangel.com',0,0,0,1,'/Hanashi/images/user.png',4);
+INSERT INTO `users` VALUES (1,'Admin','fx7DIUfWYgKzLEsztpT7OUzGzZu8G25r4V6y0AijHr4=','hanashiteam@gmail.com',2,0,0,-1,'/Hanashi/images/admin.png',1),(2,'test','n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=','testemail',2,6,0,7,'/Hanashi/images/user.png',4),(3,'test2','YDA64iuZiGG847KPM+7BvnWKITyGyTwHbb6fVYwRx1I=','test2email',2,3,0,15,'/Hanashi/images/user.png',4),(4,'test3','/WGgOvT3fYcPwh4F5+gGeAlcktgIz7O1wnnuBMdKyhM=','test3email',1,1,0,2,'/Hanashi/images/user.png',4),(5,'test4','pOYk1obgPtJ2fAq9hcFEJrCxFX0s6B0nu0/k9vAdaIo=','test4email',0,0,0,1,'/Hanashi/images/user.png',4),(6,'test5','oUDAwe2i3vK4MDY7o2KqTX0lXCYpYFRIIfVW4WZhtv8=','test5email',1,0,0,8,'/Hanashi/images/user.png',4),(7,'test8','H5v+sV/uihDE0HEcfrDAg5YhI+GRjkYbalCOcUbBibI=','test8email@somo.com',1,0,0,1,'/Hanashi/images/user.png',4),(8,'test9','tEUQNNO2WQBgzpSEoouI3TMqgKIq6OOcnFy3NXqybJ8=','test9@something.com',1,0,0,1,'/Hanashi/images/user.png',4),(9,'test10','7Cc4/rK7sLx4PrRmeQM5FBY3K6bti43dvrvbN+UQJHM=','test10\'semail',0,1,0,1,'/Hanashi/images/user.png',4),(10,'test11','dE6p7G+gqD6XZLTjI9W+a1WlrM/H/kwI6rao3h/KSFU=','test11email',1,0,0,1,'/Hanashi/images/user.png',4),(11,'test21','rv1XyMKv2q0KU1KwzocTGoWgj1yHqH8Wbwzh4hP0wP0=','test21@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(12,'test22','dZz94mWq3bb3KO0I2Xhiu9m1b9Od6XoEnGQLTFtwqsk=','test22@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(13,'test1','G08OmFGXGZjnMgeFRMlrNsPQHO33yqMyNZ1vHYNWcBQ=','test1@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(14,'test44','rVntd7/TdXqHkzLpVkTjIvCAi8lMYhejSQ+F8XZEi30=','test44@domain.com',0,0,0,1,'/Hanashi/images/user.png',4),(15,'test51','KdddJY4D3IdYOC1r15NBRnCGASXISIYSJNHozA4omcY=','test51@gmail.com',0,0,0,1,'/Hanashi/images/user.png',4),(16,'ina','T8grJq7LR9KGjE7741gXMqPny8xsLvsyBiwIFwoF7rg=','zuma',0,0,0,3,'/Hanashi/images/user.png',4),(17,'Goku','46noi5KG2ractpKbvOMY1zXmQFAv/fu0xcczJse7+I4=','kakarot@saiyans.com',0,0,0,1,'/Hanashi/images/user.png',4),(18,'whis','AnjgSZuq5geVOH3fBxpmDUpQkozLxFWzO1TLGzxTEfc=','whis@daddysangel.com',0,0,0,1,'/Hanashi/images/user.png',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -311,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-17 13:32:36
+-- Dump completed on 2019-04-18  0:03:15
