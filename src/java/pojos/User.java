@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package pojos;
 
 import java.io.Serializable;
@@ -12,168 +12,186 @@ import java.io.Serializable;
  * @author Joker
  */
 public class User implements Serializable {
-
-	private int Id;
-	private String Username;
-	private String Password;
-	private String Email;
-	private int FollowersCount;
-	private int FollowingCount;
-	private int FollowingTagsCount;
-	private int Points;
-	private String AvatarPath;
-	
-	/**
-	 * Constructor
-	 * @param Username  the unique user's username
-	 * @param Password      the password associated with the account
-          * @param Email            the Email associated with the account
-	 */
-	public User(String Username, String Password, String Email) {
-            this.Username = Username;
-            this.Password = Password;
-            this.Email = Email;
-            this.FollowersCount = 0;
-            this.FollowingCount = 0;
-            this.FollowingTagsCount = 0;
-            this.Points = 1;
-            this.AvatarPath = "/Hanashi/user.png";
-	}
-
-        public User(int Id, String Username, String Password, String Email, int FollowersCount, int FollowingCount, int FollowingTagsCount, int Points, String AvatarPath) {
-            this.Id=Id;
-            this.Username = Username;
-            this.Password = Password;
-            this.Email = Email;
-            this.FollowersCount = FollowersCount;
-            this.FollowingCount = FollowingCount;
-            this.FollowingTagsCount = FollowingTagsCount;
-            this.Points = Points;
-            this.AvatarPath = AvatarPath;
-        }
-	/**
-	 * Return the id
-	 */
-	public int getId() {
-		return Id;
-	}
-
-	/**
-	 * Set a new id
-	 */
-	public void setId(int Id) {
-		this.Id = Id;
-	}
-
-	/**
-	 * Return the username
-	 */
-	public String getUsername() {
-		return Username;
-	}
-
-	/**
-	 * Set a new username
-	 */
-	public void setUsername(String Username) {
-		this.Username = Username;
-	}
-
-	/**
-	 * Return the user's password
-	 */
-	public String getPassword() {
-		return Password;
-	}
-
-	/**
-	 * Set a new password
-	 */
-	public void setPassword(String Password) {
-		this.Password = Password;
-	}
-
-	/**
-	 * Return the user's Email
-	 */
-	public String getEmail() {
-		return Email;
-	}
-
-	/**
-	 * Set a new Email
-	 */
-	public void setEmail(String Email) {
-		this.Email = Email;
-	}
-
-	/**
-	 * Return the user's FollowersCount
-	 */
-	public int getFollowersCount() {
-		return FollowersCount;
-	}
-
-	/**
-	 * Set a new FollowerCount
-	 */
-	public void setFollowersCount(int FollowersCount) {
-		this.FollowersCount = FollowersCount;
-	}
-
-	/**
-	 * Return the user's FollowingCount
-	 */
-	public int getFollowingCount() {
-		return FollowingCount;
-	}
-
-	/**
-	 * Set a new FollowingCount
-	 */
-	public void setFollowingCount(int FollowingCount) {
-		this.FollowingCount = FollowingCount;
-	}
-
-	/**
-	 * Return the user's FollowingTagsCount
-	 */
-	public int getFollowingTagsCount() {
-		return FollowingTagsCount;
-	}
-
-	/**
-	 * Set a new FollowingTagsCount
-	 */
-	public void setFollowingTagsCount(int FollowingTagsCount) {
-		this.FollowingTagsCount = FollowingTagsCount;
-	}
-
-	/**
-	 * Return the user's points
-	 */
-	public int getPoints() {
-		return Points;
-	}
-
-	/**
-	 * Set a new points
-	 */
-	public void setPoints(int Points) {
-		this.Points = Points;
-	}
-
-	/**
-	 * Return the user's AvatarPath
-	 */
-	public String getAvatarPath() {
-		return AvatarPath;
-	}
-
-	/**
-	 * Set a new AvatarPath
-	 */
-	public void setAvatartPath(String Email) {
-		this.AvatarPath = Email;
-	}
+    
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private int followersCount;
+    private int followingCount;
+    private int followingTagsCount;
+    private int points;
+    private String avatarPath;
+    private int privilege;
+    
+    /**
+     * Constructor
+     * @param Username  the unique user's username
+     * @param Password      the password associated with the account
+     * @param Email            the Email associated with the account
+     */
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.followersCount = 0;
+        this.followingCount = 0;
+        this.followingTagsCount = 0;
+        this.points = 1;
+        this.avatarPath = "/Hanashi/user.png";
+    }
+    
+    public User(int id, String username, String password, String email, int followersCount, int followingCount, int followingTagsCount, int points, String avatarPath, int privilege) {
+        this.id=id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.followersCount = followersCount;
+        this.followingCount = followingCount;
+        this.followingTagsCount = followingTagsCount;
+        this.points = points;
+        this.avatarPath = avatarPath;
+        this.privilege = privilege;
+    }
+    
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+    
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+    
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+    
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+    
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    /**
+     * @return the followersCount
+     */
+    public int getFollowersCount() {
+        return followersCount;
+    }
+    
+    /**
+     * @param followersCount the followersCount to set
+     */
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
+    }
+    
+    /**
+     * @return the followingCount
+     */
+    public int getFollowingCount() {
+        return followingCount;
+    }
+    
+    /**
+     * @param followingCount the followingCount to set
+     */
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
+    }
+    
+    /**
+     * @return the followingTagsCount
+     */
+    public int getFollowingTagsCount() {
+        return followingTagsCount;
+    }
+    
+    /**
+     * @param followingTagsCount the followingTagsCount to set
+     */
+    public void setFollowingTagsCount(int followingTagsCount) {
+        this.followingTagsCount = followingTagsCount;
+    }
+    
+    /**
+     * @return the points
+     */
+    public int getPoints() {
+        return points;
+    }
+    
+    /**
+     * @param points the points to set
+     */
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    /**
+     * @return the avatarPath
+     */
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+    
+    /**
+     * @param avatarPath the avatarPath to set
+     */
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+    
+    /**
+     * @return the privilege
+     */
+    public int getPrivilege() {
+        return privilege;
+    }
+    
+    /**
+     * @param privilege the privilege to set
+     */
+    public void setPrivilege(int privilege) {
+        this.privilege = privilege;
+    }
+    
 }
