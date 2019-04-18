@@ -204,6 +204,42 @@ public class PostDAO {
         return message;
     }
     
+    public String updatePostByMod(Post post, String username, String comment) {       
+        String message;
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+            
+            //Create the preparedstatement(s)
+            editPostStatement = conn.prepareStatement("update posts set "
+                    + "Post = ? "
+                    + "where Post_ID=?;");
+            
+            
+            editPostStatement.setString(1, post.getPost());
+            editPostStatement.setInt(2, post.getPostID());
+            editPostStatement.executeUpdate();
+            
+            message = "Done";
+            updateProcessedPost(post);
+            
+            EditedPostsDAO.updatePostByMod(post, username, comment);
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getMessage();
+        } finally {
+            DBUtil.close(editPostStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
+    
     public void updatePostVotes(int postID, int votes) {
         Connection conn = null;
         
@@ -312,7 +348,7 @@ public class PostDAO {
             
             
             //Create the preparedstatement(s)
-            editPostStatement = conn.prepareStatement("update posts set "
+            editPostStatement = conn.prepareStatement("update processed_posts set "
                     + "Post = ? "
                     + "where Post_ID=?;");
             

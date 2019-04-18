@@ -69,13 +69,6 @@
         
         <script>
             function init() {
-                if(<%=canEdit%>) {
-                    $("#editthread").show();
-                }
-                else {
-                    $("#editthread").hide();
-                }
-                
                 changeVoteCSS();
             }
             
@@ -316,7 +309,13 @@
                 %>    
                     
                 <h3>${currentThread.getTitle()} </h3>
+                <%
+                    if(canEdit) {
+                %>
+                
                 <div id="editthread" ><a href="/Hanashi/editthread"><span class="glyphicon glyphicon-edit"></span></a></div>
+                
+                <% } %>
                 
                 </div><br>
                 <div>
@@ -335,6 +334,33 @@
                 %>
                 <div class="post-container" id='<%= post.getPostID() %>'>
                     <div class="post-header">
+                        <%
+                            UserDAO us = new UserDAO();
+                            User proUser = us.fetchUser(post.getUsername());
+                            String proUsername = proUser.getUsername();
+                            String isBanned;
+                            if(dao.BannedUsersDAO.isBanned(proUsername)) 
+                                isBanned = "Unban User";
+                            else
+                                isBanned = "Ban User";
+
+                            if(isLoggedIn && user.getPrivilege() <= 2 ){
+                        %>
+
+                        <div class="dropdown">
+                            <div class="three-dots"></div>
+                            <div class="dropdown-content">
+                                <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                                <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
+                                <a href=""> Delete Post</a>
+                            </div>
+                        </div>
+
+                        <%
+                            }
+                        %>    
+
+                        
                         <div class="votes-div">
                             <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
                                 <span id="minus-sign-<%= post.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
@@ -344,7 +370,8 @@
                                 <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
                             </a>                             
                         </div>
-                        
+                                                    
+                                                
                         <div class='user'> <%= post.getUsername()  %>  
                             <%
                                 if(user != null && user.getUsername().equals(post.getUsername())) {
@@ -384,6 +411,33 @@
                         <div class="reply-container" id='<%= reply.getPostID() %>'>
                             
                             <div class="post-header">
+                                
+                                
+                                <%
+                                    us = new UserDAO();
+                                    proUser = us.fetchUser(reply.getUsername());
+                                    proUsername = proUser.getUsername();
+                                    if(dao.BannedUsersDAO.isBanned(proUsername)) 
+                                        isBanned = "Unban User";
+                                    else
+                                        isBanned = "Ban User";
+
+                                    if(isLoggedIn && user.getPrivilege() <= 2 ){
+                                %>
+
+                                <div class="dropdown">
+                                    <div class="three-dots"></div>
+                                    <div class="dropdown-content">
+                                        <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                                        <a href="#/" onclick="editUserPost('<%=reply.getPostID()%>');" > Edit Post</a>
+                                        <a href=""> Delete Post</a>
+                                    </div>
+                                </div>
+
+                                <%
+                                    }
+                                %>    
+                                
                                 <div class="votes-div">
                                     <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
                                         <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
@@ -415,29 +469,53 @@
                             <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> </div>
  
                         </div>
+                        
+                        <%
+                            if(user != null && (user.getUsername().equals(reply.getUsername()) || user.getPrivilege() <= 2)) {
+                        %>
                             
                         <div id='edit-<%=reply.getPostID() %>' hidden> 
                             <form action="/Hanashi/EditPost?editPostID=<%= reply.getPostID() %>" id="create-post-form" method="post">
-                            <textarea id="froala-editor-<%=reply.getPostID() %>" class="froala-editor" name="post-content" required > <%= reply.getPost() %> </textarea> <br>
+                            <textarea id="froala-editor-<%=reply.getPostID() %>" class="froala-editor" name="post-content" required > <%= reply.getPost() %> </textarea>
+                            <%
+                                if(isLoggedIn && user.getPrivilege() <= 2 ){
+                            %>
+                            <input type="text" name="comment" id="mod-comment" placeholder="Reason for editing"><br>
+                            <% } %>
                             <input class="btn btn-success" type="submit" value="Update">
                             <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=reply.getPostID() %>');">
                             </form>
                         </div>
                         
-                        <% } %>
+                        <%
+                               }
+                            } 
+                        %>
                     </div>
                     
                 </div>
             
+                    
+                <%
+                    if(user != null && (user.getUsername().equals(post.getUsername()) || user.getPrivilege() <= 2 )) {
+                %>    
                 <div id='edit-<%=post.getPostID() %>' hidden> 
                     <form action="/Hanashi/EditPost?editPostID=<%= post.getPostID() %>" id="create-post-form" method="post">
-                    <textarea id="froala-editor-<%=post.getPostID() %>" class="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> <br>
+                    <textarea id="froala-editor-<%=post.getPostID() %>" class="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> 
+                    <%
+                        if(isLoggedIn && user.getPrivilege() <= 2 ){
+                    %>
+                    <input type="text" name="comment" id="mod-comment" placeholder="Reason for editing"><br>
+                    <% } %>
                     <input class="btn btn-success" type="submit" value="Update">
                     <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
                     </form>
                 </div>
                 
-                <% } %>
+                <%     
+                        }
+                    } 
+                %>
             
             </div>
             <div id="newreply">

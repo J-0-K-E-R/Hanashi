@@ -163,8 +163,8 @@
             // 'undo', 'redo'],
             toolbarButtons: ['undo', 'redo' , '|', 
                 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
-                'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
-                'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
+                'strikeThrough', 'subscript', 'superscript', '-' , 
+                'outdent', 'indent' , 'align', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
                 'insertLink', 'insertImage', 'html', 'fullscreen'],
             
            inlineClasses: {
@@ -183,8 +183,8 @@
             // 'undo', 'redo'],
             toolbarButtons: ['undo', 'redo' , '|', 
                 'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
-                'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent' ,'-',
-                'align', 'paragraphFormat', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
+                'strikeThrough', 'subscript', 'superscript', '-' , 
+                'outdent', 'indent' , 'align', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
                 'insertLink', 'insertImage', 'html', 'fullscreen'],
             
            inlineClasses: {
@@ -200,7 +200,7 @@
 //            Show drop down on click
         $(document).ready(function() {
             $('.dropdown').click(function() {
-                $('.dropdown-content').toggle('fast');
+                jQuery(".dropdown-content", this).toggle('fast');
             });
         });
         </script>

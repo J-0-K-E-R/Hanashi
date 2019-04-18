@@ -40,15 +40,21 @@ public class EditPostController extends HttpServlet {
             
             Post post = new Post();
             PostDAO pd = new PostDAO();
+            int postID = Integer.parseInt(request.getParameter("editPostID"));
             pojos.Thread currentThread = (pojos.Thread)session.getAttribute("currentThread");
+            Post currentPost = pd.fetchPost(postID);
             User user = (User)session.getAttribute("user");
             
-            post.setPostID(Integer.parseInt(request.getParameter("editPostID")));
-            post.setThreadID(currentThread.getThreadID());
-            post.setUsername(user.getUsername());
+            post.setPostID(currentPost.getPostID());
+            post.setThreadID(currentPost.getThreadID());
+            post.setUsername(currentPost.getUsername());
             post.setPost(request.getParameter("post-content"));
             
-            String message = pd.updatePost(post);
+            String message;
+            if(user.getPrivilege() > 2)
+                message = pd.updatePost(post);
+            else
+                message = pd.updatePostByMod(post, user.getUsername(), request.getParameter("comment") );
             
             if(!message.equals("Done")) {
                 out.write(message);
