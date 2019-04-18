@@ -217,11 +217,14 @@
             function toggle_replies(postID) {
                 var anchor = document.getElementById("toggle-post-"+postID);
                 $(document).ready(function() {
-                    $("#reply-"+postID).toggle();
-                    if(anchor.innerHTML !== "Hide replies")
+                    if(anchor.innerHTML !== "Hide replies") {
                         anchor.innerHTML = "Hide replies";
-                    else 
+                        $("#reply-"+postID).slideDown(250);
+                    }
+                    else { 
                         anchor.innerHTML = "Show replies";
+                        $("#reply-"+postID).slideUp(250);
+                    }
                 });
             }
             
