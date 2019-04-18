@@ -37,6 +37,7 @@
             }
         </script>
         
+        
     </head>
     <body onload="init();">
         <div id="main" class="main">
@@ -51,6 +52,13 @@
                 <input type="text" name="title" id="title" placeholder="Enter Title" required="" value="${currentThread.getTitle()}"> <br>
                 <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()" value="${currentThread.getTagsList()}"> <br>
                 <textarea id="froala-editor" name="post-content" required>${currentThread.getPost()}</textarea> <br>
+                
+                <%
+                    if(isLoggedIn && user.getPrivilege() <= 2 ){
+                %>
+                <input type="text" name="comment" id="mod-comment" placeholder="Reason for editing"><br>
+                <% } %>
+                
                 <input class="btn btn-success" type="submit" value="Update">
                 <a href="/Hanashi/index.jsp" class="btn btn-default">Cancel</a>
             </form>

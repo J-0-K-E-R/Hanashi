@@ -123,16 +123,6 @@
             }
         </script>
         
-        
-        <script>
-//            Show drop down on click
-        $(document).ready(function() {
-            $('.dropdown').click(function() {
-                $('.dropdown-content').toggle('fast');
-            });
-        });
-        </script>
-        
     </head>
     
     <body onload="pageLoader()">

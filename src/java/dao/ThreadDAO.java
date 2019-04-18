@@ -25,6 +25,7 @@ import utilities.Preprocess;
 public class ThreadDAO {
     private PreparedStatement createThreadStatement;
     private PreparedStatement updateThreadStatement;
+    private PreparedStatement updateEditedThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
     private PreparedStatement fetchThreadsStatement;
     private PreparedStatement fetchUserThreadsStatement;
@@ -262,6 +263,43 @@ public class ThreadDAO {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             DBUtil.close(updateThreadStatement);
+            DBUtil.close(conn);
+        }
+        
+        return returnThread;
+    }
+    
+    public Thread updateThreadByMod(Thread thread, String username, String comment) {
+        Thread returnThread = null;
+        Connection conn = null;
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            System.out.println("Log:::: ThreadDAO.editThreadByMod");
+            
+            //Create the preparedstatement(s)
+            updateThreadStatement = conn.prepareStatement("update  threads set " 
+                    + "Title = ?,"
+                    + "Post = ?,"
+                    + "Tags_List = ? where Thread_ID = ?");
+            
+            //Add parameters to the ?'s in the preparedstatement and execute
+            updateThreadStatement.setString(1, thread.getTitle());
+            updateThreadStatement.setString(2, thread.getPost());
+            updateThreadStatement.setString(3, thread.getTagsList());
+            updateThreadStatement.setInt(4, thread.getThreadID());
+            updateThreadStatement.executeUpdate();
+            returnThread = this.fetchThread(thread.getThreadID());
+            updateProcessedThread(returnThread);
+            
+            EditedThreadsDAO.updateThreadByMod(thread, username, comment);
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateThreadStatement);
+            DBUtil.close(updateEditedThreadStatement);
             DBUtil.close(conn);
         }
         

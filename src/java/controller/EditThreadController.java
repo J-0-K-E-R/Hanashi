@@ -40,8 +40,7 @@ public class EditThreadController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             User user = (User)session.getAttribute("user");
             Thread currentThread = (Thread)session.getAttribute("currentThread");
-            if(user == null || !user.getUsername().equals(currentThread.getUsername())) {
-                
+            if(user == null || (!user.getUsername().equals(currentThread.getUsername()) && user.getPrivilege()>2)) {
                 out.write("Some Error Occurred! User access not permitted!! <br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
@@ -58,7 +57,10 @@ public class EditThreadController extends HttpServlet {
                 thread.setPost(request.getParameter("post-content"));
                 thread.setTagsList(request.getParameter("tags"));
                 
-                thread = td.updateThread(thread);
+                if (user.getPrivilege()<=2)
+                    thread = td.updateThreadByMod(thread, user.getUsername(), request.getParameter("comment"));
+                else
+                    thread = td.updateThread(thread);
                 
                 TagsDAO tgd = new TagsDAO();
                 tgd.deleteTags(currentThread.getTagsList());
@@ -74,7 +76,7 @@ public class EditThreadController extends HttpServlet {
                 }
                 else {
                     request.setAttribute("threadID", currentThread.getThreadID());
-                    System.out.println("Log::: Created Thread");
+                    System.out.println("Log::: Edited Thread");
                     session.removeAttribute("threads");
                     RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
                     rd.forward(request, response);
