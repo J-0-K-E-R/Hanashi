@@ -299,7 +299,7 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                         <a href="/Hanashi/editthread"> Edit Thread</a>
                         <a href=""> Delete Thread</a>
                         <a href=""> Close Thread</a>
@@ -353,7 +353,7 @@
                         <div class="dropdown">
                             <div class="three-dots"></div>
                             <div class="dropdown-content">
-                                <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                                <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                                 <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
                                 <a href=""> Delete Post</a>
                             </div>
@@ -431,7 +431,7 @@
                                 <div class="dropdown">
                                     <div class="three-dots"></div>
                                     <div class="dropdown-content">
-                                        <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                                         <a href="#/" onclick="editUserPost('<%=reply.getPostID()%>');" > Edit Post</a>
                                         <a href=""> Delete Post</a>
                                     </div>

@@ -33,7 +33,7 @@ public class BanUserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            String username = (String)(((pojos.User) session.getAttribute("profileUser")).getUsername());
+            String username = request.getParameter("username");
             String message;
             if(dao.BannedUsersDAO.isBanned(username))
                 message = dao.BannedUsersDAO.unban(username);
@@ -41,7 +41,8 @@ public class BanUserController extends HttpServlet {
                 message = dao.BannedUsersDAO.ban(username);
             
             session.removeAttribute("profileUser");
-            response.sendRedirect("/Hanashi/users/" + username);
+            
+            response.sendRedirect((String)session.getAttribute("currentURI"));
             
         }
     }

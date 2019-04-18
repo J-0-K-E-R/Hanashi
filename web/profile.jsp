@@ -153,7 +153,7 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="/Hanashi/BanUser"> <%=isBanned%></a>
+                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                         
                         <%
                             if(user.getPrivilege() == 1) {
