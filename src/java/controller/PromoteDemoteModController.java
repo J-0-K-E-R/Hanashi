@@ -37,10 +37,14 @@ public class PromoteDemoteModController extends HttpServlet {
             User proUser = (User)session.getAttribute("profileUser");
             String message;
             dao.UserDAO ud = new dao.UserDAO();
-            if(proUser.getPrivilege() == 2)
+            if(proUser.getPrivilege() == 2) {
                 message = ud.demote(proUser.getUsername());
-            else
+                ud.decreaseModPoints(proUser.getUsername());
+            }
+            else {
                 message = ud.promote(proUser.getUsername());
+                ud.boostModPoints(proUser.getUsername());
+            }
             session.removeAttribute("profileUser");
             response.sendRedirect("/Hanashi/users/" + proUser.getUsername());
         }

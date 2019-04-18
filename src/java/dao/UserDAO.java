@@ -285,4 +285,46 @@ public class UserDAO {
         
         return message;
     }
+    
+    public void boostModPoints(String username) {
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            updateStatement = conn.prepareStatement("update users set Points=Points+? where Username = ?");
+            updateStatement.setInt(1, pojos.Points.getModBoost());
+            updateStatement.setString(2, username);
+            updateStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+        
+    }
+    
+    public void decreaseModPoints(String username) {
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            updateStatement = conn.prepareStatement("update users set Points=Points-? where Username = ?");
+            updateStatement.setInt(1, pojos.Points.getModBoost());
+            updateStatement.setString(2, username);
+            updateStatement.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+        
+    }
 }

@@ -25,7 +25,6 @@ import utilities.Preprocess;
 public class ThreadDAO {
     private PreparedStatement createThreadStatement;
     private PreparedStatement updateThreadStatement;
-    private PreparedStatement updateEditedThreadStatement;
     private PreparedStatement fetchThreadIDStatement;
     private PreparedStatement fetchThreadsStatement;
     private PreparedStatement fetchUserThreadsStatement;
@@ -299,7 +298,6 @@ public class ThreadDAO {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
         } finally {
             DBUtil.close(updateThreadStatement);
-            DBUtil.close(updateEditedThreadStatement);
             DBUtil.close(conn);
         }
         

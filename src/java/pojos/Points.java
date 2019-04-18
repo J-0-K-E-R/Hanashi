@@ -11,11 +11,13 @@ package pojos;
  */
 public class Points {
 
+
     private static final int threadUpvote = 2;
     private static final int threadDownvote = 1;
     private static final int postUpvote = 5;
     private static final int postDownvote = 1;
     private static final int selfDownvote = 1;
+    private static final int modBoost = 100;
     
     
     /**
@@ -52,4 +54,12 @@ public class Points {
     public static int getSelfDownvote() {
         return selfDownvote;
     }
+    
+    /**
+     * @return the modBoost
+     */
+    public static int getModBoost() {
+        return modBoost;
+    }
+
 }
