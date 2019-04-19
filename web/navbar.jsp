@@ -49,7 +49,11 @@
             
         </div>
         
-        <div hidden id="GuestDiv">
+        <% 
+            if(session.getAttribute("user") == null) {
+        %>
+        
+        <div id="GuestDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 
@@ -76,7 +80,11 @@
             </ul>
         </div>
         
-        <div hidden id="UserDiv">
+        <%
+             } else {
+        %>
+        
+        <div id="UserDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#" 
@@ -99,6 +107,9 @@
                 <li class="nav-item"><a href="/Hanashi/Login"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
             </ul>
         </div>
+                       
+        <% } %>               
+        
     </div>
 </nav>
                        

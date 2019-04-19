@@ -42,35 +42,12 @@
 %>
 
 
-<script>
-    function whichNav() {
-
-        if(<%=isLoggedIn%>) {
-            $(document).ready(
-                    function() {
-                        $("#UserDiv").show();
-                $("#GuestDiv").hide();
-            });
-        }
-        else {
-            $(document).ready(
-                    function() {
-                        $("#UserDiv").hide();
-                $("#GuestDiv").show();
-            });
-        }
-    }
-    
-    whichNav();
-</script>
-
-
  <!--Top Nav Bar-->
 <%@include file="/navbar.jsp"%>
 
  
 <!--Side Nav--> 
-<div class="sidenav" onmouseover="openedSideNav();" onmouseleave="closedSideNav();">
+<div class="sidenav">
     <a href="/Hanashi/index.jsp"><span class="glyphicon glyphicon glyphicon-home"></span>Home</a>
     
     <% 
@@ -86,11 +63,10 @@
     <a href="/Hanashi/users"><span class="glyphicon glyphicon glyphicon-user"></span>Users</a>
     <a href="/Hanashi/tags"><span class="glyphicon glyphicon glyphicon-tags"></span>Tags</a>
     <a href="/Hanashi/newthread"><span class="glyphicon glyphicon glyphicon-pencil"></span>Ask Question</a>
-</div>
- 
- 
+</div> 
 
-
+    
+    
 <script>
     $('.pop').popover({ trigger:"manual" }).click(function () {
         var pop = $(this); 
