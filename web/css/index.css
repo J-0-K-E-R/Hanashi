@@ -34,7 +34,10 @@ body {
 
 .main {
     position: relative;
+    width: 60%;
+    left: 50%;
     top: 80px;
+    transform: translate(-50%, 0);
 }
 
 /* Popover */
@@ -104,9 +107,7 @@ body {
   position:relative;
   /*border:solid 2px green;*/
   overflow: hidden;
-  width: 60%;
-  left:50%;
-  transform: translate(-50%, 0);
+  width: 100%;
 }
 
 #div-scroll {
@@ -193,8 +194,6 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     /*padding-right: 2rem;*/
     width:450px;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, 0);
     /*border: 2px solid #0481ff;*/
     /*background: #222;*/
 }
@@ -215,7 +214,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 /*Create Thread Form*/
 #create-thread-container {
-    width: 600px;
+    width: 100%;
     margin-left: 30px;
     margin-top: 30px;
 }
@@ -231,11 +230,8 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /*Style view thread page*/
 
 #view-thread-container {
-    width: 600px;
+    width: 100%;
     position: relative;
-    left: 50%;
-    top: 40px;
-    transform: translate(-50%, 0);
     border: solid 2px #0481ff;
 }
 
@@ -326,11 +322,9 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /*User profile styling*/
 
 #user-profile-container {
-    width: 600px;
+    width: 100%;
     position:relative;
     top: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
     padding: 10px;
     border: solid 2px #0481ff;
 }
@@ -369,10 +363,8 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 /*Styling threads div on index.jsp*/
 #all-threads-container,#user-threads {
-    width: 600px;
+    width: 100%;
     position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
     
 }
 
@@ -440,7 +432,6 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 #loginform-cotainer {
     position: relative;
     width: 400px;
-    left: 40%;
     top: 30px;
     /*transform: translate(-50%, 0);*/
     /*border: 2px solid green;*/
@@ -451,7 +442,6 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #create-thread-container {
     position: relative;
-    left: 300px;
     /*top: 30px;*/
     /*transform: translate(-50%, 0);*/
 }
@@ -473,9 +463,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /*Styling tags-list*/
 #tags-list-wrapper {
     position: relative;
-    width: 60%;
-    left: 50%;
-    transform: translate(-50%, 0);
+    width: 100%;
     padding: 5px;
 }
 
