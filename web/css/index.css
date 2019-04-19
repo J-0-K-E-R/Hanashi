@@ -9,6 +9,7 @@ color: #0481ff;*/
     top: 0;
     left: 0;
     width: 100%;
+    border-radius: 0;
 }
 
 .myColor {
@@ -32,7 +33,6 @@ body {
 }
 
 .main {
-    margin-left: 200px;
     position: relative;
     top: 80px;
 }
@@ -399,30 +399,41 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /* The side navigation menu */
 .sidenav {
   height: 100%; /* 100% Full-height */
-  width: 200px; /* 0 width - change this with JavaScript */
+  width: 30px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1;   
   top: 0; /* Stay at the top */
-  left: 0;
+  left: 0px;
   background-color: #222; 
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 54px; /* Place content 60px from the top */
+  transition: 0.3s;
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
   text-decoration: none;
   font-size: 15px;
   color: lavender;
   display: block;
   transition: 0.3s;
+  white-space:nowrap;
+  overflow:hidden;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     background-color: lavender;
     color: black;
+}
+
+.sidenav:hover {
+    width: 150px;
+}
+
+.sidenav span {
+    margin-right: 8px;
 }
 
 /*Styling loginpage*/

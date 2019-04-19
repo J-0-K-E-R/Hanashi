@@ -70,22 +70,22 @@
 
  
 <!--Side Nav--> 
-<div class="sidenav">
-    <a href="/Hanashi/index.jsp"> Home </a>
+<div class="sidenav" onmouseover="openedSideNav();" onmouseleave="closedSideNav();">
+    <a href="/Hanashi/index.jsp"><span class="glyphicon glyphicon glyphicon-home"></span>Home</a>
     
     <% 
         if(isLoggedIn) {
             if(user.getPrivilege() <= 2) {
                 %>
-                    <a href="/Hanashi/dashboard"> Dashboard </a>
+                    <a href="/Hanashi/dashboard"><span class="glyphicon glyphicon glyphicon-list"></span>Dashboard</a>
                 <%
             }
         }
     %>
     
-    <a href="/Hanashi/users" > Users </a>
-    <a href="/Hanashi/tags" > Tags </a>
-    <a href="/Hanashi/newthread"> Ask Question </a>
+    <a href="/Hanashi/users"><span class="glyphicon glyphicon glyphicon-user"></span>Users</a>
+    <a href="/Hanashi/tags"><span class="glyphicon glyphicon glyphicon-tags"></span>Tags</a>
+    <a href="/Hanashi/newthread"><span class="glyphicon glyphicon glyphicon-pencil"></span>Ask Question</a>
 </div>
  
  
@@ -196,14 +196,14 @@
 </script>
         
         
-        <script>
-//            Show drop down on click
-        $(document).ready(function() {
-            $('.dropdown').click(function() {
-                jQuery(".dropdown-content", this).toggle('fast');
-            });
+<script>
+    //Show drop down on click
+    $(document).ready(function() {
+        $('.dropdown').click(function() {
+            jQuery(".dropdown-content", this).toggle('fast');
         });
-        </script>
+    });
+</script>
         
 
 
