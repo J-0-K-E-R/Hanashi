@@ -238,6 +238,33 @@ INSERT INTO `processed_threads` VALUES (7,'test thread ','someth meaning ','test
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reported_threads`
+--
+
+DROP TABLE IF EXISTS `reported_threads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reported_threads` (
+  `Report_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Thread_ID` int(11) NOT NULL,
+  `Reported_By` varchar(16) NOT NULL,
+  `Comment` varchar(8000) DEFAULT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Report_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reported_threads`
+--
+
+LOCK TABLES `reported_threads` WRITE;
+/*!40000 ALTER TABLE `reported_threads` DISABLE KEYS */;
+INSERT INTO `reported_threads` VALUES (1,7,'test2',NULL,'2019-04-20 19:55:09'),(2,7,'test2','Just wondering if the comment box works','2019-04-20 20:50:26');
+/*!40000 ALTER TABLE `reported_threads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tags`
 --
 
@@ -387,4 +414,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-19  1:59:11
+-- Dump completed on 2019-04-21  2:22:55
