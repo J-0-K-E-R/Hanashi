@@ -275,7 +275,7 @@
             
             function toggleInputBox() {
                 $(document).ready(function() {
-                    $('.full-screen-background').slideToggle('fast');
+                    $('.full-screen-background').fadeToggle('fast');
                     $('.full-screen-background').find('.text').prop("value", "");
                 });
             }
@@ -391,7 +391,7 @@
                         </div>
                                 
                         <%
-                            } else  {
+                            } else if(isLoggedIn) {
                         %>
 
                         <div class="dropdown">
@@ -480,7 +480,7 @@
                                 </div>
 
                                 <%
-                                    } else  {
+                                    } else if(isLoggedIn)  {
                                 %>
 
                                 <div class="dropdown">
