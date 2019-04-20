@@ -283,7 +283,7 @@
                 </div>
                 
                 <%
-                    if (thread!= null) {
+                    if (thread!= null && isLoggedIn ) {
                         UserDAO us = new UserDAO();
                         User proUser = us.fetchUser(thread.getUsername());
                         String proUsername = proUser.getUsername();
@@ -293,7 +293,7 @@
                         else
                             isBanned = "Ban User";
                     
-                        if(isLoggedIn && user.getPrivilege() <= 2 ){
+                        if(user.getPrivilege() <= 2 ){
                 %>
                 
                 <div class="dropdown">
@@ -306,6 +306,17 @@
                     </div>
                 </div>
                                 
+                <%
+                        } else  {
+                %>
+                
+                <div class="dropdown">
+                    <div class="three-dots"></div>
+                    <div class="dropdown-content">
+                        <a href="/Hanashi/ReportThread"> Report Thread</a>
+                    </div>
+                </div>
+                
                 <%
                         }
                     }
