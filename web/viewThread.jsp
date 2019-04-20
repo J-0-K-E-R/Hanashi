@@ -262,6 +262,13 @@
             }
         </script>
 
+        <script>
+            function togglereport() {
+                $(document).ready(function() {
+                    $('.full-screen-background').toggle('fast');
+                });
+            }
+        </script>
         
     </head>
     <body onload="init()">
@@ -313,9 +320,11 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="/Hanashi/ReportThread"> Report Thread</a>
+                        <a href="#/" onclick="togglereport();"> Report Thread</a>
                     </div>
                 </div>
+                
+                
                 
                 <%
                         }
@@ -542,6 +551,17 @@
             </div>        
                     
         </div>
+        </div>
+                
+        <div class="full-screen-background" hidden>
+            <div class="input-box">
+                <form action="/Hanashi/ReportThread" method="POST">
+                    <span>Please enter a comment</span> <br>
+                    <input type="text" placeholder="Comment" name="comment" class="text"> <br>
+                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="togglereport()">
+                    <input type="submit" value="Report" class="btn btn-success btn-report">
+                </form>
+            </div>
         </div>
     </body>
 </html>
