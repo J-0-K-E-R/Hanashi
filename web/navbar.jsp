@@ -56,7 +56,7 @@
         <div id="GuestDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a href="#" 
+                    <a href="#/" 
                        id='login-pop'
                        class="btn pop"
                        data-html="true"
@@ -87,7 +87,7 @@
         <div id="UserDiv">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a href="#" 
+                    <a href="#/" 
                        id='profile-pop'
                        class="btn pop"
                        data-html="true"
