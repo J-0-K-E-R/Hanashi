@@ -263,9 +263,20 @@
         </script>
 
         <script>
-            function togglereport() {
+            function reportThread() {
+                document.getElementById("input-box-form").action = "/Hanashi/ReportThread";
+                toggleInputBox();
+            }
+            
+            function reportPost(postID) {
+                document.getElementById("input-box-form").action = "/Hanashi/ReportPost?postID="+postID;
+                toggleInputBox();
+            }
+            
+            function toggleInputBox() {
                 $(document).ready(function() {
-                    $('.full-screen-background').toggle('fast');
+                    $('.full-screen-background').slideToggle('fast');
+                    $('.full-screen-background').find('.text').prop("value", "");
                 });
             }
         </script>
@@ -320,7 +331,7 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="#/" onclick="togglereport();"> Report Thread</a>
+                        <a href="#/" onclick="reportThread();"> Report Thread</a>
                     </div>
                 </div>
                 
@@ -376,6 +387,17 @@
                                 <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                                 <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
                                 <a href=""> Delete Post</a>
+                            </div>
+                        </div>
+                                
+                        <%
+                            } else  {
+                        %>
+
+                        <div class="dropdown">
+                            <div class="three-dots"></div>
+                            <div class="dropdown-content">
+                                <a href="#/" onclick="reportPost(<%=post.getPostID()%>);"> Report Post</a>
                             </div>
                         </div>
 
@@ -457,6 +479,17 @@
                                     </div>
                                 </div>
 
+                                <%
+                                    } else  {
+                                %>
+
+                                <div class="dropdown">
+                                    <div class="three-dots"></div>
+                                    <div class="dropdown-content">
+                                        <a href="#/" onclick="reportPost(<%= reply.getPostID() %>);"> Report Post</a>
+                                    </div>
+                                </div>                                        
+                                        
                                 <%
                                     }
                                 %>    
@@ -555,11 +588,11 @@
                 
         <div class="full-screen-background" hidden>
             <div class="input-box">
-                <form action="/Hanashi/ReportThread" method="POST">
+                <form id="input-box-form" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
-                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="togglereport()">
                     <input type="submit" value="Report" class="btn btn-success btn-report">
+                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="toggleInputBox()">
                 </form>
             </div>
         </div>
