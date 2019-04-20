@@ -588,3 +588,38 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     margin-left: 10px;
 }
 
+
+/*Styling the dashboard*/
+
+#dashboard-container {
+    width: 100%;
+}
+
+#dashboard-container .dashboard-buttons {
+    position: relative;
+    width: 100%;
+    top: 0;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+#dashboard-container .btn-dashboard {
+    padding: 15px;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    color: lavender;
+    cursor: pointer;
+    background: #222;
+}
+
+#dashboard-container .btn-dashboard:hover {
+    color: #0481ff;
+}
+
+#dashboard-container .btn-dashboard-selected {
+    background: lavender;
+    color: black;
+}
+
+
