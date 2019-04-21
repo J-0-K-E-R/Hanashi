@@ -4,6 +4,7 @@
     Author     : robogod
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,7 +39,7 @@
     </head>
     <body>
         <div id="main" class="main">
-            <h1> Welcome To Dashboard </h1>
+            <h3> Welcome To Dashboard </h3>
             <div id="dashboard-container">
                 <div class="dashboard-buttons">
                     <a class="btn-dashboard" href="#notifications" > <span> Notifications </span></a>
@@ -54,7 +55,41 @@
                     </div>
                     
                     <div id="reported-threads"  class="dashboard-content-item">
-                        Reported Threads
+                        <%
+                            ArrayList<pojos.ThreadReport> reportedThreadsList = 
+                                dao.ReportedThreadsDAO.fetchReportedThreads();
+                            dao.ThreadDAO td = new dao.ThreadDAO();
+                            
+                            for(pojos.ThreadReport report: reportedThreadsList) {
+                                pojos.Thread thread = td.fetchThread(report.getThreadID());
+                        %>        
+                         
+                        <div id='thread-container'>
+                            <div id='votes'> Votes: <%= thread.getVotes() %></div>
+                            
+                            <div id="dropdown">
+                                <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+
+                                <div class="report-info">
+                                    <div class="reported-by"> Reported By: 
+                                        <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                    </div>
+                                    <div class="reported"> Reported: 
+                                        <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                    </div>
+                                    <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
+                                </div>
+                            </div>
+                            
+                            <div id="username" class="username"><a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
+                            <div id='timestamp'><%= utilities.DateService.relativeDate(thread.getTimestampModified()) %></div>
+
+
+                        </div>
+                        
+
+
+                        <%  } %>
                     </div>
                     
                     <div id="reported-posts"  class="dashboard-content-item">

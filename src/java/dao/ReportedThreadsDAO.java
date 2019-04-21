@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import utilities.DBUtil;
 
 /**
@@ -71,5 +72,39 @@ public class ReportedThreadsDAO {
             DBUtil.close(conn);
         }
         return tid;
+    }
+    
+    
+    public static ArrayList<pojos.ThreadReport> fetchReportedThreads() {
+        ArrayList<pojos.ThreadReport> list = new ArrayList();
+        pojos.ThreadReport report = new pojos.ThreadReport();
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchStatement = conn.prepareStatement("SELECT * FROM reported_threads ORDER BY Timestamp DESC;");
+            
+            rs = fetchStatement.executeQuery();
+            while(rs.next()) {
+                report = new pojos.ThreadReport();
+                report.setReportID(rs.getInt("Report_ID"));
+                report.setThreadID(rs.getInt("Thread_ID"));
+                report.setTimestamp(rs.getTimestamp("Timestamp").getTime());
+                report.setComment(rs.getString("Comment"));
+                report.setReportedBy(rs.getString("Reported_By"));
+                list.add(report);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            list = null;
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchStatement);
+            DBUtil.close(conn);
+        }
+        return list;
     }
 }

@@ -364,26 +364,25 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /*Styling threads div on index.jsp*/
 #all-threads-container,#user-threads {
     width: 100%;
-    position: relative;
-    
+    position: relative;   
 }
 
 #all-threads-container {
     border: solid 2px #0481ff;
 }
 
-#all-threads-container #thread-container,#user-threads #thread-container {
+#thread-container {
     margin: 10px;
     border: solid 2px green;
     padding: 5px;
 }
 
-#all-threads-container #thread-title a,#user-threads #thread-title a{
+#thread-container #thread-title a{
     font-size: 18px;
     color: darkblue;
 }
 
-#all-threads-container .username a {
+#thread-container .username a {
     float: right;
     color: blueviolet;
 }
@@ -611,6 +610,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     color: lavender;
     cursor: pointer;
     background: #222;
+    /*margin-bottom:  0;*/
 }
 
 #dashboard-container .btn-dashboard:hover {
@@ -630,3 +630,46 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     display: block;
 }
 
+#dashboard-container #dashboard-content {
+    width: 100%;
+    background: lavender;
+    position: relative;
+    top: 0;
+    height: 440px;
+    overflow: auto;
+}
+
+#dashboard-container #dashboard-content .report-info {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 140px;
+    overflow: auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 99;
+}
+
+
+#dashboard-container #dropdown:hover  .report-info {
+    display: inline-block;
+}
+
+#dashboard-container .reported-by {
+    margin-bottom: 10px;
+    color: darkblue;
+}
+
+#dashboard-container .username {
+    color: #0481ff;
+}
+
+#dashboard-container .comment, #dashboard-container .reported {
+    margin-bottom: 10px;
+    color: darkblue;
+}
+
+#dashboard-container .comment-content, #dashboard-container .reported-time {
+    color: darkgreen;
+}
