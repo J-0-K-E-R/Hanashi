@@ -622,4 +622,11 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     color: black;
 }
 
+#dashboard-container .dashboard-content-item {
+    display: none;
+}
+
+#dashboard-container .dashboard-content-item:target {
+    display: block;
+}
 

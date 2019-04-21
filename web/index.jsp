@@ -45,6 +45,9 @@
                             return o1.getTimestampModified().compareTo(o2.getTimestampModified());
                         }
                     }.reversed());
+                    if(threadsList.size() < 5 && query.equals(""))
+                        threadsList = td.fetchAllThreads();
+                    
                 } else {
                     threadsList = td.fetchAllThreads();
                 }

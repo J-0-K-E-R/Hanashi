@@ -17,14 +17,21 @@
         %>
         
         <script>
-            $(document).ready(function() {
-                $('.btn-dashboard').click(function() {
+            function selectButton() {
+                var targetDiv = (window.location.href).split("#")[1];
+                if(targetDiv !== "") {
                     $('.btn-dashboard').removeClass('btn-dashboard-selected');
-                    $(this).addClass("btn-dashboard-selected");
-                    $id = ($(this).attr("value"));
-                    $('.dashboard-content-item').hide();
-                    $('#'+$id).show();
-                });
+                    $('a[href^="#'+targetDiv+'"]').addClass("btn-dashboard-selected");
+                }
+            }
+            
+            
+            $(document).ready(function() {
+                selectButton();
+            });
+            
+            $(window).on('hashchange', function(e){
+                selectButton();
             });
         </script> 
         
@@ -34,10 +41,10 @@
             <h1> Welcome To Dashboard </h1>
             <div id="dashboard-container">
                 <div class="dashboard-buttons">
-                    <a class="btn-dashboard btn-dashboard-selected" value="notifications" > <span> Notifications </span></a>
-                    <a class="btn-dashboard" value="reported-threads"> <span> Reported Threads </span></a>
-                    <a class="btn-dashboard" value="reported-posts"> <span> Reported Posts </span></a>
-                    <a class="btn-dashboard" value="reported-users"> <span> Reported Users </span></a>
+                    <a class="btn-dashboard" href="#notifications" > <span> Notifications </span></a>
+                    <a class="btn-dashboard" href="#reported-threads"> <span> Reported Threads </span></a>
+                    <a class="btn-dashboard" href="#reported-posts"> <span> Reported Posts </span></a>
+                    <a class="btn-dashboard" href="#reported-users"> <span> Reported Users </span></a>
                 </div>
                 
                 <div id="dashboard-content">
@@ -46,19 +53,17 @@
                         Notifications
                     </div>
                     
-                    <div id="reported-threads"  class="dashboard-content-item" hidden>
+                    <div id="reported-threads"  class="dashboard-content-item">
                         Reported Threads
                     </div>
                     
-                    <div id="reported-posts"  class="dashboard-content-item" hidden>
+                    <div id="reported-posts"  class="dashboard-content-item">
                         Reported Posts
                     </div>
                     
-                    <div id="reported-users"  class="dashboard-content-item" hidden>
+                    <div id="reported-users"  class="dashboard-content-item">
                         Reported Users
                     </div>
-                    
-                    
                 </div>
                 
             </div>

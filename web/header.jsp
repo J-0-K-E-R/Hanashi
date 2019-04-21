@@ -54,7 +54,7 @@
         if(isLoggedIn) {
             if(user.getPrivilege() <= 2) {
                 %>
-                    <a href="/Hanashi/dashboard"><span class="glyphicon glyphicon glyphicon-list"></span>Dashboard</a>
+                    <a href="/Hanashi/dashboard#notifications"><span class="glyphicon glyphicon glyphicon-list"></span>Dashboard</a>
                 <%
             }
         }
