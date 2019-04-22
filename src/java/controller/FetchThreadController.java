@@ -67,7 +67,7 @@ public class FetchThreadController extends HttpServlet {
                 System.out.println("Log::: Fetched Thread");
                 session.setAttribute("posts", postsList);
                 session.setAttribute("currentThread", thread);
-                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(thread.getTitle()));
+                response.sendRedirect("/Hanashi/threads/"+thread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(thread.getTitle())+"?"+(String)session.getAttribute("viewThreadTargetPost"));
             }
         } catch (IOException ex) {
             System.out.print(ex.getMessage());

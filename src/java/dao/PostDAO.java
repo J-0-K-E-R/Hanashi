@@ -145,7 +145,7 @@ public class PostDAO {
             rs = fetchPostsStatement.executeQuery();
             if(rs.next()) {
                 post = new Post();
-                post.setThreadID(postID);
+                post.setThreadID(rs.getInt("Thread_ID"));
                 post.setPostID(rs.getInt("Post_ID"));
                 post.setPost(rs.getString("Post"));
                 post.setReplyTo(rs.getString("Reply_to"));

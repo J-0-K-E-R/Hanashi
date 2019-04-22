@@ -20,23 +20,53 @@
             Thread thread;
             int doesExist;
             String timestampModified;
+            int showPostID=-1;
+            int targetPostID=-1;
         %>
         <% 
             String uri = request.getRequestURI();
+            String queryString = request.getQueryString();
             int threadID = -1;
             String title = "";
             try {
                 threadID = Integer.parseInt(uri.split("/")[3]);
                 title = uri.split("/")[4];
+                if(queryString != null && queryString.split("=").length > 1)
+                    targetPostID = Integer.parseInt(queryString.split("=")[1]);
             }
             catch(Exception ex) {
-                System.out.println(ex.getMessage());
+                System.out.println(ex.getClass() +" : "+ ex.getMessage());
+                targetPostID = -1;
             }
+                       
+            
             System.out.println("Log:::: View Thread");
+            try {
+                if(queryString != null && queryString.split("=").length > 1) {
+                    int replyID = Integer.parseInt(queryString.split("=")[1]);
+                    String replyTo = new dao.PostDAO().fetchPost(replyID).getReplyTo();
+                    if(replyTo != null)
+                        showPostID = Integer.parseInt(replyTo);
+                    else
+                        showPostID = -1;
+
+                    System.out.println("Log ::::: Highlighted Post Is:  "+targetPostID);
+                }
+                else {
+                    System.out.println("Log ::::: There is no Highlighted Post");
+                }
+
+            }
+            catch(Exception ex) {
+                System.out.println(ex.getClass() +" : "+ ex.getMessage() );
+                showPostID = -1;
+            }
+            
             thread = (Thread)session.getAttribute("currentThread");
             if(thread == null || thread.getThreadID() != threadID) {
                 System.out.println("Log::::  View Thread Not Found");
                 request.setAttribute("threadID", threadID);
+                session.setAttribute("viewThreadTargetPost", queryString);
                 RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
                 rd.forward(request, response);
             }
@@ -55,7 +85,7 @@
                 else {
                     canEdit = true;
                 }
-                
+
                 
             }
             
@@ -70,6 +100,17 @@
         <script>
             function init() {
                 changeVoteCSS();
+                <% if(showPostID != -1)  { %>
+                    
+                    showReplies(<%= showPostID %>);
+                
+                <% } 
+                   if(targetPostID != -1) {
+                %>
+                    
+                    highlightTarget(<%= targetPostID %>);
+                
+                <% } %>
             }
             
             function editUserPost(postid) {
@@ -214,6 +255,23 @@
         
         <!--Show and hide replies-->
         <script>
+            
+            function showReplies(pid) {
+                var anchor = document.getElementById("toggle-post-"+pid);
+                anchor.innerHTML = "Hide replies";
+                $("#reply-"+pid).toggle();
+            }
+            
+            function highlightTarget(pid) {
+                $(document).ready(function() {
+                    $("#"+pid).addClass("target-post");
+//                    $('#'+pid)[0].scrollIntoView(true);
+                    $('html, body').animate({
+                        'scrollTop' : $("#"+pid).position().top
+                    }, 200);
+                });
+            }
+            
             function toggle_replies(postID) {
                 var anchor = document.getElementById("toggle-post-"+postID);
                 $(document).ready(function() {

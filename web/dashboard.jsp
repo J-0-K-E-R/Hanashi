@@ -93,7 +93,42 @@
                     </div>
                     
                     <div id="reported-posts"  class="dashboard-content-item">
-                        Reported Posts
+                        <%
+                            ArrayList<pojos.PostReport> reportedPostsList = 
+                                    dao.ReportedPostsDAO.fetchReportedPosts();
+                            dao.PostDAO pd = new dao.PostDAO();
+                            
+                            for(pojos.PostReport report: reportedPostsList) {
+                                pojos.Post post = pd.fetchPost(report.getPostID());
+                                pojos.Thread thread = td.fetchThread(post.getThreadID());
+                        %>        
+                         
+                        <div id='post-container'>
+                            <div id='votes'> Votes: <%= post.getVotes() %></div>
+                            
+                            <div id="dropdown">
+                                <div id='post-title'> <a href="/Hanashi/threads/<%= post.getThreadID()%>/<%=utilities.ThreadsService.encodeTitleToURL(thread.getTitle())%>?target=<%= post.getPostID() %>">View Post</a></div>
+
+                                <div class="report-info">
+                                    <div class="reported-by"> Reported By: 
+                                        <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                    </div>
+                                    <div class="reported"> Reported: 
+                                        <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                    </div>
+                                    <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
+                                </div>
+                            </div>
+                            
+                            <div id="username" class="username"><a href='/Hanashi/users/<%= post.getUsername()%>'><%= post.getUsername()%></a> </div>
+                            <div id='timestamp'><%= utilities.DateService.relativeDate(post.getTimestampModified()) %></div>
+
+
+                        </div>
+                        
+
+
+                        <%  } %>
                     </div>
                     
                     <div id="reported-users"  class="dashboard-content-item">

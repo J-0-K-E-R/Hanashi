@@ -268,6 +268,10 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     padding: 10px;
 }
 
+.target-post {
+    background: lavenderblush;
+}
+
 .post-container .user {
     color: green;
     font-size: 20px;
@@ -297,6 +301,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 .post-container .btn-reply {
     float: right;
 }
+
 
 #newreply .reply_to {
     display: none;
@@ -371,18 +376,18 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     border: solid 2px #0481ff;
 }
 
-#thread-container {
+#thread-container, #post-container {
     margin: 10px;
     border: solid 2px green;
     padding: 5px;
 }
 
-#thread-container #thread-title a{
+#thread-container #thread-title a, #post-container #post-title a{
     font-size: 18px;
     color: darkblue;
 }
 
-#thread-container .username a {
+#thread-container .username a, #post-container .username a{
     float: right;
     color: blueviolet;
 }
@@ -480,11 +485,11 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     /*text-align: center;*/
     padding: 10px; 
     /*border: solid 1px red;*/
-    background: gainsboro;
+    background: lavender;
 }
 
 #tags-list-wrapper .grid-container .tag-name {
-    color: green;
+    color: darkblue;
     /*font-size: 15px;*/
 }
 
