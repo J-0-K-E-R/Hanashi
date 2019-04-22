@@ -99,7 +99,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("select * from threads where Thread_ID=?");
+            fetchThreadIDStatement = conn.prepareStatement("select * from threads where Thread_ID=? and visible=TRUE");
             fetchThreadIDStatement.setInt(1, threadID);
             
             rs = fetchThreadIDStatement.executeQuery();
@@ -134,7 +134,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadsStatement = conn.prepareStatement("select * from threads order by Votes desc limit 50");
+            fetchThreadsStatement = conn.prepareStatement("select * from threads where visible=TRUE order by Votes desc limit 50");
             
             rs = fetchThreadsStatement.executeQuery();
             while(rs.next()) {
@@ -170,7 +170,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadsStatement = conn.prepareStatement("select * from threads order by "+sortby+" desc limit 50");
+            fetchThreadsStatement = conn.prepareStatement("select * from threads where visible=TRUE order by "+sortby+" desc limit 50");
             
             rs = fetchThreadsStatement.executeQuery();
             while(rs.next()) {
@@ -206,7 +206,7 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchUserThreadsStatement = conn.prepareStatement("select * from threads where username=? order by Timestamp_Modified desc");
+            fetchUserThreadsStatement = conn.prepareStatement("select * from threads where username=? and visible=TRUE order by Timestamp_Modified desc");
             fetchUserThreadsStatement.setString(1, profileUsername);
             rs = fetchUserThreadsStatement.executeQuery();
             while(rs.next()) {
@@ -458,5 +458,28 @@ public class ThreadDAO {
         });
         
         return threads;
+    }
+    
+    public String deleteThread(int threadID) {
+        String message = "";
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchThreadIDStatement = conn.prepareStatement("update threads set visible=FALSE where Thread_ID=?");
+            fetchThreadIDStatement.setInt(1, threadID);
+            
+            fetchThreadIDStatement.executeUpdate();
+            message = "Done";
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getClass().getName();
+        } finally {
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
+        }
+        return message;
     }
 }

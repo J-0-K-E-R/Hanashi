@@ -377,7 +377,7 @@
                     <div class="dropdown-content">
                         <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                         <a href="/Hanashi/editthread"> Edit Thread</a>
-                        <a href=""> Delete Thread</a>
+                        <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
                         <a href=""> Close Thread</a>
                     </div>
                 </div>

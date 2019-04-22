@@ -114,6 +114,10 @@
         <servlet-name>ReportPostController</servlet-name>
         <servlet-class>controller.ReportPostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteThreadController</servlet-name>
+        <servlet-class>controller.DeleteThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -213,6 +217,10 @@
     <servlet-mapping>
         <servlet-name>ReportPostController</servlet-name>
         <url-pattern>/ReportPost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteThreadController</servlet-name>
+        <url-pattern>/DeleteThread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
