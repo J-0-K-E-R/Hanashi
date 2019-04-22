@@ -656,8 +656,11 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     z-index: 99;
 }
 
+#dashboard-container #title-click {
+    display: none;
+}
 
-#dashboard-container #dropdown:hover  .report-info {
+#dashboard-container #title-click:checked  .report-info {
     display: inline-block;
 }
 

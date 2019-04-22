@@ -68,8 +68,10 @@
                             <div id='votes'> Votes: <%= thread.getVotes() %></div>
                             
                             <div id="dropdown">
+                                <input type="checkbox" id="title-click">
+                                <lable for="title-click">
                                 <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
-
+                                </lable>
                                 <div class="report-info">
                                     <div class="reported-by"> Reported By: 
                                         <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>

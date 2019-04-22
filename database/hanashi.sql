@@ -251,6 +251,7 @@ CREATE TABLE `reported_posts` (
   `Reported_By` varchar(16) NOT NULL,
   `Comment` varchar(8000) DEFAULT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `AddressedBy` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`Report_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -261,7 +262,7 @@ CREATE TABLE `reported_posts` (
 
 LOCK TABLES `reported_posts` WRITE;
 /*!40000 ALTER TABLE `reported_posts` DISABLE KEYS */;
-INSERT INTO `reported_posts` VALUES (2,33,'test2','Goku is rude','2019-04-20 21:38:42'),(3,20,'test2','The content is not good','2019-04-22 17:28:46');
+INSERT INTO `reported_posts` VALUES (2,33,'test2','Goku is rude','2019-04-20 21:38:42',NULL),(3,20,'test2','The content is not good','2019-04-22 17:28:46',NULL);
 /*!40000 ALTER TABLE `reported_posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,6 +279,7 @@ CREATE TABLE `reported_threads` (
   `Reported_By` varchar(16) NOT NULL,
   `Comment` varchar(8000) DEFAULT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `AddressedBy` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`Report_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -288,7 +290,7 @@ CREATE TABLE `reported_threads` (
 
 LOCK TABLES `reported_threads` WRITE;
 /*!40000 ALTER TABLE `reported_threads` DISABLE KEYS */;
-INSERT INTO `reported_threads` VALUES (1,7,'test2',NULL,'2019-04-20 19:55:09'),(2,7,'test2','Just wondering if the comment box works','2019-04-20 20:50:26');
+INSERT INTO `reported_threads` VALUES (1,7,'test2',NULL,'2019-04-20 19:55:09','test'),(2,7,'test2','Just wondering if the comment box works','2019-04-20 20:50:26','test');
 /*!40000 ALTER TABLE `reported_threads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -443,4 +445,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-23  1:09:23
+-- Dump completed on 2019-04-23  1:43:23
