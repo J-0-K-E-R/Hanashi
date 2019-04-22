@@ -118,6 +118,10 @@
         <servlet-name>DeleteThreadController</servlet-name>
         <servlet-class>controller.DeleteThreadController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeletePostController</servlet-name>
+        <servlet-class>controller.DeletePostController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -221,6 +225,10 @@
     <servlet-mapping>
         <servlet-name>DeleteThreadController</servlet-name>
         <url-pattern>/DeleteThread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeletePostController</servlet-name>
+        <url-pattern>/DeletePost</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

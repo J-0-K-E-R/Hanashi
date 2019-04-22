@@ -467,17 +467,17 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("update threads set visible=FALSE where Thread_ID=?");
-            fetchThreadIDStatement.setInt(1, threadID);
+            updateThreadStatement = conn.prepareStatement("update threads set visible=FALSE where Thread_ID=?");
+            updateThreadStatement.setInt(1, threadID);
             
-            fetchThreadIDStatement.executeUpdate();
+            updateThreadStatement.executeUpdate();
             message = "Done";
             
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             message = e.getClass().getName();
         } finally {
-            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(updateThreadStatement);
             DBUtil.close(conn);
         }
         return message;

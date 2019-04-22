@@ -23,6 +23,7 @@ import utilities.Preprocess;
 public class PostDAO {
     private PreparedStatement createPostStatement;
     private PreparedStatement editPostStatement;
+    private PreparedStatement deletePostStatement;
     private PreparedStatement fetchPostsStatement;
     private PreparedStatement updateVotesStatement;
     private PreparedStatement fetchPostIDStatement;
@@ -102,7 +103,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL order by votes desc;");
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Thread_ID=? and Reply_to is NULL and Visible=TRUE order by votes desc;");
             fetchPostsStatement.setInt(1, threadID);
             
             rs = fetchPostsStatement.executeQuery();
@@ -139,7 +140,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts where Post_ID=?");
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Post_ID=? and Visible=TRUE");
             fetchPostsStatement.setInt(1, postID);
             
             rs = fetchPostsStatement.executeQuery();
@@ -274,7 +275,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts where Reply_to=?");
+            fetchPostsStatement = conn.prepareStatement("select * from posts where Reply_to=? and Visible=TRUE");
             fetchPostsStatement.setString(1, String.valueOf(postID));
             
             rs = fetchPostsStatement.executeQuery();
@@ -380,7 +381,7 @@ public class PostDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchPostsStatement = conn.prepareStatement("select * from posts;");
+            fetchPostsStatement = conn.prepareStatement("select * from posts and Visible=TRUE;");
             
             rs = fetchPostsStatement.executeQuery();
             while(rs.next()) {
@@ -405,5 +406,28 @@ public class PostDAO {
         }
         
         return posts;
+    }
+    
+        public String deletePost(int postID) {
+        String message = "";
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            deletePostStatement = conn.prepareStatement("update posts set visible=FALSE where Post_ID=?");
+            deletePostStatement.setInt(1, postID);
+            
+            deletePostStatement.executeUpdate();
+            message = "Done";
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            message = e.getClass().getName();
+        } finally {
+            DBUtil.close(deletePostStatement);
+            DBUtil.close(conn);
+        }
+        return message;
     }
 }

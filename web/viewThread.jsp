@@ -444,7 +444,7 @@
                             <div class="dropdown-content">
                                 <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                                 <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
-                                <a href=""> Delete Post</a>
+                                <a href="/Hanashi/DeletePost?postID=<%=post.getPostID()%>"> Delete Post</a>
                             </div>
                         </div>
                                 
@@ -533,7 +533,7 @@
                                     <div class="dropdown-content">
                                         <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                                         <a href="#/" onclick="editUserPost('<%=reply.getPostID()%>');" > Edit Post</a>
-                                        <a href=""> Delete Post</a>
+                                        <a href="/Hanashi/DeletePost?postID=<%=reply.getPostID()%>"> Delete Post</a>
                                     </div>
                                 </div>
 
