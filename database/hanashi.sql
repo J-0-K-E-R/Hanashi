@@ -24,6 +24,9 @@ DROP TABLE IF EXISTS `banned_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `banned_users` (
   `Username` varchar(16) NOT NULL,
+  `Banned_By` varchar(16) NOT NULL,
+  `Comment` varchar(8000) DEFAULT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -34,7 +37,7 @@ CREATE TABLE `banned_users` (
 
 LOCK TABLES `banned_users` WRITE;
 /*!40000 ALTER TABLE `banned_users` DISABLE KEYS */;
-INSERT INTO `banned_users` VALUES ('test21');
+INSERT INTO `banned_users` VALUES ('test3','test','iyvbyug','2019-04-23 07:36:11');
 /*!40000 ALTER TABLE `banned_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,6 +298,33 @@ INSERT INTO `reported_threads` VALUES (1,7,'test2',NULL,'2019-04-20 19:55:09','t
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reported_users`
+--
+
+DROP TABLE IF EXISTS `reported_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reported_users` (
+  `Report_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(16) NOT NULL,
+  `Reported_By` varchar(16) NOT NULL,
+  `Comment` varchar(8000) DEFAULT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Adressed_By` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`Report_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reported_users`
+--
+
+LOCK TABLES `reported_users` WRITE;
+/*!40000 ALTER TABLE `reported_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reported_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tags`
 --
 
@@ -445,4 +475,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-23  1:43:23
+-- Dump completed on 2019-04-23 13:10:29
