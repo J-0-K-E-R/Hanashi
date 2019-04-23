@@ -34,11 +34,17 @@ public class BanUserController extends HttpServlet {
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             String username = request.getParameter("username");
+            pojos.User user = (pojos.User)session.getAttribute("user");
             String message;
             if(dao.BannedUsersDAO.isBanned(username))
                 message = dao.BannedUsersDAO.unban(username);
-            else 
-                message = dao.BannedUsersDAO.ban(username);
+            else {
+                pojos.BanUser buser = new pojos.BanUser();
+                buser.setUsername(username);
+                buser.setComment(request.getParameter("comment"));
+                buser.setBannedBy(user.getUsername());
+                message = dao.BannedUsersDAO.ban(buser);
+            }
             
             session.removeAttribute("profileUser");
             

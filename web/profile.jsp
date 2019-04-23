@@ -16,8 +16,10 @@
         <%@include file="/header.jsp"%>
         
         <!--Check if profile of the current user is fetched or not-->
-        <%! String followButtonURI; 
-        User proUser;
+        <%!
+            String followButtonURI; 
+            User proUser;
+            String commentBoxURI;
         %>
         <% 
             String uri = request.getRequestURI();
@@ -59,6 +61,13 @@
                     }
                     
                     session.setAttribute("isFollowing", isFollowing);
+                    
+                    if(user.getPrivilege() <= 2) {
+                        commentBoxURI = "/Hanashi/BanUser?username=" + proUser.getUsername();
+                    }
+                    else {
+                        commentBoxURI = "/Hanashi/ReportUser?username=" + proUser.getUsername();
+                    }
                 }
                 
                 dao.ThreadDAO td = new dao.ThreadDAO();
@@ -160,7 +169,7 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
+                        <a  href="#/" onclick="toggleInputBox();"> <%=isBanned%></a>
                         
                         <%
                             if(user.getPrivilege() == 1) {
@@ -232,7 +241,7 @@
             
         <div class="full-screen-background" hidden>
             <div class="input-box">
-                <form action="/Hanashi/ReportUser?username=${profileUser.getUsername()}" method="POST">
+                <form action="<%= commentBoxURI%>" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
                     <input type="submit" value="Report" class="btn btn-success btn-report">

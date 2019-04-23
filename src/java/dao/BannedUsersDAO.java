@@ -19,7 +19,7 @@ import utilities.DBUtil;
 public class BannedUsersDAO {
     private static PreparedStatement insertStatement, queryStatement, deleteStatement;
     
-    public static String ban(String username) {
+    public static String ban(pojos.BanUser user) {
         String message = "";
         Connection conn = null;
         
@@ -29,8 +29,10 @@ public class BannedUsersDAO {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
-                insertStatement = conn.prepareStatement("insert into banned_users values(?)");
-                insertStatement.setString(1, username);
+                insertStatement = conn.prepareStatement("insert into banned_users values(?,?,?,null);");
+                insertStatement.setString(1, user.getUsername());
+                insertStatement.setString(2, user.getBannedBy());
+                insertStatement.setString(3, user.getComment());
                 insertStatement.executeUpdate();
                 message = "Done";
             } catch (SQLException | ClassNotFoundException e) {
