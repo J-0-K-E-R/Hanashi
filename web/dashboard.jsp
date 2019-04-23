@@ -68,10 +68,7 @@
                             <div id='votes'> Votes: <%= thread.getVotes() %></div>
                             
                             <div id="dropdown">
-                                <input type="checkbox" id="title-click">
-                                <lable for="title-click">
                                 <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
-                                </lable>
                                 <div class="report-info">
                                     <div class="reported-by"> Reported By: 
                                         <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
@@ -134,7 +131,37 @@
                     </div>
                     
                     <div id="reported-users"  class="dashboard-content-item">
-                        Reported Users
+                        <div class="grid-container">
+                            <%
+                                ArrayList<pojos.UserReport> reportedUsersList = 
+                                        dao.ReportedUsersDAO.fetchReportedUsers();
+                                dao.UserDAO ud = new dao.UserDAO();
+
+                                for(pojos.UserReport report: reportedUsersList) {
+                                    pojos.User reportedUser = ud.fetchUser(report.getUsername());
+                            %>
+
+                            <div class="user-item">
+                                <div class='user-profile-image'>
+                                    <a href="/Hanashi/users/<%= reportedUser.getUsername()%>"><img src="<%= reportedUser.getAvatarPath() %>" class="user-profile-image"></a>
+                                </div>
+                                <div id="dropdown">
+                                    <div class="username"> <a href="/Hanashi/users/<%=reportedUser.getUsername()%>"><%=reportedUser.getUsername()%> </a></div>
+                                    <div class="report-info">
+                                        <div class="reported-by"> Reported By: 
+                                            <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                        </div>
+                                        <div class="reported"> Reported: 
+                                            <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                        </div>
+                                        <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
+                                    </div>
+                                 </div>
+                                <div class="user-points"> <%=reportedUser.getPoints()%> </div>
+                            </div>
+
+                            <%  } %>
+                        </div>
                     </div>
                 </div>
                 

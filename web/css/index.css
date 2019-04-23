@@ -10,9 +10,9 @@ color: #0481ff;*/
     left: 0;
     width: 100%;
     border-radius: 0;
-    -moz-box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.9);
-    -webkit-box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.9);
-    box-shadow: 1px 2px 20px rgba(0, 0, 0, 0.9);
+    -moz-box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
+    -webkit-box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
 }
 
 .myColor {
@@ -127,7 +127,7 @@ body {
     padding: 10px;
 }
 
-#users-list-wrapper .user-profile-image {
+#users-list-wrapper .user-profile-image, #reported-users .user-profile-image {
     float: left;
     width: 60px;
     height: 60px;
@@ -135,7 +135,7 @@ body {
     margin-right: 5px;
 }
 
-#users-list-wrapper .username a {
+#users-list-wrapper .username a, #reported-users .username a {
     color: green;
     font-size: 16px;
     transition: .2s;
@@ -146,7 +146,7 @@ body {
     font-size: 19px;
 }
 
-#users-list-wrapper .user-points {
+#users-list-wrapper .user-points, #reported-users .user-points {
     color: #0481ff;
 }
 
@@ -659,11 +659,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     z-index: 99;
 }
 
-#dashboard-container #title-click {
-    display: none;
-}
-
-#dashboard-container #title-click:checked  .report-info {
+#dashboard-container #dropdown:hover .report-info {
     display: inline-block;
 }
 
@@ -683,4 +679,16 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #dashboard-container .comment-content, #dashboard-container .reported-time {
     color: darkgreen;
+}
+
+#dashboard-content .grid-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 6px;
+    padding: 10px;
+}
+
+#dashboard-content .user-item {
+    background: white;
 }

@@ -254,7 +254,7 @@ CREATE TABLE `reported_posts` (
   `Reported_By` varchar(16) NOT NULL,
   `Comment` varchar(8000) DEFAULT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AddressedBy` varchar(16) DEFAULT NULL,
+  `Addressed_By` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`Report_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -282,7 +282,7 @@ CREATE TABLE `reported_threads` (
   `Reported_By` varchar(16) NOT NULL,
   `Comment` varchar(8000) DEFAULT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AddressedBy` varchar(16) DEFAULT NULL,
+  `Addressed_By` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`Report_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -310,9 +310,9 @@ CREATE TABLE `reported_users` (
   `Reported_By` varchar(16) NOT NULL,
   `Comment` varchar(8000) DEFAULT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Adressed_By` varchar(16) DEFAULT NULL,
+  `Addressed_By` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`Report_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,6 +321,7 @@ CREATE TABLE `reported_users` (
 
 LOCK TABLES `reported_users` WRITE;
 /*!40000 ALTER TABLE `reported_users` DISABLE KEYS */;
+INSERT INTO `reported_users` VALUES (1,'test21','test2','Don\'t like the name','2019-04-23 15:15:16',NULL),(2,'test22','test2','A bad vibe','2019-04-23 15:18:28',NULL),(3,'test22','test2','A bad vibe','2019-04-23 15:24:01',NULL),(4,'test51','test2','','2019-04-23 15:24:37',NULL);
 /*!40000 ALTER TABLE `reported_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-23 13:10:29
+-- Dump completed on 2019-04-23 21:04:51

@@ -83,7 +83,7 @@ public class ReportedPostsDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchStatement = conn.prepareStatement("SELECT * FROM reported_posts where AddressedBy is NULL ORDER BY Timestamp DESC;");
+            fetchStatement = conn.prepareStatement("SELECT * FROM reported_posts where Addressed_By is NULL ORDER BY Timestamp DESC;");
             
             rs = fetchStatement.executeQuery();
             while(rs.next()) {
