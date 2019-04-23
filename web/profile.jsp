@@ -122,7 +122,14 @@
                     followbutton.innerHTML = "Follow";
             }
         </script>
-        
+    <script>
+        function toggleInputBox() {
+                $(document).ready(function() {
+                    $('.full-screen-background').fadeToggle('fast');
+                    $('.full-screen-background').find('.text').prop("value", "");
+                });
+            }
+        </script>   
     </head>
     
     <body onload="pageLoader()">
@@ -167,6 +174,18 @@
                 </div>
                                 
                 <%
+                        } else if (isLoggedIn)  {
+                %>
+                
+                <div class="dropdown">
+                    <div class="three-dots"></div>
+                    <div class="dropdown-content">
+                        <a href="#/" onclick="toggleInputBox();"> Report User</a>
+                    </div>
+                </div>
+                
+                           
+                <%
                     }              
                 %>                
                 
@@ -209,6 +228,17 @@
                 <% } %>
             </div>
         </div>
+        </div>
+            
+        <div class="full-screen-background" hidden>
+            <div class="input-box">
+                <form action="/Hanashi/ReportUser?username=${profileUser.getUsername()}" method="POST">
+                    <span>Please enter a comment</span> <br>
+                    <input type="text" placeholder="Comment" name="comment" class="text"> <br>
+                    <input type="submit" value="Report" class="btn btn-success btn-report">
+                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="toggleInputBox()">
+                </form>
+            </div>
         </div>
     </body>
 </html>

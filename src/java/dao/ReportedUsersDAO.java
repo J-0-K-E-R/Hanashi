@@ -17,12 +17,12 @@ import utilities.DBUtil;
  *
  * @author robogod
  */
-public class ReportedPostsDAO {
+public class ReportedUsersDAO {
     private static PreparedStatement insertStatement, fetchStatement;
     
-    public static pojos.PostReport report(pojos.PostReport report) {
+    public static pojos.UserReport report(pojos.UserReport report) {
         Connection conn = null;
-        pojos.PostReport retReport;
+        pojos.UserReport retReport;
         
         try {
                 report.setReportID(getNextReportID());
@@ -31,8 +31,8 @@ public class ReportedPostsDAO {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
-                insertStatement = conn.prepareStatement("insert into reported_posts values(null,?,?,?,null,null)");
-                insertStatement.setInt(1, report.getPostID());
+                insertStatement = conn.prepareStatement("insert into reported_users values(null,?,?,?,null,null);");
+                insertStatement.setString(1, report.getUsername());
                 insertStatement.setString(2, report.getReportedBy());
                 insertStatement.setString(3, report.getComment());
                 insertStatement.executeUpdate();
@@ -57,7 +57,7 @@ public class ReportedPostsDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND   TABLE_NAME   = 'reported_posts';");
+            fetchStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND   TABLE_NAME   = 'reported_users';");
             
             rs = fetchStatement.executeQuery();
             if(rs.next()) {
@@ -74,22 +74,23 @@ public class ReportedPostsDAO {
         return tid;
     }
     
-    public static ArrayList<pojos.PostReport> fetchReportedPosts() {
-        ArrayList<pojos.PostReport> list = new ArrayList();
-        pojos.PostReport report = new pojos.PostReport();
+    
+    public static ArrayList<pojos.UserReport> fetchReportedUsers() {
+        ArrayList<pojos.UserReport> list = new ArrayList();
+        pojos.UserReport report = new pojos.UserReport();
         Connection conn = null;
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchStatement = conn.prepareStatement("SELECT * FROM reported_posts where AddressedBy is NULL ORDER BY Timestamp DESC;");
+            fetchStatement = conn.prepareStatement("SELECT * FROM reported_users where AddressedBy is NULL ORDER BY Timestamp DESC;");
             
             rs = fetchStatement.executeQuery();
             while(rs.next()) {
-                report = new pojos.PostReport();
+                report = new pojos.UserReport();
                 report.setReportID(rs.getInt("Report_ID"));
-                report.setPostID(rs.getInt("Post_ID"));
+                report.setUsername(rs.getString("Username"));
                 report.setTimestamp(rs.getTimestamp("Timestamp").getTime());
                 report.setComment(rs.getString("Comment"));
                 report.setReportedBy(rs.getString("Reported_By"));

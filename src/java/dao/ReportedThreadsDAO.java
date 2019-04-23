@@ -31,7 +31,7 @@ public class ReportedThreadsDAO {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
 
                 //Create the preparedstatement(s)
-                insertStatement = conn.prepareStatement("insert into reported_threads values(null,?,?,?,null)");
+                insertStatement = conn.prepareStatement("insert into reported_threads values(null,?,?,?,null,null)");
                 insertStatement.setInt(1, report.getThreadID());
                 insertStatement.setString(2, report.getReportedBy());
                 insertStatement.setString(3, report.getComment());

@@ -122,6 +122,10 @@
         <servlet-name>DeletePostController</servlet-name>
         <servlet-class>controller.DeletePostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportUserController</servlet-name>
+        <servlet-class>controller.ReportUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -229,6 +233,10 @@
     <servlet-mapping>
         <servlet-name>DeletePostController</servlet-name>
         <url-pattern>/DeletePost</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportUserController</servlet-name>
+        <url-pattern>/ReportUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
