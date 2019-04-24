@@ -65,26 +65,27 @@
 
         
         <div id="all-threads-container">
-            <div id="sortby" class="">
-                <% 
-                    if(isLoggedIn) { 
-                %>
-                    <a href="/Hanashi/index.jsp?sortby=Relevance" class="btn btn-default btn-active"> Relevance </a>
-                <%
-                    }
-                %>
-                <a href="/Hanashi/index.jsp?sortby=Timestamp_Modified" class="btn btn-default"> Newest </a>
-                <a href="/Hanashi/index.jsp?sortby=Votes" class="btn btn-default"> Popular </a>
+            <div id="sortby">
+                <div class="btn-group pull-right">
+                    <% 
+                        if(isLoggedIn) { 
+                    %>
+                        <a href="/Hanashi/index.jsp?sortby=Relevance" class="btn btn-primary btn-active"> Relevance </a>
+                    <%
+                        }
+                    %>
+                    <a href="/Hanashi/index.jsp?sortby=Timestamp_Modified" class="btn btn-primary"> Newest </a>
+                    <a href="/Hanashi/index.jsp?sortby=Votes" class="btn btn-primary"> Popular </a>
+                </div>
             </div>
             <%
                 for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("threads")) {
             %>
             <div id='thread-container'>
-                <div id='votes'> Votes: <%= thread.getVotes() %></div>
-                <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
-                <div id="username" class="username"><a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
-                <div id='timestamp'><%= DateService.relativeDate(thread.getTimestampModified()) %></div>
+                <div id='thread-title'><div class="votes">Votes: <%= thread.getVotes() %></div><div class="vDivider"></div><a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+                <div id="username" class="username"><%= DateService.relativeDate(thread.getTimestampModified()) %> by <a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
             </div>
+            <hr class="divider">
             <% } %>
         </div>
         </div>

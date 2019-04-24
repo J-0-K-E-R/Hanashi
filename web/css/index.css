@@ -30,9 +30,9 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    /*background-color: #454545;*/
+    background-color: #454545;
     overflow:auto;
-    /*color: #0481ff;*/
+    color: #0481ff;
 }
 
 .main {
@@ -376,23 +376,59 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 #all-threads-container {
-    border: solid 2px #0481ff;
+    /*border: solid 2px #0481ff;*/
+}
+
+#all-threads-container a {
+    text-decoration : none;
+}
+
+#sortby {
+    margin-right: 10px;
+    height: 40px;
 }
 
 #thread-container, #post-container {
     margin: 10px;
-    border: solid 2px green;
+    /*border: solid 2px green;*/
     padding: 5px;
 }
+
+.btn { float: none; }
 
 #thread-container #thread-title a, #post-container #post-title a{
     font-size: 18px;
     color: darkblue;
 }
 
+hr.divider {
+    height: 5px;
+    background: url(http://ibrahimjabbari.com/english/images/hr-11.png) repeat-x 0 0;
+    border: 0;
+    margin-top: 25px;
+}
+
+.vDivider {
+    border-left: 1px solid #38546d; 
+    border-right: 1px solid #16222c; 
+    height: 36px;
+    float: left;
+    margin-right: 15px;
+    margin-left: 15px;
+    position: relative;
+    top: -7px;
+}
+
+#thread-container #thread-title .votes {
+    float: left;
+}
+
 #thread-container .username a, #post-container .username a{
-    float: right;
     color: blueviolet;
+}
+
+#thread-container .username{
+    float: right;
 }
 
 /* The side navigation menu */
