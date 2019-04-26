@@ -18,6 +18,7 @@
         
         <%! boolean canEdit;
             Thread thread;
+            ArrayList<pojos.Post> posts;
             int doesExist;
             String timestampModified;
             int showPostID=-1;
@@ -95,6 +96,8 @@
             else {
                 doesExist = 0;
             }
+            posts = (ArrayList<pojos.Post>) session.getAttribute("posts");
+            
         %>
         
         <script>
@@ -111,6 +114,16 @@
                     highlightTarget(<%= targetPostID %>);
                 
                 <% } %>
+                    
+                <%
+                    if(posts != null && isLoggedIn)
+                    for(pojos.Post post: posts) {
+                        %>
+                            changePostVoteCSS(<%=dao.PostVotesDAO.doesExist(post.getPostID(), user.getUsername())%>,<%=post.getPostID()%>);
+                        <%
+                    }
+                %>    
+                    
             }
             
             function editUserPost(postid) {

@@ -58,6 +58,8 @@ public class CreateThreadController extends HttpServlet {
             Thread thread = new Thread(); 
             ThreadDAO td = new ThreadDAO();
             
+            System.out.println("Log ::::: Creating Thread");
+            
             int threadID = td.getNextThreadID();
             thread.setThreadID(threadID);
             User user = (User)session.getAttribute("user");
@@ -66,6 +68,9 @@ public class CreateThreadController extends HttpServlet {
             thread.setTitle(request.getParameter("title"));
             thread.setPost(request.getParameter("post-content"));
             thread.setTagsList(request.getParameter("tags"));
+            
+            System.out.println("Log ::::: Title is "+ thread.getTitle());
+            
             
             thread = td.addNewThread(thread);
             
