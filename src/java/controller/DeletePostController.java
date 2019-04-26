@@ -33,13 +33,24 @@ public class DeletePostController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            
-            int postID = Integer.parseInt(request.getParameter("postID"));
-            String message = new dao.PostDAO().deletePost(postID);
-            
-            System.out.println("Log ;:::: Deleting Post : " + postID);
-            session.removeAttribute("currentThread");
-            response.sendRedirect((String)session.getAttribute("currentURI"));
+            pojos.User user = (pojos.User)session.getAttribute("user");
+            if(user == null || user.getPrivilege() > 2) {
+                out.write("Access Denied! <br>");
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                        request.getServerName() +
+                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "5; URL="+url);
+            }
+            else {
+                int postID = Integer.parseInt(request.getParameter("postID"));
+                String message = new dao.PostDAO().deletePost(postID);
+
+                System.out.println("Log ;:::: Deleting Post : " + postID);
+                session.removeAttribute("currentThread");
+                response.sendRedirect((String)session.getAttribute("currentURI"));
+            }
         }
     }
 

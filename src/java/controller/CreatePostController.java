@@ -45,42 +45,53 @@ public class CreatePostController extends HttpServlet {
             Thread currentThread = (Thread)session.getAttribute("currentThread");
             User user = (User)session.getAttribute("user");
             
-            post.setThreadID(currentThread.getThreadID());
-            post.setUsername(user.getUsername());
-            post.setPost(request.getParameter("post-content"));
-            
-  
-            String reply_to = request.getParameter("reply_to");
-            String replyPostID = null;
-            if(reply_to != null && !"".equals(reply_to)) {
-                try{
-                    replyPostID = String.valueOf(Integer.parseInt(reply_to.split("@")[1].split(";")[0].trim()));
-                }
-                catch(NumberFormatException e) {
-                    replyPostID = null;
-                }
-            }
-            if(replyPostID != null && !"".equals(replyPostID)) 
-                post.setReplyTo(replyPostID);
-                
-                
-            
-            String message = pd.addNewPost(post);
-            
-            if(!message.equals("Done")) {
-                out.write(message);
+            if(user == null) {
+                out.write("Access Denied! <br>");
                 out.write("Some Error Occurred!<br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
                         request.getServerName() +
                         ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "10; URL="+url);
+                response.setHeader("Refresh", "5; URL="+url);
             }
             else {
-                session.removeAttribute("currentThread");
-                response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(currentThread.getTitle()));
+
+                post.setThreadID(currentThread.getThreadID());
+                post.setUsername(user.getUsername());
+                post.setPost(request.getParameter("post-content"));
+
+
+                String reply_to = request.getParameter("reply_to");
+                String replyPostID = null;
+                if(reply_to != null && !"".equals(reply_to)) {
+                    try{
+                        replyPostID = String.valueOf(Integer.parseInt(reply_to.split("@")[1].split(";")[0].trim()));
+                    }
+                    catch(NumberFormatException e) {
+                        replyPostID = null;
+                    }
+                }
+                if(replyPostID != null && !"".equals(replyPostID)) 
+                    post.setReplyTo(replyPostID);
+
+
+
+                String message = pd.addNewPost(post);
+
+                if(!message.equals("Done")) {
+                    out.write(message);
+                    out.write("Some Error Occurred!<br> Redirecting...");
+                    String uri = "/Hanashi/index.jsp";
+                    String url = request.getScheme() + "://" +
+                            request.getServerName() +
+                            ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                    response.setHeader("Refresh", "10; URL="+url);
+                }
+                else {
+                    session.removeAttribute("currentThread");
+                    response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(currentThread.getTitle()));
+                }
             }
-            
         }
     }
 

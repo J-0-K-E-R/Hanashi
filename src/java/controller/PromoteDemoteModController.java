@@ -34,19 +34,31 @@ public class PromoteDemoteModController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            User proUser = (User)session.getAttribute("profileUser");
-            String message;
-            dao.UserDAO ud = new dao.UserDAO();
-            if(proUser.getPrivilege() == 2) {
-                message = ud.demote(proUser.getUsername());
-                ud.decreaseModPoints(proUser.getUsername());
+            pojos.User user = (pojos.User)session.getAttribute("user");
+            if(user == null || user.getPrivilege() > 1) {
+                out.write("Access Denied! <br>");
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                        request.getServerName() +
+                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "5; URL="+url);
             }
             else {
-                message = ud.promote(proUser.getUsername());
-                ud.boostModPoints(proUser.getUsername());
+                User proUser = (User)session.getAttribute("profileUser");
+                String message;
+                dao.UserDAO ud = new dao.UserDAO();
+                if(proUser.getPrivilege() == 2) {
+                    message = ud.demote(proUser.getUsername());
+                    ud.decreaseModPoints(proUser.getUsername());
+                }
+                else {
+                    message = ud.promote(proUser.getUsername());
+                    ud.boostModPoints(proUser.getUsername());
+                }
+                session.removeAttribute("profileUser");
+                response.sendRedirect("/Hanashi/users/" + proUser.getUsername());
             }
-            session.removeAttribute("profileUser");
-            response.sendRedirect("/Hanashi/users/" + proUser.getUsername());
         }
     }
 

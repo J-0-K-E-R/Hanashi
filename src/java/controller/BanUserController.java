@@ -35,21 +35,32 @@ public class BanUserController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String username = request.getParameter("username");
             pojos.User user = (pojos.User)session.getAttribute("user");
-            String message;
-            if(dao.BannedUsersDAO.isBanned(username))
-                message = dao.BannedUsersDAO.unban(username);
-            else {
-                pojos.BanUser buser = new pojos.BanUser();
-                buser.setUsername(username);
-                buser.setComment(request.getParameter("comment"));
-                buser.setBannedBy(user.getUsername());
-                message = dao.BannedUsersDAO.ban(buser);
+            
+            if(user == null || user.getPrivilege() > 2) {
+                out.write("Access Denied! <br>");
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                        request.getServerName() +
+                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "5; URL="+url);
             }
-            
-            session.removeAttribute("profileUser");
-            
-            response.sendRedirect((String)session.getAttribute("currentURI"));
-            
+            else {
+                String message;
+                if(dao.BannedUsersDAO.isBanned(username))
+                    message = dao.BannedUsersDAO.unban(username);
+                else {
+                    pojos.BanUser buser = new pojos.BanUser();
+                    buser.setUsername(username);
+                    buser.setComment(request.getParameter("comment"));
+                    buser.setBannedBy(user.getUsername());
+                    message = dao.BannedUsersDAO.ban(buser);
+                }
+
+                session.removeAttribute("profileUser");
+
+                response.sendRedirect((String)session.getAttribute("currentURI"));
+            }
         }
     }
 

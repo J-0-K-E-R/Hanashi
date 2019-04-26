@@ -63,36 +63,49 @@ public class CreateThreadController extends HttpServlet {
             int threadID = td.getNextThreadID();
             thread.setThreadID(threadID);
             User user = (User)session.getAttribute("user");
-            thread.setUsername(user.getUsername());
-            
-            thread.setTitle(request.getParameter("title"));
-            thread.setPost(request.getParameter("post-content"));
-            thread.setTagsList(request.getParameter("tags"));
-            
-            System.out.println("Log ::::: Title is "+ thread.getTitle());
             
             
-            thread = td.addNewThread(thread);
-            
-            TagsDAO tgd = new TagsDAO();
-            String message = tgd.updateTags(request.getParameter("tags"));
-            
-            if(thread == null) {
+            if(user == null) {
+                out.write("Access Denied! <br>");
                 out.write("Some Error Occurred!<br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
                         request.getServerName() +
                         ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "3; URL="+url);
+                response.setHeader("Refresh", "5; URL="+url);
             }
             else {
-                request.setAttribute("threadID", threadID);
-                System.out.println("Log::: Created Thread");
-                session.removeAttribute("threads");
-                RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
-                rd.forward(request, response);
+
+                thread.setUsername(user.getUsername());
+
+                thread.setTitle(request.getParameter("title"));
+                thread.setPost(request.getParameter("post-content"));
+                thread.setTagsList(request.getParameter("tags"));
+
+                System.out.println("Log ::::: Title is "+ thread.getTitle());
+
+
+                thread = td.addNewThread(thread);
+
+                TagsDAO tgd = new TagsDAO();
+                String message = tgd.updateTags(request.getParameter("tags"));
+
+                if(thread == null) {
+                    out.write("Some Error Occurred!<br> Redirecting...");
+                    String uri = "/Hanashi/index.jsp";
+                    String url = request.getScheme() + "://" +
+                            request.getServerName() +
+                            ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                    response.setHeader("Refresh", "3; URL="+url);
+                }
+                else {
+                    request.setAttribute("threadID", threadID);
+                    System.out.println("Log::: Created Thread");
+                    session.removeAttribute("threads");
+                    RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
+                    rd.forward(request, response);
+                }
             }
-            
         }
     }
 

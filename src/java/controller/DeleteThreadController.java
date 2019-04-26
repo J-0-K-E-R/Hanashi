@@ -34,13 +34,24 @@ public class DeleteThreadController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             HttpSession session = request.getSession();
-            
-            int threadID = Integer.parseInt(request.getParameter("threadID"));
-            String message = new dao.ThreadDAO().deleteThread(threadID);
-            
-            System.out.println("Log ;:::: Deleting Thread : " + threadID);
-            session.removeAttribute("currentThread");
-            response.sendRedirect("/Hanashi/index.jsp");
+            pojos.User user = (pojos.User)session.getAttribute("user");
+            if(user == null || user.getPrivilege() > 2) {
+                out.write("Access Denied! <br>");
+                out.write("Some Error Occurred!<br> Redirecting...");
+                String uri = "/Hanashi/index.jsp";
+                String url = request.getScheme() + "://" +
+                        request.getServerName() +
+                        ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                response.setHeader("Refresh", "5; URL="+url);
+            }
+            else {
+                int threadID = Integer.parseInt(request.getParameter("threadID"));
+                String message = new dao.ThreadDAO().deleteThread(threadID);
+
+                System.out.println("Log ;:::: Deleting Thread : " + threadID);
+                session.removeAttribute("currentThread");
+                response.sendRedirect("/Hanashi/index.jsp");
+            }
         }
     }
 

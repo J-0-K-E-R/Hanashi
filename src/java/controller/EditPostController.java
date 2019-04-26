@@ -45,31 +45,41 @@ public class EditPostController extends HttpServlet {
             Post currentPost = pd.fetchPost(postID);
             User user = (User)session.getAttribute("user");
             
-            post.setPostID(currentPost.getPostID());
-            post.setThreadID(currentPost.getThreadID());
-            post.setUsername(currentPost.getUsername());
-            post.setPost(request.getParameter("post-content"));
-            
-            String message;
-            if(user.getPrivilege() > 2)
-                message = pd.updatePost(post);
-            else
-                message = pd.updatePostByMod(post, user.getUsername(), request.getParameter("comment") );
-            
-            if(!message.equals("Done")) {
-                out.write(message);
+            if(user == null) {
+                out.write("Access Denied! <br>");
                 out.write("Some Error Occurred!<br> Redirecting...");
                 String uri = "/Hanashi/index.jsp";
                 String url = request.getScheme() + "://" +
                         request.getServerName() +
                         ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
-                response.setHeader("Refresh", "10; URL="+url);
+                response.setHeader("Refresh", "5; URL="+url);
             }
             else {
-                session.removeAttribute("currentThread");
-                response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(currentThread.getTitle()));
+                post.setPostID(currentPost.getPostID());
+                post.setThreadID(currentPost.getThreadID());
+                post.setUsername(currentPost.getUsername());
+                post.setPost(request.getParameter("post-content"));
+
+                String message;
+                if(user.getPrivilege() > 2)
+                    message = pd.updatePost(post);
+                else
+                    message = pd.updatePostByMod(post, user.getUsername(), request.getParameter("comment") );
+
+                if(!message.equals("Done")) {
+                    out.write(message);
+                    out.write("Some Error Occurred!<br> Redirecting...");
+                    String uri = "/Hanashi/index.jsp";
+                    String url = request.getScheme() + "://" +
+                            request.getServerName() +
+                            ("http".equals(request.getScheme()) && request.getServerPort() == 80 || "https".equals(request.getScheme()) && request.getServerPort() == 443 ? "" : ":" + request.getServerPort() ) +uri;
+                    response.setHeader("Refresh", "10; URL="+url);
+                }
+                else {
+                    session.removeAttribute("currentThread");
+                    response.sendRedirect("/Hanashi/threads/"+currentThread.getThreadID()+"/"+ThreadsService.encodeTitleToURL(currentThread.getTitle()));
+                }
             }
-            
         }
     }
 
