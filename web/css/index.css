@@ -76,6 +76,10 @@ body {
     margin-bottom: 10px;
 }
 
+.popover-content #popover-login-button {
+    width: 100px;
+}
+
 .popover-content #recaptcha-div {
     transform:scale(0.77);
     -webkit-transform:scale(0.77);
@@ -497,6 +501,11 @@ hr.divider {
 
 
 /* Main Log In page styling */
+
+
+#alertError {
+    top: 30px;
+}
 
 #login-text {
     color: #0984e3;
