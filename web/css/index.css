@@ -474,16 +474,6 @@ hr.divider {
     margin-right: 8px;
 }
 
-/*Styling loginpage*/
-#loginform-cotainer {
-    position: relative;
-    width: 400px;
-    top: 30px;
-    /*transform: translate(-50%, 0);*/
-    /*border: 2px solid green;*/
-}
-
-
 /*Styling CreateThread Page*/
 
 #create-thread-container {
@@ -503,6 +493,28 @@ hr.divider {
     
     
     text-align: right;
+}
+
+
+/* Main Log In page styling */
+
+#login-text {
+    color: #0984e3;
+}
+
+.form-control::-webkit-input-placeholder { color: #1e272e; }  /* WebKit, Blink, Edge */
+.form-control:-moz-placeholder { color: #1e272e; }  /* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder { color: #1e272e; }  /* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder { color: #1e272e; }  /* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder { color: #1e272e; }  /* Microsoft Edge */
+
+
+#loginform-cotainer {
+    position: relative;
+    width: 302px;
+    top: 100px;
+    /*transform: translate(-50%, 0);*/
+    /*border: 2px solid green;*/
 }
 
 
