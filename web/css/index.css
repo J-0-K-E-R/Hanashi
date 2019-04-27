@@ -1,7 +1,7 @@
 /*background-color: #454545;#141414(dark)
-color: #0481ff;*/
+color: #3498db;*/
 .nav.navbar-nav li a {
-    color: #0481ff;
+    color: #3498db;
 }
 .mynavbar {
     z-index: 100; /* stay on top */
@@ -16,7 +16,7 @@ color: #0481ff;*/
 }
 
 .myColor {
-    color: #0481ff;
+    color: #3498db;
 }
 
 #logo {
@@ -32,7 +32,7 @@ body {
     height: 100%;
     background-color: #454545;
     overflow:auto;
-    color: #0481ff;
+    /*color: #3498db;*/
 }
 
 .main {
@@ -45,7 +45,7 @@ body {
 
 /* Popover */
 .popover {
-    border: 2px solid #0481ff;
+    border: 2px solid #3498db;
     padding: 0;
     max-width: 800px;
     width:260px;;
@@ -53,20 +53,20 @@ body {
     background-color: #454545;
 }
 /* Popover Header
-    border: 2px solid #0481ff;
+    border: 2px solid #3498db;
     max-width: 800px;
     width:350px;
     /*height:400p */
 .popover-title {
     background-color: #222; 
-    color: #0481ff; 
+    color: #3498db; 
     font-size: 100px;
     text-align: center;
 }
 /* Popover Body */
 .popover-content {
     background-color: #454545;
-    color: #0481ff;
+    color: #3498db;
     padding: 10px;
     text-align: center;
 }
@@ -142,12 +142,12 @@ body {
 }
 
 #users-list-wrapper .username a:hover {
-    color: #0481ff;
+    color: #3498db;
     font-size: 19px;
 }
 
 #users-list-wrapper .user-points, #reported-users .user-points {
-    color: #0481ff;
+    color: #3498db;
 }
 
 
@@ -197,7 +197,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     /*padding-right: 2rem;*/
     width:450px;
     top: 50%;
-    /*border: 2px solid #0481ff;*/
+    /*border: 2px solid #3498db;*/
     /*background: #222;*/
 }
 
@@ -235,7 +235,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 #view-thread-container {
     width: 100%;
     position: relative;
-    border: solid 2px #0481ff;
+    border: solid 2px #3498db;
 }
 
 #view-thread-container #posts {
@@ -323,7 +323,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 .reply-to-username {
-    color: #0481ff;
+    color: #3498db;
 }
 
 
@@ -334,7 +334,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     position:relative;
     top: 20px;
     padding: 10px;
-    border: solid 2px #0481ff;
+    border: solid 2px #3498db;
 }
 
 #user-profile-container .profile-picture {
@@ -376,7 +376,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 #all-threads-container {
-    /*border: solid 2px #0481ff;*/
+    /*border: solid 2px #3498db;*/
 }
 
 #all-threads-container a {
@@ -398,7 +398,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #thread-container #thread-title a, #post-container #post-title a{
     font-size: 18px;
-    color: darkblue;
+    color: #3498db;
 }
 
 hr.divider {
@@ -409,9 +409,9 @@ hr.divider {
 }
 
 .vDivider {
-    border-left: 1px solid #38546d; 
-    border-right: 1px solid #16222c; 
-    height: 36px;
+    border-left: 1px solid #d35400; 
+    border-right: 1px solid #d35400; 
+    height: 38px;
     float: left;
     margin-right: 15px;
     margin-left: 15px;
@@ -421,14 +421,17 @@ hr.divider {
 
 #thread-container #thread-title .votes {
     float: left;
+    color: #27ae60;
+    color: #16a085;
 }
 
 #thread-container .username a, #post-container .username a{
-    color: blueviolet;
+    color: #fdcb6e;
 }
 
 #thread-container .username{
     float: right;
+    color: white;
 }
 
 /* The side navigation menu */
@@ -533,7 +536,7 @@ hr.divider {
 }
 
 #tags-list-wrapper .grid-container .tag-count {
-    color: #0481ff;
+    color: #3498db;
     /*font-size: 13px;*/
 }
 
@@ -658,7 +661,7 @@ hr.divider {
 }
 
 #dashboard-container .btn-dashboard:hover {
-    color: #0481ff;
+    color: #3498db;
 }
 
 #dashboard-container .btn-dashboard-selected {
@@ -705,7 +708,7 @@ hr.divider {
 }
 
 #dashboard-container .username {
-    color: #0481ff;
+    color: #3498db;
 }
 
 #dashboard-container .comment, #dashboard-container .reported {
