@@ -94,7 +94,7 @@
         %>
         <div id="main" class="main">
             <div id="tags-list-wrapper">
-            <h3>Tags</h3>
+            <h2>Tags</h2>
             <div class="grid-container">
                 <%
                     for(Tag tag: (ArrayList<Tag>)session.getAttribute("tagsList")) {
@@ -107,7 +107,7 @@
                        data-toggle="popover"
                        title="<%= tag.getTag() %>"
                        data-placement="bottom"
-                       data-content="<input type='button' id='follow-tag-<%= tag.getTag() %>' value='...' onclick='followTag(&quot;<%= tag.getTag() %>&quot;);'>"
+                       data-content="<input type='button' class='btn btn-success' id='follow-tag-<%= tag.getTag() %>' value='...' onclick='followTag(&quot;<%= tag.getTag() %>&quot;);'>"
                         >
                         <span > <%= tag.getTag() %> </span>
                     </a>

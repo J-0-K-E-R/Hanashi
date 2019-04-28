@@ -48,7 +48,7 @@ body {
     border: 2px solid #3498db;
     padding: 0;
     max-width: 800px;
-    width:260px;;
+    width:260px;
     /*height:400px;*/
     background-color: #454545;
 }
@@ -123,7 +123,7 @@ body {
   height:500px;
 }
 
-#users-list-wrapper h4 {
+#users-list-wrapper h2 {
     color: #3498db;
 }
 
@@ -549,6 +549,10 @@ hr.divider {
     padding: 5px;
 }
 
+#tags-list-wrapper h2{
+    color: #3498db;
+}
+
 #tags-list-wrapper .grid-container {
     width: 100%;
     display: grid;
@@ -563,16 +567,40 @@ hr.divider {
     /*text-align: center;*/
     padding: 10px; 
     /*border: solid 1px red;*/
-    background: lavender;
+    background: #353b48;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover {
+    border: 2px solid #353b48;
+    padding: 0;
+    max-width: 800px;
+    background-color: #353b48;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover-title {
+    background-color: #353b48; 
+    color: #7ed6df;
+    text-align: center;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover-content {
+    background-color: #353b48;
+    padding: 10px;
+    text-align: center;
 }
 
 #tags-list-wrapper .grid-container .tag-name {
-    color: darkblue;
+    color: #7ed6df;
     /*font-size: 15px;*/
 }
 
 #tags-list-wrapper .grid-container .tag-count {
-    color: #3498db;
+    color: #ED4C67;
+    /*font-size: 13px;*/
+}
+
+#tags-list-wrapper .grid-container .tag-count-x {
+    color: #f6e58d;
     /*font-size: 13px;*/
 }
 
