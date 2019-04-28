@@ -452,8 +452,13 @@ hr.divider {
   left: 0px;
   background-color: #222; 
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 54px; /* Place content 60px from the top */
+  padding-top: 58px; /* Place content 60px from the top */
   transition: 0.3s;
+}
+
+.sidenav .sidenav-divider {
+    border-top: 1px solid #8c8b8b;
+    margin: 0;
 }
 
 /* The navigation menu links */

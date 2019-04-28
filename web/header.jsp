@@ -49,7 +49,7 @@
 <!--Side Nav--> 
 <div class="sidenav">
     <a href="/Hanashi/index.jsp"><span class="glyphicon glyphicon glyphicon-home"></span>Home</a>
-    
+    <hr class="sidenav-divider">
     <% 
         if(isLoggedIn) {
             if(user.getPrivilege() <= 2) {
@@ -59,10 +59,13 @@
             }
         }
     %>
-    
+    <hr class="sidenav-divider">
     <a href="/Hanashi/users"><span class="glyphicon glyphicon glyphicon-user"></span>Users</a>
+    <hr class="sidenav-divider">
     <a href="/Hanashi/tags"><span class="glyphicon glyphicon glyphicon-tags"></span>Tags</a>
+    <hr class="sidenav-divider">
     <a href="/Hanashi/newthread"><span class="glyphicon glyphicon glyphicon-pencil"></span>Ask Question</a>
+    <hr class="sidenav-divider">
 </div> 
 
     
