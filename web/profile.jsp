@@ -17,7 +17,6 @@
         
         <!--Check if profile of the current user is fetched or not-->
         <%!
-            String followButtonURI; 
             User proUser;
             String commentBoxURI;
         %>
@@ -45,15 +44,11 @@
                 System.out.println("Log::::: Profile Found");
                 if(session.getAttribute("user") == null ) {
                     session.setAttribute("isFollowing", null);
-                    String message= "Please Login to continue";
-                    session.setAttribute("errorMessage", message);
-                    followButtonURI = "/Hanashi/loginpage";
                 }
                 else {
                     FollowersDAO fd = new FollowersDAO();
                     boolean isFollowing =  fd.isFollowing(user.getUsername(), proUser.getUsername());
                     
-                    followButtonURI = "/Hanashi/FollowUser";
                     
                     session.setAttribute("isFollowing", isFollowing);
                     
@@ -114,29 +109,84 @@
         %>
 
         
+        <% if(proUser != null) { %>
+        
+        <script>
+            
+            function init() {
+                initializeFollowButtonText();
+            }
+        </script>
+        
         <script>
             
             //            check if user is guest and if not, then is he following the profile user or not
-            function pageLoader() {
-                var followbutton = document.getElementById("follow-button-anchor");
+            function initializeFollowButtonText() {
+                var followbutton = document.getElementById("follow-button");
                 
                 if(<%=session.getAttribute("isFollowing")%> === true) 
                     followbutton.innerHTML = "Unfollow";
                 else 
                     followbutton.innerHTML = "Follow";
             }
+            
+            function setFollowButtonText(isFollowing) {
+                var followbutton = document.getElementById("follow-button");
+                
+                if(isFollowing) 
+                    followbutton.innerHTML = "Unfollow";
+                else 
+                    followbutton.innerHTML = "Follow";
+            }
+            
+            function setFollowersCount(isFollowing, followersCount) {
+                var followerscount = document.getElementById("followers-count");
+                
+                if(isFollowing) 
+                    followerscount.innerHTML = "Followers " + followersCount;
+                else 
+                    followerscount.innerHTML = "Followers " + followersCount;
+            }
         </script>
-    <script>
-        function toggleInputBox() {
+        
+        <script>
+            function toggleInputBox() {
                 $(document).ready(function() {
                     $('.full-screen-background').fadeToggle('fast');
                     $('.full-screen-background').find('.text').prop("value", "");
                 });
             }
-        </script>   
+            
+        </script>
+        
+        <script> 
+             function followUser() {
+                if(<%=isLoggedIn%> === false) {
+                    $(function () {
+                    $('[data-toggle=popover]').popover('toggle');
+                });
+                }
+                
+                else {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState === 4 && this.status === 200) {
+                            var res = JSON.parse(this.responseText);
+                            setFollowButtonText(res.isFollowing);
+                            setFollowersCount(res.isFollowing, res.followersCount);
+                        }
+                    };
+                    xhttp.open("GET", "/Hanashi/FollowUser", true);
+                    xhttp.send();
+                }
+            }
+        </script>
+        
+        <% } %>
+    
     </head>
     
-    <body onload="pageLoader()">
+    <body onload="init();">
         
         <div id="main" class="main">
         <div id="user-profile-container">
@@ -206,14 +256,12 @@
                 </div>
                 
                 <div id="followers-following">
-                    <a href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
-                    <a href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
+                    <a id="followers-count" href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
+                    <a id="following-count" href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
                 </div>
                 
-                <div id="follow-button">
-                    <a id="follow-button-anchor" class= "btn btn-default" href="<%=followButtonURI%>" > ... </a>    
-                </div>
-            
+                <button id="follow-button" class= "btn btn-default" onclick="followUser();" >  </button>    
+                
                 <br style="clear:both;"/>
             </div>
             <div id="user-threads">

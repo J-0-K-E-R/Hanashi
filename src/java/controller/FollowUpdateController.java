@@ -38,7 +38,10 @@ public class FollowUpdateController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            System.out.println("Log ::::: FollowUpdateController");
+            
             String message = "";
             User user1 = (User)session.getAttribute("user");
             User user2 = (User)session.getAttribute("profileUser");
@@ -54,6 +57,8 @@ public class FollowUpdateController extends HttpServlet {
                     user1.setFollowingCount(user1.getFollowingCount()+1);
                     user2.setFollowersCount(user2.getFollowersCount()+1);
                 }
+                session.setAttribute("isFollowing", true);
+                System.out.println("Log ::::: " + user1.getUsername() + " followed " + user2.getUsername());
             } else {
                 message = fd.deleteFollowers(user1.getUsername(), user2.getUsername());
 
@@ -61,14 +66,18 @@ public class FollowUpdateController extends HttpServlet {
                     user1.setFollowingCount(user1.getFollowingCount()-1);
                     user2.setFollowersCount(user2.getFollowersCount()-1);
                 }
+                session.setAttribute("isFollowing", false);
+                System.out.println("Log ::::: " + user1.getUsername() + " unfollowed " + user2.getUsername());
             }
             
             UserDAO ud = new UserDAO();
             ud.updateUser(user2);
             ud.updateUser(user1);
             
-            session.removeAttribute("profileUser");
-            response.sendRedirect("/Hanashi/users/"+user2.getUsername());
+            String outString = "{\"isFollowing\": "+ !isFollowing +", \"followersCount\": "+ user2.getFollowersCount() +"}";
+            
+            out.print(outString);
+            out.flush();
         }
     }
 
