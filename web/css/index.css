@@ -228,14 +228,39 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     width: 100%;
     margin-left: 30px;
     margin-top: 30px;
+    position: relative;
+}
+
+#create-thread-container h2 {
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+#create-thread-container #tags-list {
+    margin-bottom: 20px;
+    color: #ED4C67;
+}
+
+#create-thread-container #tags-list .btn {
+    margin-left: 5px;
 }
 
 #create-thread-container #title {
     width: 100%;
+    color: #2f3640;
 }
 
 #create-thread-container #input-tags {
     width: 100%;
+    color: #353b48;
+}
+
+#create-thread-container .btn-danger {
+    margin-right: 5px;
+}
+
+#create-thread-container .btn-success {
+    margin-right: 12px;
 }
 
 /*Style view thread page*/
@@ -486,15 +511,6 @@ hr.divider {
 .sidenav span {
     margin-right: 8px;
 }
-
-/*Styling CreateThread Page*/
-
-#create-thread-container {
-    position: relative;
-    /*top: 30px;*/
-    /*transform: translate(-50%, 0);*/
-}
-
 
 /*Styling div sortby on index.jsp*/
 #sortby {
