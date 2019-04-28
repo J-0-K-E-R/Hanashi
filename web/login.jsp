@@ -27,7 +27,7 @@
 
                 <% if(session.getAttribute("errorMessage") != null) { %>    
 
-                <span id="alertError" class='alert alert-danger'> ${errorMessage} </span> <br>
+                <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
 
                 <% } %>
                 <form action="/Hanashi/Login" method="post">
@@ -45,6 +45,9 @@
 
                     <input type="submit" class="btn btn-success" value="Log In">
                 </form>
+            </div>
+            <div id="logo-container">
+                <img src="/Hanashi/images/logoD.png">
             </div>
         </div>
     </body>

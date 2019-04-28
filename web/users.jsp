@@ -19,7 +19,7 @@
         %>
         <div id="main" class="main">
         <div id="users-list-wrapper">
-            <h4> Users </h4>
+            <h2> Users </h2>
             <div id="div-scroll">
                 <div id='users-list-container'>
                 <%

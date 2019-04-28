@@ -48,7 +48,7 @@ body {
     border: 2px solid #3498db;
     padding: 0;
     max-width: 800px;
-    width:260px;;
+    width:260px;
     /*height:400px;*/
     background-color: #454545;
 }
@@ -112,7 +112,7 @@ body {
 
 #users-list-wrapper {
   position:relative;
-  /*border:solid 2px green;*/
+  /*border:solid 2px #fdcb6e;*/
   overflow: hidden;
   width: 100%;
 }
@@ -121,6 +121,10 @@ body {
   overflow:auto;
   width: 100%;
   height:500px;
+}
+
+#users-list-wrapper h2 {
+    color: #3498db;
 }
 
 #users-list-wrapper #users-list-container {
@@ -140,18 +144,18 @@ body {
 }
 
 #users-list-wrapper .username a, #reported-users .username a {
-    color: green;
+    color: #fdcb6e;
     font-size: 16px;
     transition: .2s;
 }
 
 #users-list-wrapper .username a:hover {
-    color: #3498db;
+    color: #7bed9f;
     font-size: 19px;
 }
 
 #users-list-wrapper .user-points, #reported-users .user-points {
-    color: #3498db;
+    color: #ED4C67;
 }
 
 
@@ -185,13 +189,13 @@ meter::-webkit-meter-bar {
 meter[value="1"]::-webkit-meter-optimum-value { background: red; }
 meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
 meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+meter[value="4"]::-webkit-meter-optimum-value { background: #fdcb6e; }
 
 /* Gecko based browsers */
 meter[value="1"]::-moz-meter-bar { background: red; }
 meter[value="2"]::-moz-meter-bar { background: yellow; }
 meter[value="3"]::-moz-meter-bar { background: orange; }
-meter[value="4"]::-moz-meter-bar { background: green; }
+meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 
 #signupform {
@@ -224,14 +228,39 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     width: 100%;
     margin-left: 30px;
     margin-top: 30px;
+    position: relative;
+}
+
+#create-thread-container h2 {
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+#create-thread-container #tags-list {
+    margin-bottom: 20px;
+    color: #ED4C67;
+}
+
+#create-thread-container #tags-list .btn {
+    margin-left: 5px;
 }
 
 #create-thread-container #title {
     width: 100%;
+    color: #2f3640;
 }
 
 #create-thread-container #input-tags {
     width: 100%;
+    color: #353b48;
+}
+
+#create-thread-container .btn-danger {
+    margin-right: 5px;
+}
+
+#create-thread-container .btn-success {
+    margin-right: 12px;
 }
 
 /*Style view thread page*/
@@ -266,7 +295,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #view-thread-container .active-vote-sign {
     font-size: 18px;
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 .post-container {
@@ -280,7 +309,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 .post-container .user {
-    color: green;
+    color: #fdcb6e;
     font-size: 20px;
 }
 
@@ -297,7 +326,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 .post-container .active-vote-sign {
     font-size: 18px;
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 .post-container .replies {
@@ -351,11 +380,11 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #user-profile-container #top {
     height: 120px;
-    /*border: solid 2px green;*/
+    /*border: solid 2px #fdcb6e;*/
 }
 
 #user-profile-container #username {
-    color: green;
+    color: #fdcb6e;
     font-size: 20px;
     margin-top: 10px;
 }
@@ -394,7 +423,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #thread-container, #post-container {
     margin: 10px;
-    /*border: solid 2px green;*/
+    /*border: solid 2px #fdcb6e;*/
     padding: 5px;
 }
 
@@ -448,8 +477,13 @@ hr.divider {
   left: 0px;
   background-color: #222; 
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 54px; /* Place content 60px from the top */
+  padding-top: 58px; /* Place content 60px from the top */
   transition: 0.3s;
+}
+
+.sidenav .sidenav-divider {
+    border-top: 1px solid #8c8b8b;
+    margin: 0;
 }
 
 /* The navigation menu links */
@@ -478,15 +512,6 @@ hr.divider {
     margin-right: 8px;
 }
 
-/*Styling CreateThread Page*/
-
-#create-thread-container {
-    position: relative;
-    /*top: 30px;*/
-    /*transform: translate(-50%, 0);*/
-}
-
-
 /*Styling div sortby on index.jsp*/
 #sortby {
     /*border: solid 2px red;*/
@@ -502,7 +527,6 @@ hr.divider {
 
 /* Main Log In page styling */
 
-
 #alertError {
     top: 30px;
 }
@@ -510,6 +534,13 @@ hr.divider {
 #login-text {
     color: #0984e3;
 }
+
+#logo-container {
+    position: absolute; 
+    bottom: 0px;
+    right: 0px;
+}
+
 
 .form-control::-webkit-input-placeholder { color: #1e272e; }  /* WebKit, Blink, Edge */
 .form-control:-moz-placeholder { color: #1e272e; }  /* Mozilla Firefox 4 to 18 */
@@ -523,7 +554,7 @@ hr.divider {
     width: 302px;
     top: 100px;
     /*transform: translate(-50%, 0);*/
-    /*border: 2px solid green;*/
+    /*border: 2px solid #fdcb6e;*/
 }
 
 
@@ -532,6 +563,10 @@ hr.divider {
     position: relative;
     width: 100%;
     padding: 5px;
+}
+
+#tags-list-wrapper h2{
+    color: #3498db;
 }
 
 #tags-list-wrapper .grid-container {
@@ -548,16 +583,40 @@ hr.divider {
     /*text-align: center;*/
     padding: 10px; 
     /*border: solid 1px red;*/
-    background: lavender;
+    background: #353b48;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover {
+    border: 2px solid #353b48;
+    padding: 0;
+    max-width: 800px;
+    background-color: #353b48;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover-title {
+    background-color: #353b48; 
+    color: #7ed6df;
+    text-align: center;
+}
+
+#tags-list-wrapper .grid-container .tag-div .popover-content {
+    background-color: #353b48;
+    padding: 10px;
+    text-align: center;
 }
 
 #tags-list-wrapper .grid-container .tag-name {
-    color: darkblue;
+    color: #7ed6df;
     /*font-size: 15px;*/
 }
 
 #tags-list-wrapper .grid-container .tag-count {
-    color: #3498db;
+    color: #ED4C67;
+    /*font-size: 13px;*/
+}
+
+#tags-list-wrapper .grid-container .tag-count-x {
+    color: #f6e58d;
     /*font-size: 13px;*/
 }
 
@@ -738,7 +797,7 @@ hr.divider {
 }
 
 #dashboard-container .comment-content, #dashboard-container .reported-time {
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 #dashboard-content .grid-container {
