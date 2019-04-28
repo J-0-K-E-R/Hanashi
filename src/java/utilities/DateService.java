@@ -29,13 +29,25 @@ public class DateService {
         if(years == 0 && months == 0 && days == 0 && hours == 0 && minutes == 0) 
             ret = "A few seconds ago";
         else if(years == 0 && months == 0 && days == 0 && hours == 0 ) 
-            ret = minutes+" minutes ago";
+            if(minutes == 1)
+                ret = "A minute ago";
+            else
+                ret = minutes+" minutes ago";
         else if(years == 0 && months == 0 && days == 0)
-            ret = hours + " hours ago";
+            if(hours == 1)
+                ret = "An hour ago";
+            else
+                ret = hours + " hours ago";
         else if(years == 0 && months == 0)
-            ret = days + " days ago";
+            if(days == 1)
+                ret = "A day ago";
+            else
+                ret = days + " days ago";
         else if(years == 0)
-            ret = months + " months ago";
+            if(months == 1)
+                ret = "A month ago";
+            else
+                ret = months + " months ago";
         else {
             SimpleDateFormat sdf = new SimpleDateFormat("MMM YYYY");
             try {
