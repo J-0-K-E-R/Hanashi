@@ -35,16 +35,6 @@ public class DBUtil {
             e.printStackTrace();
         }
     }
-
-    public static void close(PreparedStatement st) {
-        try {
-            if (st != null) {
-                st.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     
     public static void close(ResultSet rs) {
         try {
