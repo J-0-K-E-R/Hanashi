@@ -18,7 +18,7 @@ import utilities.DBUtil;
  * @author robogod
  */
 public class ReportedPostsDAO {
-    private static PreparedStatement insertStatement, fetchStatement;
+    private static PreparedStatement insertStatement, fetchStatement, updateStatement;
     
     public static pojos.PostReport report(pojos.PostReport report) {
         Connection conn = null;
@@ -105,5 +105,27 @@ public class ReportedPostsDAO {
             DBUtil.close(conn);
         }
         return list;
+    }
+    
+    public static void addressDeletedPost(int postID, String username) {
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+            //Create the preparedstatement(s)
+            updateStatement = conn.prepareStatement("update reported_posts set Addressed_By = ? where Addressed_By is NULL and post_ID = ?");
+            updateStatement.setString(1, username);
+            updateStatement.setInt(2, postID);
+            updateStatement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
     }
 }

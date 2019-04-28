@@ -18,7 +18,7 @@ import utilities.DBUtil;
  * @author robogod
  */
 public class ReportedThreadsDAO {
-    private static PreparedStatement insertStatement, fetchStatement;
+    private static PreparedStatement insertStatement, fetchStatement, updateStatement;
     
     public static pojos.ThreadReport report(pojos.ThreadReport report) {
         Connection conn = null;
@@ -106,5 +106,27 @@ public class ReportedThreadsDAO {
             DBUtil.close(conn);
         }
         return list;
+    }
+    
+     public static void addressDeletedThread(int threadID, String username) {
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+            //Create the preparedstatement(s)
+            updateStatement = conn.prepareStatement("update reported_threads set Addressed_By = ? where Addressed_By is NULL and Thread_ID = ?");
+            updateStatement.setString(1, username);
+            updateStatement.setInt(2, threadID);
+            updateStatement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
     }
 }

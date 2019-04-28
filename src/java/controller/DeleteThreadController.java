@@ -47,6 +47,8 @@ public class DeleteThreadController extends HttpServlet {
             else {
                 int threadID = Integer.parseInt(request.getParameter("threadID"));
                 String message = new dao.ThreadDAO().deleteThread(threadID);
+                
+                dao.ReportedThreadsDAO.addressDeletedThread(threadID, user.getUsername());
 
                 System.out.println("Log ;:::: Deleting Thread : " + threadID);
                 session.removeAttribute("currentThread");

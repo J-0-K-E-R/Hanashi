@@ -47,6 +47,8 @@ public class DeletePostController extends HttpServlet {
                 int postID = Integer.parseInt(request.getParameter("postID"));
                 String message = new dao.PostDAO().deletePost(postID);
 
+                dao.ReportedPostsDAO.addressDeletedPost(postID, user.getUsername());
+                
                 System.out.println("Log ;:::: Deleting Post : " + postID);
                 session.removeAttribute("currentThread");
                 response.sendRedirect((String)session.getAttribute("currentURI"));
