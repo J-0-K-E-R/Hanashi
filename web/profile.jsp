@@ -53,12 +53,7 @@
                     FollowersDAO fd = new FollowersDAO();
                     boolean isFollowing =  fd.isFollowing(user.getUsername(), proUser.getUsername());
                     
-                    if(isFollowing) {
-                        followButtonURI = "/Hanashi/UnfollowUser";
-                    }
-                    else {
-                        followButtonURI = "/Hanashi/FollowUser";
-                    }
+                    followButtonURI = "/Hanashi/FollowUser";
                     
                     session.setAttribute("isFollowing", isFollowing);
                     

@@ -44,16 +44,28 @@ public class FollowUpdateController extends HttpServlet {
             User user2 = (User)session.getAttribute("profileUser");
             
             FollowersDAO fd = new FollowersDAO();
-            message = fd.addFollowers(user1.getUsername(), user2.getUsername());
             
-            if(message.equals("Done")) {
-                user1.setFollowingCount(user1.getFollowingCount()+1);
-                user2.setFollowersCount(user2.getFollowersCount()+1);
-                
-                UserDAO ud = new UserDAO();
-                ud.updateUser(user2);
-                ud.updateUser(user1);
+            boolean isFollowing =  fd.isFollowing(user1.getUsername(), user2.getUsername());
+                    
+            if(!isFollowing) {
+                message = fd.addFollowers(user1.getUsername(), user2.getUsername());
+
+                if(message.equals("Done")) {
+                    user1.setFollowingCount(user1.getFollowingCount()+1);
+                    user2.setFollowersCount(user2.getFollowersCount()+1);
+                }
+            } else {
+                message = fd.deleteFollowers(user1.getUsername(), user2.getUsername());
+
+                if(message.equals("Done")) {
+                    user1.setFollowingCount(user1.getFollowingCount()-1);
+                    user2.setFollowersCount(user2.getFollowersCount()-1);
+                }
             }
+            
+            UserDAO ud = new UserDAO();
+            ud.updateUser(user2);
+            ud.updateUser(user1);
             
             session.removeAttribute("profileUser");
             response.sendRedirect("/Hanashi/users/"+user2.getUsername());
