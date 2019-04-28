@@ -112,7 +112,7 @@ body {
 
 #users-list-wrapper {
   position:relative;
-  /*border:solid 2px green;*/
+  /*border:solid 2px #fdcb6e;*/
   overflow: hidden;
   width: 100%;
 }
@@ -121,6 +121,10 @@ body {
   overflow:auto;
   width: 100%;
   height:500px;
+}
+
+#users-list-wrapper h4 {
+    color: #3498db;
 }
 
 #users-list-wrapper #users-list-container {
@@ -140,18 +144,18 @@ body {
 }
 
 #users-list-wrapper .username a, #reported-users .username a {
-    color: green;
+    color: #fdcb6e;
     font-size: 16px;
     transition: .2s;
 }
 
 #users-list-wrapper .username a:hover {
-    color: #3498db;
+    color: #7bed9f;
     font-size: 19px;
 }
 
 #users-list-wrapper .user-points, #reported-users .user-points {
-    color: #3498db;
+    color: #ED4C67;
 }
 
 
@@ -185,13 +189,13 @@ meter::-webkit-meter-bar {
 meter[value="1"]::-webkit-meter-optimum-value { background: red; }
 meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
 meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+meter[value="4"]::-webkit-meter-optimum-value { background: #fdcb6e; }
 
 /* Gecko based browsers */
 meter[value="1"]::-moz-meter-bar { background: red; }
 meter[value="2"]::-moz-meter-bar { background: yellow; }
 meter[value="3"]::-moz-meter-bar { background: orange; }
-meter[value="4"]::-moz-meter-bar { background: green; }
+meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 
 #signupform {
@@ -266,7 +270,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #view-thread-container .active-vote-sign {
     font-size: 18px;
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 .post-container {
@@ -280,7 +284,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 .post-container .user {
-    color: green;
+    color: #fdcb6e;
     font-size: 20px;
 }
 
@@ -297,7 +301,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 .post-container .active-vote-sign {
     font-size: 18px;
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 .post-container .replies {
@@ -351,11 +355,11 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #user-profile-container #top {
     height: 120px;
-    /*border: solid 2px green;*/
+    /*border: solid 2px #fdcb6e;*/
 }
 
 #user-profile-container #username {
-    color: green;
+    color: #fdcb6e;
     font-size: 20px;
     margin-top: 10px;
 }
@@ -394,7 +398,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #thread-container, #post-container {
     margin: 10px;
-    /*border: solid 2px green;*/
+    /*border: solid 2px #fdcb6e;*/
     padding: 5px;
 }
 
@@ -523,7 +527,7 @@ hr.divider {
     width: 302px;
     top: 100px;
     /*transform: translate(-50%, 0);*/
-    /*border: 2px solid green;*/
+    /*border: 2px solid #fdcb6e;*/
 }
 
 
@@ -738,7 +742,7 @@ hr.divider {
 }
 
 #dashboard-container .comment-content, #dashboard-container .reported-time {
-    color: darkgreen;
+    color: dark#fdcb6e;
 }
 
 #dashboard-content .grid-container {
