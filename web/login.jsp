@@ -16,14 +16,6 @@
         <script>
             function init() {
                 
-//                Check if errorMessage is null or not
-                var errMessage = "<%=session.getAttribute("errorMessage")%>";
-                if(errMessage === null || errMessage === "") {
-                    $("#alertError").hide();
-                }
-                else {
-                    $("#alertError").show();
-                }
             }
         </script>
         
@@ -31,24 +23,31 @@
     </head>
     <body onload="init();">
         <div id="main" class="main">
-        <div id='loginform-cotainer'>
-        <span id="alertError" class='alert alert-danger' hidden> ${errorMessage} <br><br><br></span>
-        <form action="/Hanashi/Login" method="post">
-            <h2 id="login-text">Log In</h2> <br>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" name="Username" maxlength="16" class="form-control" placeholder="Username" required>
-                </div>  <br>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input type="password" name="Password" placeholder="Password" class="form-control" required>
-                </div>  <br>
-            
-            <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div> <br>
+            <div id='loginform-cotainer'>
 
-            <input type="submit" class="btn btn-success" value="Log In">
-        </form>
-        </div>
+                <% if(session.getAttribute("errorMessage") != null) { %>    
+
+                <span id="alertError" class='alert alert-danger'> ${errorMessage} </span> <br>
+
+                <% } %>
+                <form action="/Hanashi/Login" method="post">
+                    <h2 id="login-text">Log In</h2> <br>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" name="Username" maxlength="16" class="form-control" placeholder="Username" required>
+                        </div>  <br>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" name="Password" placeholder="Password" class="form-control" required>
+                        </div>  <br>
+
+                    <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div> <br>
+
+                    <input type="submit" class="btn btn-success" value="Log In">
+                </form>
+            </div>
         </div>
     </body>
 </html>
+
+<% session.removeAttribute("errorMessage"); %>
