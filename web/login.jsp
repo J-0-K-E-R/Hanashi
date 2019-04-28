@@ -49,6 +49,9 @@
             <input type="submit" class="btn btn-success" value="Log In">
         </form>
         </div>
+        <div id="logo-container">
+            <img src="/Hanashi/images/logoD.png">
+        </div>
         </div>
     </body>
 </html>

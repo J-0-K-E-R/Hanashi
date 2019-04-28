@@ -511,7 +511,6 @@ hr.divider {
 
 /* Main Log In page styling */
 
-
 #alertError {
     top: 30px;
 }
@@ -519,6 +518,13 @@ hr.divider {
 #login-text {
     color: #0984e3;
 }
+
+#logo-container {
+    position: absolute; 
+    bottom: 0px;
+    right: 0px;
+}
+
 
 .form-control::-webkit-input-placeholder { color: #1e272e; }  /* WebKit, Blink, Edge */
 .form-control:-moz-placeholder { color: #1e272e; }  /* Mozilla Firefox 4 to 18 */
