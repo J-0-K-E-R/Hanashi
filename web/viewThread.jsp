@@ -352,6 +352,16 @@
             }
         </script>
         
+        <script> 
+            function showLoginPopover() {
+                $(document).ready( function() {
+                    $(function () {
+                        $('[data-toggle=popover]').popover('toggle');
+                    });
+                });
+            }
+        </script>
+        
     </head>
     <body onload="init()">
         
@@ -646,12 +656,21 @@
             
             </div>
             <div id="newreply">
+                
+                <% if(isLoggedIn) { %>
+                
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">
                     <h4> Your Reply </h4>
                     <input type="text" name="reply_to" id="reply_to" class="reply_to" value="">
                     <textarea id="froala-editor" name="post-content" required></textarea> <br>
                     <input class="btn btn-success" type="submit" value="Post">
                 </form>
+                
+                <% } else { %>
+                
+                <button id="login-to-answer" class="btn btn-primary" onclick="showLoginPopover()"> Answer </button>
+                
+                <% } %>
             </div>        
                     
         </div>
