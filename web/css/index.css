@@ -295,7 +295,7 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 #view-thread-container .active-vote-sign {
     font-size: 18px;
-    color: dark#fdcb6e;
+    color: #fdcb6e;
 }
 
 .post-container {
@@ -326,7 +326,7 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 .post-container .active-vote-sign {
     font-size: 18px;
-    color: dark#fdcb6e;
+    color: #fdcb6e;
 }
 
 .post-container .replies {
@@ -803,7 +803,7 @@ hr.divider {
 }
 
 #dashboard-container .comment-content, #dashboard-container .reported-time {
-    color: dark#fdcb6e;
+    color: #fdcb6e;
 }
 
 #dashboard-content .grid-container {
