@@ -42,6 +42,32 @@ INSERT INTO `banned_users` VALUES ('test3','test','iyvbyug','2019-04-23 07:36:11
 UNLOCK TABLES;
 
 --
+-- Table structure for table `closed_threads`
+--
+
+DROP TABLE IF EXISTS `closed_threads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `closed_threads` (
+  `Thread_ID` int(11) NOT NULL,
+  `Closed_By` varchar(16) NOT NULL,
+  `Comment` varchar(8000) DEFAULT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Thread_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `closed_threads`
+--
+
+LOCK TABLES `closed_threads` WRITE;
+/*!40000 ALTER TABLE `closed_threads` DISABLE KEYS */;
+INSERT INTO `closed_threads` VALUES (16,'test','Got enough posts already','2019-05-01 20:46:39');
+/*!40000 ALTER TABLE `closed_threads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `edited_posts`
 --
 
@@ -476,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29  1:05:07
+-- Dump completed on 2019-05-02  3:20:52
