@@ -340,6 +340,11 @@
                 toggleInputBox();
             }
             
+            function banUser(uname) {
+                document.getElementById("input-box-form").action = "/Hanashi/BanUser?username="+uname;
+                toggleInputBox();
+            }
+            
             function reportPost(postID) {
                 document.getElementById("input-box-form").action = "/Hanashi/ReportPost?postID="+postID;
                 toggleInputBox();
@@ -352,6 +357,11 @@
             
             function openThread() {
                 document.getElementById("confirm-box-form").action = "/Hanashi/CloseThread";
+                toggleConfirmBox();
+            }
+            
+            function unbanUser(uname) {
+                document.getElementById("confirm-box-form").action = "/Hanashi/BanUser?username="+uname;
                 toggleConfirmBox();
             }
             
@@ -403,11 +413,6 @@
                         UserDAO us = new UserDAO();
                         User proUser = us.fetchUser(thread.getUsername());
                         String proUsername = proUser.getUsername();
-                        String isBanned;
-                        if(dao.BannedUsersDAO.isBanned(proUsername)) 
-                            isBanned = "Unban User";
-                        else
-                            isBanned = "Ban User";
                                             
                         if(user.getPrivilege() <= 2 ){
                 %>
@@ -415,7 +420,12 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
+                        <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                        <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
+                        <% } else { %>
+                        <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
+                        <% } %>
+                        
                         <a href="/Hanashi/editthread"> Edit Thread</a>
                         <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
                         
@@ -475,11 +485,6 @@
                             UserDAO us = new UserDAO();
                             User proUser = us.fetchUser(post.getUsername());
                             String proUsername = proUser.getUsername();
-                            String isBanned;
-                            if(dao.BannedUsersDAO.isBanned(proUsername)) 
-                                isBanned = "Unban User";
-                            else
-                                isBanned = "Ban User";
 
                             if(isLoggedIn && user.getPrivilege() <= 2 ){
                         %>
@@ -487,7 +492,12 @@
                         <div class="dropdown">
                             <div class="three-dots"></div>
                             <div class="dropdown-content">
-                                <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
+                                <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                                <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
+                                <% } else { %>
+                                <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
+                                <% } %>
+                                
                                 <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
                                 <a href="/Hanashi/DeletePost?postID=<%=post.getPostID()%>"> Delete Post</a>
                             </div>
@@ -565,10 +575,6 @@
                                     us = new UserDAO();
                                     proUser = us.fetchUser(reply.getUsername());
                                     proUsername = proUser.getUsername();
-                                    if(dao.BannedUsersDAO.isBanned(proUsername)) 
-                                        isBanned = "Unban User";
-                                    else
-                                        isBanned = "Ban User";
 
                                     if(isLoggedIn && user.getPrivilege() <= 2 ){
                                 %>
@@ -576,7 +582,12 @@
                                 <div class="dropdown">
                                     <div class="three-dots"></div>
                                     <div class="dropdown-content">
-                                        <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
+                                        <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                                        <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
+                                        <% } else { %>
+                                        <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
+                                        <% } %>
+                                        
                                         <a href="#/" onclick="editUserPost('<%=reply.getPostID()%>');" > Edit Post</a>
                                         <a href="/Hanashi/DeletePost?postID=<%=reply.getPostID()%>"> Delete Post</a>
                                     </div>
