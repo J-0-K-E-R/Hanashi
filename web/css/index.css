@@ -269,6 +269,7 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     width: 100%;
     position: relative;
     border: solid 2px #3498db;
+    color: white;
 }
 
 #view-thread-container #posts {
@@ -636,6 +637,7 @@ hr.divider {
 .fr-class-code {
     display: block;
     background: #d6d6d6;
+    color: black;
     padding: 5px;
     font-family: inconsolata,consolas,monospace;
 }

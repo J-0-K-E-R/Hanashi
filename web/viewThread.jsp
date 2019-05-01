@@ -23,6 +23,7 @@
             String timestampModified;
             int showPostID=-1;
             int targetPostID=-1;
+            boolean isClosed = false;
         %>
         <% 
             String uri = request.getRequestURI();
@@ -87,7 +88,7 @@
                     canEdit = true;
                 }
 
-                
+                isClosed = dao.ClosedThreadsDAO.isClosed(thread.getThreadID());
             }
             
             if(isLoggedIn && thread != null) {
@@ -344,6 +345,11 @@
                 toggleInputBox();
             }
             
+            function closeThread() {
+                document.getElementById("input-box-form").action = "/Hanashi/CloseThread";
+                toggleInputBox();
+            }
+            
             function toggleInputBox() {
                 $(document).ready(function() {
                     $('.full-screen-background').fadeToggle('fast');
@@ -401,7 +407,7 @@
                         <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                         <a href="/Hanashi/editthread"> Edit Thread</a>
                         <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
-                        <a href=""> Close Thread</a>
+                        <a href="#/" onclick="closeThread();"> Close Thread</a>
                     </div>
                 </div>
                                 
@@ -657,7 +663,7 @@
             </div>
             <div id="newreply">
                 
-                <% if(isLoggedIn) { %>
+                <% if(isLoggedIn && !isClosed) { %>
                 
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">
                     <h4> Your Reply </h4>
@@ -666,7 +672,7 @@
                     <input class="btn btn-success" type="submit" value="Post">
                 </form>
                 
-                <% } else { %>
+                <% } else if(!isClosed) { %>
                 
                 <button id="login-to-answer" class="btn btn-primary" onclick="showLoginPopover()"> Answer </button>
                 
@@ -681,7 +687,7 @@
                 <form id="input-box-form" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
-                    <input type="submit" value="Report" class="btn btn-success btn-report">
+                    <input type="submit" value="Submit" class="btn btn-success btn-report">
                     <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="toggleInputBox()">
                 </form>
             </div>
