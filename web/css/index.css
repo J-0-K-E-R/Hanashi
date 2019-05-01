@@ -694,7 +694,7 @@ hr.divider {
     z-index: 10;
 }
 
-.full-screen-background .input-box {
+.full-screen-background .input-box, .full-screen-background .confirm-box {
     width: 30%;
     height: 150px;
     position: relative;
@@ -708,20 +708,30 @@ hr.divider {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
+.full-screen-background .confirm-box {
+    width: 22%;
+    height: 135px;
+}
+
+
 .full-screen-background .input-box .text {
     width: 100%;
 }
 
-.full-screen-background .input-box input{
+.full-screen-background input{
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.full-screen-background .input-box .btn-report, .full-screen-background .input-box .btn-cancel {
+
+.full-screen-background .my-btn {
     float: right;
     margin-left: 10px;
 }
 
+.full-screen-background .confirm-box .my-btn {
+    margin-top: 40px;
+}
 
 /*Styling the dashboard*/
 

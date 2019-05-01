@@ -287,8 +287,8 @@
                 <form action="<%= commentBoxURI%>" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
-                    <input type="submit" value="Report" class="btn btn-success btn-report">
-                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="toggleInputBox()">
+                    <input type="submit" value="Report" class="btn btn-success my-btn">
+                    <input type="button" value="Cancel" class="btn btn-default my-btn"  onclick="toggleInputBox()">
                 </form>
             </div>
         </div>

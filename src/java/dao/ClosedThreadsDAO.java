@@ -43,6 +43,27 @@ public class ClosedThreadsDAO {
         }
     }
     
+    public static void open(int threadID) {
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+            //Create the preparedstatement(s)
+            updateStatement = conn.prepareStatement("delete from closed_threads where Thread_ID = ?");
+            updateStatement.setInt(1, threadID);
+            updateStatement.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+    }
+    
     public static boolean isClosed(int threadID) {
         Connection conn = null;
         boolean isClosed = false;

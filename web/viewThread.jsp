@@ -350,10 +350,21 @@
                 toggleInputBox();
             }
             
+            function openThread() {
+                document.getElementById("confirm-box-form").action = "/Hanashi/CloseThread";
+                toggleConfirmBox();
+            }
+            
             function toggleInputBox() {
                 $(document).ready(function() {
-                    $('.full-screen-background').fadeToggle('fast');
-                    $('.full-screen-background').find('.text').prop("value", "");
+                    $('#input-box-div').fadeToggle('fast');
+                    $('#input-box-div').find('.text').prop("value", "");
+                });
+            }
+            
+            function toggleConfirmBox() {
+                $(document).ready(function() {
+                    $('#confirm-box-div').fadeToggle('fast');
                 });
             }
         </script>
@@ -397,7 +408,7 @@
                             isBanned = "Unban User";
                         else
                             isBanned = "Ban User";
-                    
+                                            
                         if(user.getPrivilege() <= 2 ){
                 %>
                 
@@ -407,7 +418,12 @@
                         <a href="/Hanashi/BanUser?username=<%=proUsername%>"> <%=isBanned%></a>
                         <a href="/Hanashi/editthread"> Edit Thread</a>
                         <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
-                        <a href="#/" onclick="closeThread();"> Close Thread</a>
+                        
+                        <% if(isClosed) { %>
+                        <a href="#/" onclick="openThread();"> Reopen Thread </a>
+                        <% } else { %>
+                        <a href="#/" onclick="closeThread();"> Close Thread </a>
+                        <% } %>
                     </div>
                 </div>
                                 
@@ -682,13 +698,23 @@
         </div>
         </div>
                 
-        <div class="full-screen-background" hidden>
+        <div id="input-box-div" class="full-screen-background" hidden>
             <div class="input-box">
                 <form id="input-box-form" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
-                    <input type="submit" value="Submit" class="btn btn-success btn-report">
-                    <input type="button" value="Cancel" class="btn btn-default btn-cancel"  onclick="toggleInputBox()">
+                    <input type="submit" value="Submit" class="btn btn-success my-btn">
+                    <input type="button" value="Cancel" class="btn btn-default my-btn"  onclick="toggleInputBox()">
+                </form>
+            </div>
+        </div>
+        
+        <div id="confirm-box-div" class="full-screen-background" hidden>
+            <div class="confirm-box">
+                <form id="confirm-box-form" method="POST">
+                    <span> Are you sure you want to continue? </span> <br>
+                    <input type="submit" value="Yes" class="btn btn-success my-btn">
+                    <input type="button" value="Cancel" class="btn btn-default my-btn"  onclick="toggleConfirmBox()">
                 </form>
             </div>
         </div>

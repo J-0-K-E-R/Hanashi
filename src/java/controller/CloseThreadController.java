@@ -53,7 +53,10 @@ public class CloseThreadController extends HttpServlet {
                     cthread.setComment(request.getParameter("comment"));
                     cthread.setClosedBy(user.getUsername());
                     dao.ClosedThreadsDAO.close(cthread);
+                } else {
+                    dao.ClosedThreadsDAO.open(threadID);
                 }
+                
                 session.removeAttribute("currentThread");
 
                 response.sendRedirect((String)session.getAttribute("currentURI"));
