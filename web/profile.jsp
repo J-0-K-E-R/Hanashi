@@ -152,8 +152,14 @@
         <script>
             function toggleInputBox() {
                 $(document).ready(function() {
-                    $('.full-screen-background').fadeToggle('fast');
-                    $('.full-screen-background').find('.text').prop("value", "");
+                    $('#input-box-div').fadeToggle('fast');
+                    $('#input-box-div').find('.text').prop("value", "");
+                });
+            }
+            
+            function toggleConfirmBox() {
+                $(document).ready(function() {
+                    $('#confirm-box-div').fadeToggle('fast');
                 });
             }
             
@@ -197,12 +203,8 @@
                     
                     String proUsername = "";
                     if(proUser != null)
-                        proUsername= proUser.getUsername();
-                    String isBanned;
-                    if(dao.BannedUsersDAO.isBanned(proUsername)) 
-                        isBanned = "Unban User";
-                    else
-                        isBanned = "Ban User";
+                        proUsername= proUser.getUsername();                    
+ 
                     String isMod;
                     if(proUser != null && proUser.getPrivilege() == 2)
                         isMod = "Demote";
@@ -214,7 +216,11 @@
                 <div class="dropdown">
                     <div class="three-dots"></div>
                     <div class="dropdown-content">
-                        <a  href="#/" onclick="toggleInputBox();"> <%=isBanned%></a>
+                        <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                        <a  href="#/" onclick="toggleConfirmBox();"> Unban User</a>
+                        <% } else { %>
+                        <a  href="#/" onclick="toggleInputBox();"> Ban User</a>
+                        <% } %>
                         
                         <%
                             if(user.getPrivilege() == 1) {
@@ -282,13 +288,23 @@
         </div>
         </div>
             
-        <div class="full-screen-background" hidden>
+        <div id ="input-box-div" class="full-screen-background" hidden>
             <div class="input-box">
                 <form action="<%= commentBoxURI%>" method="POST">
                     <span>Please enter a comment</span> <br>
                     <input type="text" placeholder="Comment" name="comment" class="text"> <br>
-                    <input type="submit" value="Report" class="btn btn-success my-btn">
+                    <input type="submit" value="Submit" class="btn btn-success my-btn">
                     <input type="button" value="Cancel" class="btn btn-default my-btn"  onclick="toggleInputBox()">
+                </form>
+            </div>
+        </div>
+                    
+        <div id="confirm-box-div" class="full-screen-background" hidden>
+            <div class="confirm-box">
+                <form id="confirm-box-form" action="<%= commentBoxURI%>" method="POST">
+                    <span> Are you sure you want to continue? </span> <br>
+                    <input type="submit" value="Yes" class="btn btn-success my-btn">
+                    <input type="button" value="Cancel" class="btn btn-default my-btn"  onclick="toggleConfirmBox()">
                 </form>
             </div>
         </div>
