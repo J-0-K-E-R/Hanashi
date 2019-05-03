@@ -143,6 +143,10 @@ body {
     margin-right: 5px;
 }
 
+#users-list-wrapper .username {
+    margin-top: 5px;
+}
+
 #users-list-wrapper .username a, #reported-users .username a {
     color: #fdcb6e;
     font-size: 16px;

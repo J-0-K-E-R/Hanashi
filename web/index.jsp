@@ -82,7 +82,10 @@
                 for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("threads")) {
             %>
             <div id='thread-container'>
-                <div id='thread-title'><div class="votes">Votes: <%= thread.getVotes() %></div><div class="vDivider"></div><a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+                <div id='thread-title'><div class="votes">Votes: <%= thread.getVotes() %></div>
+                    <div class="vDivider"></div>
+                    <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a>
+                </div>
                 <div id="username" class="username"><%= DateService.relativeDate(thread.getTimestampModified()) %> by <a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
             </div>
             <hr class="divider">
