@@ -784,6 +784,17 @@ hr.divider {
     margin-top: 40px;
 }
 
+.full-screen-background .dropzone-div-container {
+    position: relative;
+    width: 600px;
+    padding: 20px;
+    height: 340px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+}
+
 /*Styling the dashboard*/
 
 #dashboard-container {

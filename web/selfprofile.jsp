@@ -14,7 +14,7 @@
 <html>
     <head>
         <%@include file="/header.jsp"%>
-        
+        <link href="${pageContext.request.contextPath}/css/imgur.min.css" rel="stylesheet" media="screen">
                 <!--Check if profile of the current user is fetched or not-->
         <% 
             
@@ -87,7 +87,8 @@
                 
             }
         </script>
-        
+   
+           
     </head>
     
     <body onload="pageLoader()">
@@ -97,7 +98,7 @@
             
             <div id="top">
                 <div class="profile-picture">
-                    <a href="/Hanashi/users/${profileUser.getUsername()}">
+                    <a href="#/" onclick="toggleDropzone();">
                         <img src="${profileUser.getAvatarPath()}" class="profile-picture">
                     </a>
                 </div>
@@ -132,5 +133,62 @@
             </div>
         </div>
         </div>
+            
+                
+        <div id="dropzone-div" class="full-screen-background" hidden>
+            <div class="dropzone-div-container">
+                <div class="dropzone"></div>
+                <input type="button" class="btn btn-default my-btn" value="Cancel" onclick="toggleDropzone();">
+            </div>
+            
+        </div>
+            
+        <!--imgur image upload-->
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/imgur.min.js"></script>
+        <script type="text/javascript">
+            var feedback = function (res) {
+                if (res.success === true) {
+                    var status = document.querySelector('.status');
+                    var p = document.createElement('p');
+                    var t = document.createTextNode('Image uploaded successfully!');
+                    var link = res.data.link;
+                    
+                    updateImageURL(link);
+                    
+                    p.appendChild(t);
+
+                    status.classList.add('bg-success');
+                    status.appendChild(p);
+                    toggleDropzone();
+                    // document.querySelector('.status').innerHTML = 'Image url: ' + res.data.link;
+                }
+            };
+
+            new Imgur({
+                clientid: '02f4ec639f412f8',
+                callback: feedback
+            });
+        </script>
+        
+        <script> 
+            function updateImageURL(mylink) {
+                $.ajax({
+                    type : "POST",
+                    data : {
+                        link: mylink
+                    },
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    url : "/Hanashi/UpdateAvatar"
+                });
+            }
+        </script>
+
+        <script>
+            function toggleDropzone() {
+                $("#dropzone-div").fadeToggle(200);
+            }
+        </script>
     </body>
 </html>

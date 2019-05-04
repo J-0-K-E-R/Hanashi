@@ -327,4 +327,28 @@ public class UserDAO {
         }
         
     }
+    
+    public boolean updateAvatar(String uname, String link) {
+        boolean message = false;
+        Connection conn = null;
+        
+        try {
+            //Set up connection
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            updateStatement = conn.prepareStatement("update users set AvatarPath=? where Username = ?");
+            updateStatement.setString(1, link);
+            updateStatement.setString(2, uname);
+            updateStatement.executeUpdate();
+            message = true;
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(updateStatement);
+            DBUtil.close(conn);
+        }
+        
+        return message;
+    }
 }

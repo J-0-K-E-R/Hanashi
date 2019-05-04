@@ -134,6 +134,10 @@
         <servlet-name>UploadArticleImageController</servlet-name>
         <servlet-class>controller.UploadArticleImageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateAvatarController</servlet-name>
+        <servlet-class>controller.UpdateAvatarController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginpage</servlet-name>
         <url-pattern>/loginpage</url-pattern>
@@ -253,6 +257,10 @@
     <servlet-mapping>
         <servlet-name>UploadArticleImageController</servlet-name>
         <url-pattern>/UploadArticleImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAvatarController</servlet-name>
+        <url-pattern>/UpdateAvatar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
