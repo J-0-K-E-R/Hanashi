@@ -302,12 +302,58 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 #view-thread-container {
     width: 100%;
     position: relative;
-    border: solid 2px #3498db;
+    /*border: solid 2px #3498db;*/
     color: white;
+}
+
+#view-thread-container #originalPost {
+    width: 100%;
+    position:relative;
+    top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    border: solid 2px #3498db;
 }
 
 #view-thread-container #posts {
     /*overflow: auto;*/
+}
+
+#view-thread-container #originalPost #thread-header #title-info {
+    display: table;
+    position: relative;
+    text-align: left;
+    margin-top: 25px;
+}
+
+#view-thread-container #originalPost #thread-header #title-info h2 {
+    color: #3498db;
+    display: table-cell;
+}
+
+#view-thread-container #originalPost #thread-header #title-info #editthread {
+    color: #27ae60;
+    display: table-cell;
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+#view-thread-container #originalPost #thread-header #title-info #editthread a {
+    color: #27ae60;
+}
+
+#view-thread-container #originalPost hr.data-divider {
+    border-top: 1px dashed #8c8b8b;
+}
+
+#view-thread-container #originalPost #owner-info #thread-user {
+    color: white;
+    float: right;
+}
+
+#view-thread-container #originalPost #owner-info #thread-user a {
+    color: #fdcb6e;
+    text-decoration: none;
 }
 
 #view-thread-container #newreply {
@@ -321,7 +367,8 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     padding-left: 2rem;
     padding-right: 2rem;
     position: relative;
-    top: -5px;
+    top: -15px;
+    color: #16a085;
 }
 
 #view-thread-container .sign {
@@ -330,11 +377,19 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 #view-thread-container .active-vote-sign {
     font-size: 18px;
-    color: #fdcb6e;
+    color: #16a085;
+}
+
+#view-thread-container #posts {
+    width: 100%;
+    position:relative;
+    top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+    border: solid 2px #3498db;
 }
 
 .post-container {
-    border: solid 2px blueviolet;
     margin: 5px;
     padding: 10px;
 }
@@ -343,16 +398,39 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     background: lavenderblush;
 }
 
-.post-container .user {
-    color: #fdcb6e;
-    font-size: 20px;
+.post-container .post-header {
+    display: table;
+    width: 100%;
 }
 
-.post-container .votes-div {
-    float: right;
+.post-container .post-header .votes-div {
+    float: left;
     font-size: 15px;
+    vertical-align: top;
     text-align: center;
-    padding: 6px;
+    color: #16a085;
+    display: table-cell;
+}
+
+.post-container .post-header .edit-thread {
+    font-size: 20px;
+    text-align: right;
+    vertical-align: top;
+    color: #16a085;
+    display: table-cell;
+}
+
+.post-container .post-header .edit-thread a {
+    color: #27ae60;
+}
+
+.post-container #timestamp a {
+    color: #fdcb6e;
+    text-decoration: none;
+}
+
+.post-container .post-header #dropdown {
+    width: 2px;
 }
 
 .post-container .sign {
@@ -361,7 +439,7 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 .post-container .active-vote-sign {
     font-size: 18px;
-    color: #fdcb6e;
+    color: #16a085;
 }
 
 .post-container .replies {
@@ -437,7 +515,6 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 #user-profile-container #userdata #username {
     color: #fdcb6e;
     font-size: 30px;
-    text-align: left;
     display: table-row;
     float: left;
 }
@@ -445,13 +522,11 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 #user-profile-container #userdata #points {
     font-family: monospace;
     font-size: 11px;
-    text-align: left;
     display: table-row;
     color: #ED4C67;
 }
 
 #user-profile-container #userdata #follow-button {
-    text-align: left;
     display: table-row;
 }
 
@@ -512,7 +587,9 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     padding: 5px;
 }
 
-.btn { float: none; }
+.btn {
+    float: none;
+}
 
 #thread-container #thread-title a, #post-container #post-title a{
     font-size: 18px;

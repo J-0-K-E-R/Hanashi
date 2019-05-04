@@ -396,129 +396,93 @@
         <div id="view-thread-container">
             <div id="originalPost">
                 <div id="thread-header">
-                <div id="votes-div">
-                    <a href="#/" onclick="vote('/Hanashi/ThreadUpvote');">
-                        <span id="plus-sign" class="glyphicon glyphicon-plus-sign sign"></span>
-                    </a> 
-                    <br>    
-                    <span id="votes-span"> ${currentThread.getVotes()} </span>
-                    <br>
-                    <a href="#/" onclick="vote('/Hanashi/ThreadDownvote');">
-                        <span id="minus-sign" class="glyphicon glyphicon-minus-sign sign"></span>
-                    </a>
-                </div>
-                
-                <%
-                    if (thread!= null && isLoggedIn ) {
-                        UserDAO us = new UserDAO();
-                        User proUser = us.fetchUser(thread.getUsername());
-                        String proUsername = proUser.getUsername();
-                                            
-                        if(user.getPrivilege() <= 2 ){
-                %>
-                
-                <div class="dropdown">
-                    <div class="three-dots"></div>
-                    <div class="dropdown-content">
-                        <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
-                        <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
-                        <% } else { %>
-                        <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
-                        <% } %>
-                        
-                        <a href="/Hanashi/editthread"> Edit Thread</a>
-                        <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
-                        
-                        <% if(isClosed) { %>
-                        <a href="#/" onclick="openThread();"> Reopen Thread </a>
-                        <% } else { %>
-                        <a href="#/" onclick="closeThread();"> Close Thread </a>
-                        <% } %>
+                    <div id="votes-div">
+                        <a href="#/" onclick="vote('/Hanashi/ThreadUpvote');">
+                            <span id="plus-sign" class="glyphicon glyphicon-plus-sign sign"></span>
+                        </a> 
+                        <br>    
+                        <span id="votes-span"> ${currentThread.getVotes()} </span>
+                        <br>
+                        <a href="#/" onclick="vote('/Hanashi/ThreadDownvote');">
+                            <span id="minus-sign" class="glyphicon glyphicon-minus-sign sign"></span>
+                        </a>
                     </div>
-                </div>
-                                
-                <%
-                        } else  {
-                %>
-                
-                <div class="dropdown">
-                    <div class="three-dots"></div>
-                    <div class="dropdown-content">
-                        <a href="#/" onclick="reportThread();"> Report Thread</a>
+                    <div id="vDivider"></div>
+                    <%
+                        if (thread!= null && isLoggedIn ) {
+                            UserDAO us = new UserDAO();
+                            User proUser = us.fetchUser(thread.getUsername());
+                            String proUsername = proUser.getUsername();
+
+                            if(user.getPrivilege() <= 2 ){
+                    %>
+
+                    <div class="dropdown">
+                        <div class="three-dots"></div>
+                        <div class="dropdown-content">
+                            <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                            <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
+                            <% } else { %>
+                            <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
+                            <% } %>
+
+                            <a href="/Hanashi/editthread"> Edit Thread</a>
+                            <a href="/Hanashi/DeleteThread?threadID=<%=thread.getThreadID()%>"> Delete Thread</a>
+
+                            <% if(isClosed) { %>
+                            <a href="#/" onclick="openThread();"> Reopen Thread </a>
+                            <% } else { %>
+                            <a href="#/" onclick="closeThread();"> Close Thread </a>
+                            <% } %>
+                        </div>
                     </div>
-                </div>
-                
-                
-                
-                <%
+
+                    <%
+                            } else  {
+                    %>
+
+                    <div class="dropdown">
+                        <div class="three-dots"></div>
+                        <div class="dropdown-content">
+                            <a href="#/" onclick="reportThread();"> Report Thread</a>
+                        </div>
+                    </div>
+
+
+
+                    <%
+                            }
                         }
-                    }
-                %>    
-                    
-                <h3>${currentThread.getTitle()} </h3>
-                <%
-                    if(canEdit) {
-                %>
-                
-                <div id="editthread" ><a href="/Hanashi/editthread"><span class="glyphicon glyphicon-edit"></span></a></div>
-                
-                <% } %>
-                
-                </div><br>
+                    %>    
+                    <div id='title-info'>
+                        <h2>${currentThread.getTitle()}</h2>
+                        <%
+                            if(canEdit) {
+                        %>
+
+                        <div id="editthread"><a href="/Hanashi/editthread"><span class="glyphicon glyphicon-edit"></span></a></div>
+
+                        <% } %>
+                    </div>
+                </div>
+                <br>
+                <hr class="data-divider">
                 <div>
                     ${currentThread.getPost()}
                 </div>
-                <div>
-                    ${currentThread.getUsername()}
-                    <div>
-                        <%=timestampModified%>
-                    </div>
+                <div id='owner-info'>
+                    <div id="thread-user"><%=timestampModified%> by <a href='/Hanashi/users/<%= thread.getUsername()%>'>${currentThread.getUsername()}</a> </div>
                 </div>
+                <br>
             </div>
+            <br>
+            <hr class="divider">
             <div id="posts">
                 <%
                     for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
                 %>
                 <div class="post-container" id='<%= post.getPostID() %>'>
                     <div class="post-header">
-                        <%
-                            UserDAO us = new UserDAO();
-                            User proUser = us.fetchUser(post.getUsername());
-                            String proUsername = proUser.getUsername();
-
-                            if(isLoggedIn && user.getPrivilege() <= 2 ){
-                        %>
-
-                        <div class="dropdown">
-                            <div class="three-dots"></div>
-                            <div class="dropdown-content">
-                                <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
-                                <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
-                                <% } else { %>
-                                <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
-                                <% } %>
-                                
-                                <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
-                                <a href="/Hanashi/DeletePost?postID=<%=post.getPostID()%>"> Delete Post</a>
-                            </div>
-                        </div>
-                                
-                        <%
-                            } else if(isLoggedIn) {
-                        %>
-
-                        <div class="dropdown">
-                            <div class="three-dots"></div>
-                            <div class="dropdown-content">
-                                <a href="#/" onclick="reportPost(<%=post.getPostID()%>);"> Report Post</a>
-                            </div>
-                        </div>
-
-                        <%
-                            }
-                        %>    
-
-                        
                         <div class="votes-div">
                             <a href="#/" onclick="vote_post(<%= post.getPostID() %>, '/Hanashi/PostDownvote');">
                                 <span id="minus-sign-<%= post.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
@@ -528,9 +492,7 @@
                                 <span id = "plus-sign-<%= post.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
                             </a>                             
                         </div>
-                                                    
-                                                
-                        <div class='user'> <%= post.getUsername()  %>  
+                        <div class='edit-thread'>
                             <%
                                 if(user != null && user.getUsername().equals(post.getUsername())) {
                             %>
@@ -541,14 +503,51 @@
                                 }
                             %>
                         </div>
-                    
+                        <div id="dropdown" class="pull-right">
+                            <%
+                                UserDAO us = new UserDAO();
+                                User proUser = us.fetchUser(post.getUsername());
+                                String proUsername = proUser.getUsername();
+
+                                if(isLoggedIn && user.getPrivilege() <= 2 ){
+                            %>
+
+                            <div class="dropdown">
+                                <div class="three-dots"></div>
+                                <div class="dropdown-content">
+                                    <% if(dao.BannedUsersDAO.isBanned(proUsername)) { %>
+                                    <a  href="#/" onclick="unbanUser('<%=proUsername%>');"> Unban User</a>
+                                    <% } else { %>
+                                    <a  href="#/" onclick="banUser('<%=proUsername%>');"> Ban User</a>
+                                    <% } %>
+
+                                    <a href="#/" onclick="editUserPost('<%=post.getPostID()%>');" > Edit Post</a>
+                                    <a href="/Hanashi/DeletePost?postID=<%=post.getPostID()%>"> Delete Post</a>
+                                </div>
+                            </div>
+
+                            <%
+                                } else if(isLoggedIn) {
+                            %>
+
+                            <div class="dropdown">
+                                <div class="three-dots"></div>
+                                <div class="dropdown-content">
+                                    <a href="#/" onclick="reportPost(<%=post.getPostID()%>);"> Report Post</a>
+                                </div>
+                            </div>
+
+                            <%
+                                }
+                            %>
+                        </div>
                     </div>
                     <div id='post-content'> <%= post.getPost() %> </div> 
                     
                     <div class="btn btn-primary btn-reply" onclick="reply_to(<%=post.getPostID()%>, '<%=post.getUsername()%>');">
                         Reply
                     </div>
-                    <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> </div>
+                    <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> by <a href='/Hanashi/users/<%= post.getUsername() %>'><%= post.getUsername()%></a></div>
                     
                        
                     
@@ -681,13 +680,14 @@
                     <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
                     </form>
                 </div>
-                
+                <hr class="divider">
                 <%     
                         }
                     } 
                 %>
             
             </div>
+                
             <div id="newreply">
                 
                 <% if(isLoggedIn && !isClosed) { %>
