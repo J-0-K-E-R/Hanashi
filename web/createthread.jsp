@@ -49,7 +49,7 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
                     <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()" class="form-control">
                 </div>  <br>
-                <textarea id="froala-editor" name="post-content" required></textarea> <br>
+                <textarea class="froala-editor" name="post-content" required></textarea> <br>
                 <a href="/Hanashi/index.jsp" class="btn btn-danger pull-right">Cancel</a>
                 <input class="btn btn-success pull-right" type="submit" value="Post">
             </form>

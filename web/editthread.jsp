@@ -51,7 +51,7 @@
                 <!--<label for="title"> Title </label>-->
                 <input type="text" name="title" id="title" placeholder="Enter Title" required="" value="${currentThread.getTitle()}"> <br>
                 <input type="text" name="tags" id="input-tags" placeholder="Enter tags separated by semi-colon(;)" onkeyup="addTagsToDiv()" value="${currentThread.getTagsList()}"> <br>
-                <textarea id="froala-editor" name="post-content" required>${currentThread.getPost()}</textarea> <br>
+                <textarea class="froala-editor" name="post-content" required>${currentThread.getPost()}</textarea> <br>
                 
                 <%
                     if(isLoggedIn && user.getPrivilege() <= 2 ){

@@ -131,27 +131,7 @@
     
     
 <script>
-    $(function() {
-        $('textarea#froala-editor').froalaEditor({
-            // toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-            // 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
-            // 'emoticons', 'fontAwesome', 'specialCharacters', '-', 
-            // 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 
-            // 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 
-            // 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|',
-            // 'undo', 'redo'],
-            toolbarButtons: ['undo', 'redo' , '|', 
-                'bold', 'italic', 'underline', 'fontFamily', 'fontSize', 'color', '|',
-                'strikeThrough', 'subscript', 'superscript', '-' , 
-                'outdent', 'indent' , 'align', 'lineHeight' ,'inlineClass', 'quote', 'clearFormatting','|',
-                'insertLink', 'insertImage', 'html', 'fullscreen'],
-            
-           inlineClasses: {
-                'fr-class-code': 'Code',
-                'fr-class-highlighted': 'Highlighted'
-            }
-        });
-        
+    $(function() {        
         $('textarea.froala-editor').froalaEditor({
             // toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
             // 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 
@@ -169,9 +149,72 @@
            inlineClasses: {
                 'fr-class-code': 'Code',
                 'fr-class-highlighted': 'Highlighted'
-            }
+            },
+            
+            // Set the image upload parameter.
+            imageUploadParam: 'file',
+
+            // Set the image upload URL.
+            imageUploadURL: '/Hanashi/UploadArticleImage',
+
+            // Additional upload params.
+//            imageUploadParams: {id: 'my_editor'},
+
+            // Set request type.
+            imageUploadMethod: 'POST',
+
+            // Set max image size to 10MB.
+            imageMaxSize: 10 * 1024 * 1024,
+
+            // Allow to upload PNG and JPG.
+            imageAllowedTypes: ['jpeg', 'jpg', 'png']
+          })
+          .on('froalaEditor.image.beforeUpload', function (e, editor, images) {
+            // Return false if you want to stop the image upload.
+          })
+          .on('froalaEditor.image.uploaded', function (e, editor, response) {
+            // Image was uploaded to the server.
+            // Parse response to get image url.
+//            var img_url =  JSON.parse(response).link;
+//            alert(img_url);
+//
+//            // Insert image.
+//            editor.image.insert(img_url, false, null, editor.image.get(), response);
+//
+//            return false;
+          })
+          .on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+            // Image was inserted in the editor.
+          })
+          .on('froalaEditor.image.replaced', function (e, editor, $img, response) {
+            // Image was replaced in the editor.
+          })
+          .on('froalaEditor.image.error', function (e, editor, error, response) {
+            // Bad link.
+            if (error.code === 1) { alert('Bad link'); }
+            
+            // No link in upload response.
+            else if (error.code === 2) { alert('No link in upload response'); }
+
+            // Error during image upload.
+            else if (error.code === 3) { alert('Error during image upload'); }
+
+            // Parsing response failed.
+            else if (error.code === 4) { alert('Parsing response failed'); }
+
+            // Image too text-large.
+            else if (error.code === 5) { alert('Image too text-large.'); }
+
+            // Invalid image type.
+            else if (error.code === 6) { alert('Invalid image type'); }
+
+            // Image can be uploaded only to same domain in IE 8 and IE 9.
+            else if (error.code === 7) { alert('Image can be uploaded only to same domain in IE 8 and IE 9.'); }
+
+            // Response contains the original server response to the request if available.
+          });
+            
         });
-    });
 </script>
         
         

@@ -695,7 +695,7 @@
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">
                     <h4> Your Reply </h4>
                     <input type="text" name="reply_to" id="reply_to" class="reply_to" value="">
-                    <textarea id="froala-editor" name="post-content" required></textarea> <br>
+                    <textarea class="froala-editor" id="froala-editor" name="post-content" required></textarea> <br>
                     <input class="btn btn-success" type="submit" value="Post">
                 </form>
                 
