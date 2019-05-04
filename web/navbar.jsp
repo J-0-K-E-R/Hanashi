@@ -93,20 +93,23 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a href="#/" 
-                       id='profile-pop'
-                       class="btn pop"
-                       data-html="true"
-                       data-toggle="popover"
-                       title="<img src='/Hanashi/images/logoD.png' id='popover-logo'>"
-                       data-placement="bottom"
-                       data-content="<a href='/Hanashi/users/${user.getUsername()}'><img src='${user.getAvatarPath()}' style='width:100px; float: left; margin-bottom: 20px;'><div>
-                       
-                       <div>${user.getUsername()}</div></a>
-                       <div>Email: ${user.getEmail()}</div>
-                       <div>Points: ${user.getPoints()}</div>
-                       </div>">
-                        <span class="glyphicon glyphicon-user"></span>
-                        Profile
+                        id='profile-pop'
+                        class="btn pop"
+                        data-html="true"
+                        data-toggle="popover"
+                        title="<img src='/Hanashi/images/logoD.png' id='popover-logo'>"
+                        data-placement="bottom"
+                        data-content="
+                        <div id='user-avatar'>
+                            <a href='/Hanashi/users/${user.getUsername()}'><img src='${user.getAvatarPath()}' style='width:100px; float: left; margin-bottom: 20px;'></a>
+                        </div>
+                        <div id='userdata'>
+                            <div id='username'><a href='/Hanashi/users/${user.getUsername()}'>${user.getUsername()}</a></div>
+                            <div id='email'>Email - ${user.getEmail()}</div>
+                            <div id='points'>Points - ${user.getPoints()}</div>
+                        </div>">
+                         <span class="glyphicon glyphicon-user"></span>
+                         Profile
                     </a>
                 </li>
                 <li class="nav-item"><a href="/Hanashi/Login"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>

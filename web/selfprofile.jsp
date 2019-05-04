@@ -109,7 +109,7 @@
                     </div>
                     
                     <div id="points">
-                        Points ${profileUser.getPoints()}
+                        Points - ${profileUser.getPoints()}
                     </div>
 
                     <div id="followers-following">

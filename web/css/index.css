@@ -71,6 +71,36 @@ body {
     text-align: center;
 }
 
+.popover-content #userdata {
+    display: table;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.popover-content #userdata #username {
+    text-align: center;
+    display: table-row;
+}
+
+.popover-content #userdata #username a {
+    color: #fdcb6e;
+    text-decoration: none;
+}
+
+.popover-content #userdata #email {
+    text-align: center;
+    display: table-row;
+    color: #7bed9f;
+}
+
+.popover-content #userdata #points {
+    font-family: monospace;
+    font-size: 12px;
+    text-align: center;
+    display: table-row;
+    color: #ED4C67;
+}
+
 .popover-content input {
     width: 100%;
     margin-bottom: 10px;
