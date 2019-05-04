@@ -143,6 +143,10 @@ body {
     margin-right: 5px;
 }
 
+#users-list-wrapper .username {
+    margin-top: 5px;
+}
+
 #users-list-wrapper .username a, #reported-users .username a {
     color: #fdcb6e;
     font-size: 16px;
@@ -373,13 +377,14 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     width: 100%;
     position:relative;
     top: 20px;
-    padding: 10px;
+    padding: 20px;
+    border-radius: 5px;
     border: solid 2px #3498db;
 }
 
 #user-profile-container .profile-picture {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     /*border: solid 2px red;*/
     float: left;
     margin-right: 20px;
@@ -390,21 +395,60 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     /*border: solid 2px #fdcb6e;*/
 }
 
-#user-profile-container #username {
-    color: #fdcb6e;
-    font-size: 20px;
-    margin-top: 10px;
+#user-profile-container #userdata {
+    display: table;
+    height: 100px;
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 20px;
+    float: left;
 }
 
-#user-profile-container #points {
+#user-profile-container #userdata #username {
+    color: #fdcb6e;
+    font-size: 30px;
+    text-align: left;
+    display: table-row;
+    float: left;
+}
+
+#user-profile-container #userdata #points {
     font-family: monospace;
     font-size: 11px;
+    text-align: left;
+    display: table-row;
+    color: #ED4C67;
 }
 
-#user-profile-container #follow-button {
+#user-profile-container #userdata #follow-button {
+    text-align: left;
+    display: table-row;
 }
 
-#user-profile-container #followers-following {
+#user-profile-container #userdata #followers-following {
+    float: right;
+}
+
+#user-profile-container hr.data-divider {
+    margin-top: 70px;
+    border-top: 1px dashed #8c8b8b;
+}
+
+#user-profile-container #user-threads {
+    margin-top: 30px;
+}
+
+#user-profile-container #user-threads #thread-container #votes{
+    color: #16a085;
+    float: left;
+}
+
+#user-profile-container #user-threads #thread-container #thread-title{
+    color: #2f3640;
+}
+
+#user-profile-container #user-threads #thread-container #timestamp{
+    color: white;
     float: right;
 }
 
@@ -469,7 +513,6 @@ hr.divider {
 
 #thread-container #thread-title .votes {
     float: left;
-    color: #27ae60;
     color: #16a085;
 }
 
