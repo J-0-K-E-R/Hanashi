@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,7 +46,8 @@ public class UploadArticleImageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Log ::::: Uploading Image");
-        String fileRoute = utilities.Configurations.getArticleImagesPath();
+        utilities.Configurations config = new utilities.Configurations();
+        String fileRoute = config.getArticleImagesPath();
 
         Map<Object, Object> responseData = new HashMap<>();
         try {
@@ -65,7 +68,13 @@ public class UploadArticleImageController extends HttpServlet {
             
             outputStream.close();
             
-            responseData.put("link", "https://upload.wikimedia.org/wikipedia/commons/6/69/June_odd-eyed-cat_cropped.jpg");
+            String imgurResponse = utilities.Imgur.getImgurContent("02f4ec639f412f8", imgFile);
+            Gson gson = new Gson();
+            HashMap<String, Object> map = gson.fromJson(imgurResponse, HashMap.class);
+            LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap)map.get("data");
+            
+            
+            responseData.put("link", treeMap.get("link"));
             
         } catch (Exception e) { 
             Logger.getLogger(UploadArticleImageController.class.getName()).log(Level.SEVERE, null, e);

@@ -13,21 +13,30 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdk.nashorn.internal.objects.NativeDebug;
 
 /**
  *
  * @author robogod
  */
 public class Configurations {
-    private static String filePath = "config.properties";
+    private String filePath = "config.properties";
+    private File configFile;
+
+    public Configurations() {
+        try {
+            configFile = new File(filePath);
+            if(!configFile.exists()) {
+                configFile.createNewFile();
+                this.setArticleImagesPath("articleimages/");
+            }
+        } catch(Exception e) {
+            Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE,null, e);
+        }
+    }
     
-    public static String getArticleImagesPath() {
+    final public String getArticleImagesPath() {
         String path = "";
                 
-        
-        File configFile = new File(filePath);
- 
         try {
             FileReader reader = new FileReader(configFile);
             Properties props = new Properties();
@@ -47,8 +56,7 @@ public class Configurations {
         return path;
     }
     
-    public static void setArticleImagesPath(String path) {
-        File configFile = new File(filePath);
+    final public void setArticleImagesPath(String path) {
  
         try {
             Properties props = new Properties();
@@ -56,10 +64,10 @@ public class Configurations {
             FileWriter writer = new FileWriter(configFile);
             props.store(writer, "path settings");
             writer.close();
-        } catch (FileNotFoundException ex) {
-            // file does not exist
-        } catch (IOException ex) {
-            // I/O error
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE,null, e);
+        } catch (IOException e) {
+            Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }
