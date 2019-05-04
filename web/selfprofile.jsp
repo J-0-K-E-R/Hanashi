@@ -102,33 +102,44 @@
                         <img src="${profileUser.getAvatarPath()}" class="profile-picture">
                     </a>
                 </div>
-                <div id="username">
-                    ${profileUser.getUsername()}
-                </div>
-                <div id="points">
-                    Points ${profileUser.getPoints()}
+                    
+                <div id="userdata">
+                    <div id="username">
+                        ${profileUser.getUsername()}
+                    </div>
+                    
+                    <div id="points">
+                        Points ${profileUser.getPoints()}
+                    </div>
+
+                    <div id="followers-following">
+                        <a href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
+                        <a href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
+                    </div>
                 </div>
                 
-                <div id="followers-following">
-                    <a href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
-                    <a href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
-                </div>
-            
                 <br style="clear:both;"/>
             </div>
+            
+            <hr class="data-divider">
+            
             <div id="user-threads">
                 <div id="sortby">
-                    <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Timestamp_Modified" class="btn btn-default"> Newest </a>
-                    <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Votes" class="btn btn-default"> Popular </a>
+                    <div class="btn-group pull-right">
+                        <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Timestamp_Modified" class="btn btn-default"> Newest </a>
+                        <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Votes" class="btn btn-default"> Popular </a>
+                    </div>
                 </div>
                 <%
                     for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("userThreads")) {
                 %>
                 <div id='thread-container'>
                     <div id='votes'> Votes: <%= thread.getVotes() %></div>
+                    <div class="vDivider"></div>
                     <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
                     <div id='timestamp'><%= DateService.relativeDate(thread.getTimestampModified()) %></div>
                 </div>
+                <hr class="divider">
                 <% } %>
             </div>
         </div>

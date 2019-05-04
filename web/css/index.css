@@ -447,6 +447,10 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     color: #2f3640;
 }
 
+#user-profile-container #user-threads #thread-container #thread-title a{
+    text-decoration: none;
+}
+
 #user-profile-container #user-threads #thread-container #timestamp{
     color: white;
     float: right;

@@ -279,7 +279,7 @@
             
             <div id="user-threads">
                 <div id="sortby">
-                    <div id="sortby" class="btn-group pull-right">
+                    <div class="btn-group pull-right">
                         <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Timestamp_Modified" class="btn btn-default"> Newest </a>
                         <a href="/Hanashi/users/${profileUser.getUsername()}?sortby=Votes" class="btn btn-default"> Popular </a>
                     </div>
