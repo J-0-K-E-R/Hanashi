@@ -259,11 +259,6 @@
                     <div id="username">
                         ${profileUser.getUsername()}
                     </div>
-                    
-                    <div class="btn-group pull-right" id="followers-following">
-                        <a id="followers-count" href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
-                        <a id="following-count" href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
-                    </div>
                         
                     <div id="points">
                         Points - ${profileUser.getPoints()}
@@ -271,7 +266,12 @@
                     <br>
                     <button id="follow-button" class= "btn" onclick="followUser();" ></button>    
                 </div>
-
+                
+                <div class="btn-group pull-right" id="followers-following">
+                    <a id="followers-count" href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
+                    <a id="following-count" href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
+                </div>
+                    
                 <br style="clear:both;"/>
             </div>
             

@@ -506,7 +506,6 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 #user-profile-container #userdata {
     display: table;
     height: 100px;
-    width: 75%;
     margin: 0 auto;
     margin-top: 20px;
     float: left;
@@ -530,8 +529,9 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     display: table-row;
 }
 
-#user-profile-container #userdata #followers-following {
-    float: right;
+#user-profile-container #followers-following {
+    margin-right: 0px;
+    margin-top: 20px;
 }
 
 #user-profile-container hr.data-divider {
