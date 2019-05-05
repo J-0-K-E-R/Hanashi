@@ -442,9 +442,20 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
     color: #16a085;
 }
 
+.post-container .replies-anchor {
+    color: #C4E538;
+    text-decoration: none;
+}
+
 .post-container .replies {
     display: none;
     transition: display .2s ease-in;
+    width: 100%;
+    position:relative;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 2px;
+    border: solid 2px #F79F1F;
 }
 
 .post-container .btn-reply {
@@ -462,10 +473,38 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 }
 
 .post-container .reply-container {
-    border: solid 2px darkblue;
     padding: 10px;
     padding-bottom: 15px;
     margin-top: 6px;
+}
+
+.post-container .reply-container .post-header {
+    display: table;
+    width: 100%;
+}
+
+.post-container .reply-container .post-header .votes-div {
+    float: left;
+    vertical-align: top;
+    text-align: center;
+    color: #16a085;
+    display: table-cell;
+}
+
+.post-container .reply-container .post-header .edit-post {
+    text-align: right;
+    vertical-align: top;
+    color: #16a085;
+    display: table-cell;
+}
+
+.post-container .reply-container .post-header .dropdown {
+    width: 2px;
+}
+
+.post-container .replies hr.replies-divider {
+    border-top: 1px dashed #8c8b8b;
+    border-bottom: 1px dashed #fff;
 }
 
 .reply-to-username {

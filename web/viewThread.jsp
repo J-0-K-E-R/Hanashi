@@ -551,7 +551,7 @@
                     
                        
                     
-                    <a href="#/" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);">
+                    <a href="#/" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);" class="replies-anchor">
                         Show replies 
                     </a>
                     
@@ -569,7 +569,28 @@
                             
                             <div class="post-header">
                                 
-                                
+                                <div class="votes-div">
+                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
+                                        <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
+                                    </a>    
+                                    <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
+                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
+                                        <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
+                                    </a>
+                                </div>
+                        
+                                <div class='edit-post'>  
+                                    <%
+                                        if(user != null && user.getUsername().equals(reply.getUsername())) {
+                                    %>
+                                            <a id="userPostEdit" href="#/" onclick="editUserPost('<%=reply.getPostID()%>');">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                            </a>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+                                    
                                 <%
                                     us = new UserDAO();
                                     proUser = us.fetchUser(reply.getUsername());
@@ -606,36 +627,14 @@
                                 <%
                                     }
                                 %>    
-                                
-                                <div class="votes-div">
-                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostDownvote');">
-                                        <span id="minus-sign-<%= reply.getPostID() %>" class="glyphicon glyphicon-minus-sign sign minus-sign"></span>
-                                    </a>    
-                                    <span class="votes-span" id="votes-span-<%= reply.getPostID() %>"> <%= reply.getVotes() %> </span>
-                                    <a href="#/" onclick="vote_post(<%= reply.getPostID() %>, '/Hanashi/PostUpvote');">
-                                        <span id = "plus-sign-<%= reply.getPostID() %>"class="glyphicon glyphicon-plus-sign sign plus-sign"></span>
-                                    </a>
-                                </div>
-                        
-                                <div class='user'> <%= reply.getUsername()  %>  
-                                    <%
-                                        if(user != null && user.getUsername().equals(reply.getUsername())) {
-                                    %>
-                                            <a id="userPostEdit" href="#/" onclick="editUserPost('<%=reply.getPostID()%>');">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                            </a>
-                                    <%
-                                        }
-                                    %>
-                                </div>
-                    
+                                                    
                             </div>
                             <div id='post-content'> <%= reply.getPost() %> </div> 
                     
                             <div class="btn btn-primary btn-reply" onclick="reply_to(<%=post.getPostID()%>, '<%=reply.getUsername()%>');">
                                 Reply
                             </div>
-                            <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> </div>
+                            <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> by <a href='/Hanashi/users/<%= reply.getUsername() %>'><%= reply.getUsername() %></div>
  
                         </div>
                         
@@ -655,13 +654,12 @@
                             <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=reply.getPostID() %>');">
                             </form>
                         </div>
-                        
+                        <hr class="replies-divider">
                         <%
                                }
                             } 
                         %>
                     </div>
-                    
                 </div>
             
                     
