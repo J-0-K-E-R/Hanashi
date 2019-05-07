@@ -27,7 +27,7 @@ public class Configurations {
             configFile = new File(filePath);
             if(!configFile.exists()) {
                 configFile.createNewFile();
-                this.setArticleImagesPath("articleimages/");
+                this.setArticleImagesPath("./");
             }
         } catch(Exception e) {
             Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE,null, e);
