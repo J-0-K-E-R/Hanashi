@@ -646,16 +646,16 @@
                             if(user != null && (user.getUsername().equals(reply.getUsername()) || user.getPrivilege() <= 2)) {
                         %>
                             
-                        <div id='edit-<%=reply.getPostID() %>' hidden> 
+                        <div id='edit-<%=reply.getPostID() %>' class="editor-div" hidden> 
                             <form action="/Hanashi/EditPost?editPostID=<%= reply.getPostID() %>" id="create-post-form" method="post">
                             <textarea id="froala-editor-<%=reply.getPostID() %>" class="froala-editor" name="post-content" required > <%= reply.getPost() %> </textarea>
                             <%
                                 if(isLoggedIn && user.getPrivilege() <= 2 ){
                             %>
-                            <input type="text" name="comment" id="mod-comment" placeholder="Reason for editing"><br>
+                            <input type="text" name="comment" id="mod-comment" class="form-control" placeholder="Reason for editing"><br>
                             <% } %>
-                            <input class="btn btn-success" type="submit" value="Update">
-                            <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=reply.getPostID() %>');">
+                            <input type="button" class="btn btn-default pull-right" value="Cancel" onclick="cancelEdit('<%=reply.getPostID() %>');">
+                            <input class="btn btn-success pull-right" type="submit" value="Update">
                             </form>
                         </div>
                         <hr class="replies-divider">
@@ -672,15 +672,15 @@
                     if(user != null && (user.getUsername().equals(post.getUsername()) || user.getPrivilege() <= 2 )) {
                 %>    
                 <div id='edit-<%=post.getPostID() %>' hidden> 
-                    <form action="/Hanashi/EditPost?editPostID=<%= post.getPostID() %>" id="create-post-form" method="post">
+                    <form action="/Hanashi/EditPost?editPostID=<%= post.getPostID() %>" class="editor-div" id="create-post-form" method="post">
                     <textarea id="froala-editor-<%=post.getPostID() %>" class="froala-editor" name="post-content" required > <%= post.getPost() %> </textarea> 
                     <%
                         if(isLoggedIn && user.getPrivilege() <= 2 ){
                     %>
-                    <input type="text" name="comment" id="mod-comment" placeholder="Reason for editing"><br>
+                    <input type="text" name="comment" id="mod-comment" class="form-control" placeholder="Reason for editing"><br>
                     <% } %>
-                    <input class="btn btn-success" type="submit" value="Update">
-                    <input type="button" class="btn btn-default" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
+                    <input type="button" class="btn btn-default pull-right" value="Cancel" onclick="cancelEdit('<%=post.getPostID() %>');">
+                    <input class="btn btn-success pull-right" type="submit" value="Update">
                     </form>
                 </div>
                 <hr class="divider">
