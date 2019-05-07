@@ -390,6 +390,7 @@
         </script>
         
     </head>
+    <% if (thread!=null) { %>
     <body onload="init()">
         
         <div id="main" class="main">
@@ -728,4 +729,5 @@
             </div>
         </div>
     </body>
+    <% } %>
 </html>
