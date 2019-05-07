@@ -21,10 +21,9 @@
             ArrayList<pojos.Post> posts;
             int doesExist;
             String timestampModified;
-            int showPostID = -1;
-            int targetPostID = -1;
+            int showPostID=-1;
+            int targetPostID=-1;
             boolean isClosed = false;
-            int replyCount = 0;
         %>
         <% 
             String uri = request.getRequestURI();
@@ -481,7 +480,8 @@
             <hr class="divider">
             <div id="posts">
                 <%
-                    for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
+                    if (!(((ArrayList<Post>) session.getAttribute("posts")).isEmpty())) {
+                        for(Post post: (ArrayList<Post>) session.getAttribute("posts")) {      
                 %>
                 <div class="post-container" id='<%= post.getPostID() %>'>
                     <div class="post-header">
@@ -551,23 +551,26 @@
                     </div>
                     <div id='timestamp'> <%= utilities.DateService.relativeDate(post.getTimestampModified()) %> by <a href='/Hanashi/users/<%= post.getUsername() %>'><%= post.getUsername()%></a></div>
                     
-                    <% 
+                    <%
                         dao.PostDAO pd = new dao.PostDAO();
-                        ArrayList<Post> replies = pd.fetchReplies(post.getPostID());
-                        if(!(replies.isEmpty())) {
-                        replyCount = replies.size();
-                    %>
+                        ArrayList<Post> replies = pd.fetchReplies(post.getPostID()); 
+                        if (!(replies.isEmpty())) {
+                    %>        
                     
                     <a href="#/" id="toggle-post-<%=post.getPostID()%>" onclick="toggle_replies(<%= post.getPostID() %>);" class="replies-anchor">
-                        Show replies (<%= replyCount %>)
+                        Show replies 
                     </a>
                     
+          
+                    
                     <div id="reply-<%= post.getPostID() %>" class="replies"> 
-                        <%
+                        
+                        <% 
                             for(Post reply: replies) {
                         %>
                         
                         <div class="reply-container" id='<%= reply.getPostID() %>'>
+                            
                             <div class="post-header">
                                 
                                 <div class="votes-div">
@@ -658,10 +661,10 @@
                         <hr class="replies-divider">
                         <%
                                }
-                            }
-                        }
+                            } 
                         %>
                     </div>
+                        <% } %>
                 </div>
             
                     
@@ -683,16 +686,21 @@
                 <hr class="divider">
                 <%     
                         }
-                    } 
+                    }
+                    }
+                    else {
                 %>
+                <h4>No Replies</h4>
+                <% } %>
             
             </div>
                 
             <div id="newreply">
                 
                 <% if(isLoggedIn && !isClosed) { %>
-                <h4>Your Reply</h4>
+                
                 <form action="/Hanashi/CreatePost" id="create-post-form" method="post">
+                    <h4> Your Reply </h4>
                     <input type="text" name="reply_to" id="reply_to" class="reply_to" value="">
                     <textarea class="froala-editor" id="froala-editor" name="post-content" required></textarea> <br>
                     <input class="btn btn-success" type="submit" value="Post">
