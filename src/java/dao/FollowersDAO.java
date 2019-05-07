@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import utilities.DBUtil;
 
 /**
@@ -98,5 +99,64 @@ public class FollowersDAO {
             }
         
         return message;
+    }
+    
+    
+    public ArrayList<pojos.User> getFollowers(String username) {
+        ArrayList<pojos.User> list = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        UserDAO ud = new UserDAO();
+        
+        try {
+                //Set up connection
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+                //Create the preparedstatement(s)
+                queryStatement = conn.prepareStatement("select * from followers where Username2=?");
+                queryStatement.setString(1, username);
+                rs = queryStatement.executeQuery();
+                while(rs.next()) {
+                    list.add(ud.fetchUser(rs.getString("Username1")));
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            } finally {
+                DBUtil.close(rs);
+                DBUtil.close(queryStatement);
+                DBUtil.close(conn);
+            }
+        
+        return list;
+    }
+    
+    public ArrayList<pojos.User> getFollowing(String username) {
+        ArrayList<pojos.User> list = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        UserDAO ud = new UserDAO();
+        
+        try {
+                //Set up connection
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+
+                //Create the preparedstatement(s)
+                queryStatement = conn.prepareStatement("select * from followers where Username1=?");
+                queryStatement.setString(1, username);
+                rs = queryStatement.executeQuery();
+                while(rs.next()) {
+                    list.add(ud.fetchUser(rs.getString("Username2")));
+                }
+            } catch (SQLException | ClassNotFoundException e) {
+                    System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            } finally {
+                DBUtil.close(rs);
+                DBUtil.close(queryStatement);
+                DBUtil.close(conn);
+            }
+        
+        return list;
     }
 }

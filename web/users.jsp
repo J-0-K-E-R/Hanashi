@@ -12,14 +12,37 @@
         <%@include file="/header.jsp"%>
     </head>
     <body>
+        <%! String heading;%>
         <%
-            dao.UserDAO ud = new dao.UserDAO();
-            ArrayList<User> usersList = ud.fetchUserList();
+            String query;
+            String username;
+            
+            ArrayList<pojos.User> usersList;
+            dao.FollowersDAO fd = new dao.FollowersDAO();
+            
+            query = request.getParameter("query");
+            username = request.getParameter("username");
+            
+            query = query == null ? "": query;
+            
+            if(query.equals("followers")) {
+                usersList = fd.getFollowers(username);
+                heading = username + "'s Followers ("+usersList.size()+")";
+            }
+            else if(query.equals("following")) {
+                usersList = fd.getFollowing(username);
+                heading = "Users " + username + " is Following ("+ usersList.size() + ")";
+            }
+            else {
+                dao.UserDAO ud = new dao.UserDAO();
+                usersList = ud.fetchUserList();
+                heading = "Users";
+            }
             session.setAttribute("usersList", usersList);
         %>
         <div id="main" class="main">
         <div id="users-list-wrapper">
-            <h2> Users </h2>
+            <h2> <%=heading%> </h2>
             <div id="div-scroll">
                 <div id='users-list-container'>
                 <%

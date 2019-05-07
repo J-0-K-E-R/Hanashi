@@ -10,7 +10,7 @@ color: #3498db;*/
     left: 0;
     width: 100%;
     border-radius: 0;
-    -moz-box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
+    -moz-box-shafollowdow: 1px 2px 10px rgba(0, 0, 0, 0.9);
     -webkit-box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
     box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
 }
@@ -568,6 +568,7 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 
 #user-profile-container #userdata #follow-button {
     display: table-row;
+    color: black;
 }
 
 #user-profile-container #followers-following {

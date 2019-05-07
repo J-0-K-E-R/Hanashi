@@ -113,8 +113,8 @@
                     </div>
 
                     <div id="followers-following">
-                        <a href="#"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
-                        <a href="#"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
+                        <a href="/Hanashi/users?query=followers&username=${profileUser.getUsername()}"  class="btn btn-info"> Followers ${profileUser.getFollowersCount()} </a>
+                        <a href="/Hanashi/users?query=following&username=${profileUser.getUsername()}"  class="btn btn-info"> Following ${profileUser.getFollowingCount()} </a>
                     </div>
                 </div>
                 
