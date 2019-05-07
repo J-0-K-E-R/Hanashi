@@ -992,7 +992,7 @@ hr.divider {
     background: lavender;
     position: relative;
     top: 0;
-    height: 440px;
+    min-height: 500px;
     overflow: auto;
 }
 

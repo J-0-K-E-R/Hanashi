@@ -39,7 +39,6 @@
     </head>
     <body>
         <div id="main" class="main">
-            <h3> Welcome To Dashboard </h3>
             <div id="dashboard-container">
                 <div class="dashboard-buttons">
                     <a class="btn-dashboard" href="#notifications" > <span> Notifications </span></a>
