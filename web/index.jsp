@@ -35,16 +35,8 @@
             ArrayList<pojos.Thread> threadsList;
             if(query.equals("") || query.equals("Relevance")) {
                 if(isLoggedIn) {
-                    dao.TagsFollowersDAO tfd = new dao.TagsFollowersDAO();
-                    String search_query = tfd.fetchTags(user.getUsername());
-                    threadsList = td.search(search_query);
-                    // sort by Timestamp_Modified
-                    Collections.sort(threadsList, new Comparator<pojos.Thread>() {
-                        @Override
-                        public int compare(pojos.Thread o1, pojos.Thread o2) {
-                            return o1.getTimestampModified().compareTo(o2.getTimestampModified());
-                        }
-                    }.reversed());
+                    threadsList = td.fetchRelevantThreads(user.getUsername());
+                    
                     if(threadsList.size() < 5 && query.equals(""))
                         threadsList = td.fetchAllThreads();
                     

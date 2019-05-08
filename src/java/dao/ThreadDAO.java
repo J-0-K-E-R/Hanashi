@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import pojos.Thread;
 
 import utilities.DBUtil;
@@ -458,6 +461,71 @@ public class ThreadDAO {
         });
         
         return threads;
+    }
+    
+    public ArrayList<Integer> fetchUserThreadIDs(String username) {
+        ArrayList<Integer> threads = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchUserThreadsStatement = conn.prepareStatement("select thread_id from threads where username=? and visible=TRUE order by Timestamp_Modified desc");
+            fetchUserThreadsStatement.setString(1, username);
+            rs = fetchUserThreadsStatement.executeQuery();
+            while(rs.next()) {
+                threads.add(rs.getInt("Thread_ID"));
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchUserThreadsStatement);
+            DBUtil.close(conn);
+        }
+        return threads;
+    }
+    
+    public ArrayList<Thread> fetchRelevantThreads(String username) {
+        ArrayList<Thread> relevantThreads = new ArrayList<>();
+        
+        dao.TagsFollowersDAO tfd = new dao.TagsFollowersDAO();
+        String search_query = tfd.fetchTags(username);
+        
+        ArrayList<Integer> tids = fetchThreadIDs(search_query);
+        
+        FollowersDAO fd = new FollowersDAO();
+        ArrayList<pojos.User> followingList = fd.getFollowing(username);
+        
+        PostDAO pd = new PostDAO();
+        
+        followingList.forEach((user) -> { 
+            tids.addAll(fetchUserThreadIDs(user.getUsername()));
+            tids.addAll(pd.fetchUserThreadIDs(user.getUsername()));
+        });
+
+        
+        HashSet<Integer> allIds = new HashSet<>(tids);
+        
+        Thread tempThread;
+        for(int threadID: allIds) {
+            tempThread = fetchThread(threadID);
+            if(tempThread != null)
+                relevantThreads.add(tempThread);
+        }
+        
+        
+        // sort by Timestamp_Modified
+        Collections.sort(relevantThreads, new Comparator<pojos.Thread>() {
+            @Override
+            public int compare(pojos.Thread o1, pojos.Thread o2) {
+                return o1.getTimestampModified().compareTo(o2.getTimestampModified());
+            }
+        }.reversed());
+        
+        return relevantThreads;
     }
     
     public String deleteThread(int threadID) {

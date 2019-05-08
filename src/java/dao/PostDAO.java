@@ -430,4 +430,29 @@ public class PostDAO {
         }
         return message;
     }
+        
+    public ArrayList<Integer> fetchUserThreadIDs(String username) {
+        ArrayList<Integer> threads = new ArrayList<>();
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchPostsStatement = conn.prepareStatement("select thread_id from posts where username=? and visible=TRUE order by Timestamp_Modified desc");
+            fetchPostsStatement.setString(1, username);
+            rs = fetchPostsStatement.executeQuery();
+            while(rs.next()) {
+                threads.add(rs.getInt("Thread_ID"));
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchPostsStatement);
+            DBUtil.close(conn);
+        }
+        return threads;
+    }
 }
