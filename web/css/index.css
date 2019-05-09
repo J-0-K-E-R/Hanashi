@@ -1,8 +1,3 @@
-/*background-color: #454545;#141414(dark)
-color: #3498db;*/
-.nav.navbar-nav li a {
-    color: #3498db;
-}
 .mynavbar {
     z-index: 100; /* stay on top */
     position: fixed;
@@ -13,6 +8,10 @@ color: #3498db;*/
     -moz-box-shafollowdow: 1px 2px 10px rgba(0, 0, 0, 0.9);
     -webkit-box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
     box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.nav.navbar-nav li a {
+    color: #3498db;
 }
 
 .myColor {
