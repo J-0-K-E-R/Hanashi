@@ -18,14 +18,6 @@
         <script>
             function init() {
                 
-//                Check if errorMessage is null or not
-                var errMessage = <%=session.getAttribute("errorMessage")%>;
-                if(errMessage === null || errMessage === "" || errMessage.length === 0) {
-                    $("#alertError").hide();
-                }
-                else {
-                    $("#alertError").show();
-                }
             }
         </script>
         
@@ -147,26 +139,58 @@
     </head>
     
     <body onload="init();">
-        <div id="main" class="main">
-        <div id="signupform">
-            <span id="alertError" class='alert alert-danger' hidden>  ${errorMessage} </span>
-            <form  action="/Hanashi/SignUp" method="post">
-                <h3> Sign Up </h3>
-                <input type="text" id="uname" name="Username" placeholder="Username" maxlength="16" onkeyup="validateUser();" required> 
-                <span id="validateUserAlert" hidden> </span><br>
-                <input type="text" id="email" name="Email" placeholder="Email" maxlength="50" onkeyup="validateEmail()" required>
-                <span id="validateEmailAlert" hidden> </span><br>
-                <div id="password-div">
-                    <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" required><span id="password-strength-text"></span> <br>
-                    <meter max="4" id="password-strength-meter"></meter> 
-                </div>
-                <input type="password" id="cPassword" name="cPassword" placeholder="Confirm Password" onkeyup="matchPass()" required>
-                <span id="alertPassMatch"> </span><br>
+        <div id="signup-main" class="main">
+            <div id="signupform">
                 
-                <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div> <br>
-                <input type="submit" class="btn btn-success" value="Sign Up">
-            </form>
-        </div>
+                <% if(session.getAttribute("errorMessage") != null) { %>
+
+                    <span id="alertError" class='alert alert-danger' hidden>  ${errorMessage} </span>
+                <% } %>
+                <br>
+                <form  action="/Hanashi/SignUp" method="post">
+                    <h2 id="signup-text"> Sign Up </h2><br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" id="uname" name="Username" placeholder="Username" maxlength="16" class="form-control" onkeyup="validateUser();" required>
+                    </div> 
+                    <div class="alerts-div">
+                        <span id="validateUserAlert" hidden> </span>
+                    </div>  <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="text" id="email" name="Email" placeholder="Email" maxlength="50" onkeyup="validateEmail()" class="form-control" required>
+                    </div> 
+                    <div class="alerts-div">
+                        <span id="validateEmailAlert" hidden> </span>
+                    </div>  <br>
+
+                    <div id="password-div">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" name="Password" id="Password" placeholder="Password" onkeyup="checkStrength()" class="form-control" required>
+                        </div>
+                    </div>
+                    <div id="pass-alerts-div">
+                        <span id="password-strength-text"> </span>
+                    </div>
+                    <meter max="4" id="password-strength-meter"></meter> <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-check"></i></span>
+                        <input type="password" id="cPassword" name="cPassword" placeholder="Confirm Password" onkeyup="matchPass()" class="form-control" required>
+                    </div>
+                    <div class="alerts-div">
+                        <span id="alertPassMatch"> </span>
+                    </div>  <br>
+
+                    <div class="g-recaptcha" data-sitekey="6Lf9DJsUAAAAAITly5yFz--FY3Olq0oai558XJg-"></div><br>
+                    <div id="signup-submit"><input type="submit" class="btn btn-success" value="Sign Up"></div>
+                </form>
+            </div>
+            <div id="signup-logo-container">
+                <img src="/Hanashi/images/logoD.png">
+            </div>
         </div>
     </body>
 </html>

@@ -40,6 +40,7 @@ body {
     left: 50%;
     top: 80px;
     transform: translate(-50%, 0);
+    color: white;
 }
 
 /* Popover */
@@ -192,70 +193,6 @@ body {
 }
 
 
-
-
-/*************************************************/
-/*Styling the meter*/
-meter {
-  /* Reset the default appearance */
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-
-  margin: 0;
-  /*margin-top: -10px;*/
-  margin-bottom: 5px;
-  width: 100%;
-  height: 0.5em;
-
-  /* Applicable only to Firefox */
-  background: none;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-meter::-webkit-meter-bar {
-  background: none;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Webkit based browsers */
-meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="4"]::-webkit-meter-optimum-value { background: #fdcb6e; }
-
-/* Gecko based browsers */
-meter[value="1"]::-moz-meter-bar { background: red; }
-meter[value="2"]::-moz-meter-bar { background: yellow; }
-meter[value="3"]::-moz-meter-bar { background: orange; }
-meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
-
-
-#signupform {
-    position: relative;
-    padding: 5rem;
-    /*padding-top: 2rem;*/
-    /*padding-right: 2rem;*/
-    width: 450px;
-    top: 50%;
-    /*border: 2px solid #3498db;*/
-    /*background: #222;*/
-}
-
-#inside-signupform {
-    padding: 20px;
-}
-
-
-#password-div #Password, #password-div meter {
-    width: 203px;
-}
-
-/*#password-div input,span {
-    width: 100%;
-}*/
-
-
 /*Create Thread Form*/
 #create-thread-container {
     width: 100%;
@@ -297,10 +234,6 @@ meter[value="4"]::-moz-meter-bar { background: #fdcb6e; }
 }
 
 /*Style view thread page*/
-
-#main {
-    color: white;
-}
 
 #view-thread-container {
     width: 100%;
@@ -743,9 +676,10 @@ hr.divider {
 
 #login-text {
     color: #0984e3;
+    margin-top: 40px;
 }
 
-#logo-container {
+#login-logo-container {
     position: absolute; 
     bottom: 0px;
     right: 0px;
@@ -766,6 +700,106 @@ hr.divider {
     /*transform: translate(-50%, 0);*/
     /*border: 2px solid #fdcb6e;*/
 }
+
+
+/* Sign Up page styling */
+
+#signup-main {
+    overflow: hidden;
+}
+
+#signupform {
+    position: relative;
+    padding: 5rem;
+    padding-right: 1rem;
+    width: 600px;
+    height: 100%;
+    float: left;
+}
+
+#signupform .input-group {
+    float: left;
+    width: 400px;
+    margin-bottom: 40px;
+}
+
+#signupform #alertError {
+    top: 30px;
+    bottom: 20px;
+}
+
+#signupform #signup-submit {
+    margin-top: 55px;
+}
+
+#signup-text {
+    color: #0984e3;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+#inside-signupform {
+    padding: 20px;
+}
+
+.alerts-div {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+#pass-alerts-div {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/*#password-div input,span {
+    width: 100%;
+}*/
+
+
+/*************************************************/
+/*Styling the meter*/
+#signupform meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    width: 400px;
+    /*margin-top: -10px;*/
+    margin-bottom: 5px;
+    height: 0.5em;
+
+    /* Applicable only to Firefox */
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#signupform meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Webkit based browsers */
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+/* Gecko based browsers */
+meter[value="1"]::-moz-meter-bar { background: red; }
+meter[value="2"]::-moz-meter-bar { background: yellow; }
+meter[value="3"]::-moz-meter-bar { background: orange; }
+meter[value="4"]::-moz-meter-bar { background: green; }
+
+#signup-logo-container {
+    position: absolute; 
+    bottom: 330px;
+    right: 0px;
+}
+
 
 
 /*Styling tags-list*/

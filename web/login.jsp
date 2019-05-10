@@ -30,6 +30,7 @@
                 <span id="alertError" class='alert alert-danger'> ${errorMessage} </span>
 
                 <% } %>
+                <br>
                 <form action="/Hanashi/Login" method="post">
                     <h2 id="login-text">Log In</h2> <br>
                         <div class="input-group">
@@ -46,7 +47,7 @@
                     <input type="submit" class="btn btn-success" value="Log In">
                 </form>
             </div>
-            <div id="logo-container">
+            <div id="login-logo-container">
                 <img src="/Hanashi/images/logoD.png">
             </div>
         </div>
