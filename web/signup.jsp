@@ -135,6 +135,88 @@
             
         </script>
         
+        <script>
+            function isValidated() {
+                var uname = document.getElementById("uname").value;
+               
+                if(uname === "") 
+                    $("#validateUserAlert").hide();
+                else 
+                    $("#validateUserAlert").show();
+                
+                var unameregex = /^[a-zA-Z0-9_]+$/;
+                if(unameregex.test(uname) !== true) {  
+                    var span = document.getElementById("validateUserAlert");
+                    span.innerHTML = "Invalid Username";
+                    span.className = "alert alert-danger";
+                    return false;
+                }
+                
+                
+                
+                
+                
+                var password = document.getElementById('Password');
+                var meter = document.getElementById('password-strength-meter');
+                var val = password.value;
+                var result = zxcvbn(val);
+        
+                // Update the password strength meter
+                meter.value = result.score;
+        
+                // Update the text indicator
+                if (val !== "") {
+                    if(result.score < 3)
+                        return false;
+                } else {
+                    return false;
+                }
+                
+                
+                
+                
+                
+                
+                var mail = document.getElementById("email").value;
+               
+                if(mail === "") 
+                    $("#validateEmailAlert").hide();
+                else 
+                    $("#validateEmailAlert").show();
+                if (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(mail)) {
+                    $("#validateEmailAlert").hide();
+                } else {
+                    var span = document.getElementById("validateEmailAlert");
+                    span.innerHTML = "Invalid Email";
+                    span.className = "alert alert-danger";
+                    return false;
+                }
+                
+                
+                
+                
+                var pass = document.getElementById("Password").value;
+                var cpass = document.getElementById("cPassword").value;
+                var out = document.getElementById("alertPassMatch");
+                if(cpass === "") {
+                    out.hidden = true;
+                    return false;
+                }
+                else if(pass === cpass) {
+                    out.hidden = false;
+                    out.innerHTML = "Matched!";
+                    out.className = "alert alert-success";
+                }
+                else {
+                    out.hidden = false;
+                    out.innerHTML = "Do Not Match!";
+                    out.className = "alert alert-danger";
+                    return false;
+                }
+                
+                return true;
+            }
+        </script>
         
     </head>
     
@@ -147,7 +229,7 @@
                     <span id="alertError" class='alert alert-danger' hidden>  ${errorMessage} </span>
                 <% } %>
                 <br>
-                <form  action="/Hanashi/SignUp" method="post">
+                <form  action="/Hanashi/SignUp" method="post" onsubmit="return isValidated();">
                     <h2 id="signup-text"> Sign Up </h2><br>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -194,3 +276,4 @@
         </div>
     </body>
 </html>
+<% session.removeAttribute("errorMessage"); %>
