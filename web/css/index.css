@@ -34,6 +34,10 @@ body {
     /*color: #3498db;*/
 }
 
+body input {
+    color: black;
+}
+
 .main {
     position: relative;
     width: 50%;
@@ -1025,10 +1029,10 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #dashboard-container #dashboard-content {
     width: 100%;
-    background: lavender;
+    background: #222;
     position: relative;
     top: 0;
-    min-height: 500px;
+    min-height: 78vh;
     overflow: auto;
 }
 
