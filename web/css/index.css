@@ -463,6 +463,9 @@ body input {
     color: #3498db;
 }
 
+.post-container hr.posts-divider {
+    border-top: 2px dashed #8c8b8b;
+}
 
 #login-to-answer {
     float: left;

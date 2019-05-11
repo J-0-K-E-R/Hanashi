@@ -664,7 +664,7 @@
                         %>
                     </div>
                         <% } %>
-                    <hr class="divider">
+                    <hr class="posts-divider">
                 </div>
             
                     
