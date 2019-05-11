@@ -639,7 +639,7 @@
                                 Reply
                             </div>
                             <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> by <a href='/Hanashi/users/<%= reply.getUsername() %>'><%= reply.getUsername() %></div>
- 
+                            <hr class="replies-divider">
                         </div>
                         
                         <%
@@ -658,13 +658,13 @@
                             <input class="btn btn-success pull-right" type="submit" value="Update">
                             </form>
                         </div>
-                        <hr class="replies-divider">
                         <%
                                }
                             } 
                         %>
                     </div>
                         <% } %>
+                    <hr class="divider">
                 </div>
             
                     
@@ -683,7 +683,6 @@
                     <input class="btn btn-success pull-right" type="submit" value="Update">
                     </form>
                 </div>
-                <hr class="divider">
                 <%     
                         }
                     }
