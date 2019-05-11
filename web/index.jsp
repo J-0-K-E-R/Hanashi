@@ -39,7 +39,6 @@
                     
                     if(threadsList.size() < 5 && query.equals(""))
                         threadsList = td.fetchAllThreads();
-                    
                 } else {
                     threadsList = td.fetchAllThreads();
                 }

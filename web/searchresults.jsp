@@ -37,20 +37,21 @@
     <body>
         
         <div id="main" class="main">
-
+            <h2>Search results for "<%=query%>"</h2>
+            <h4><%=threadsList.size()%> result(s) found</h4>
             
             <div id="all-threads-container">
-                <h4>Search results for "<%=query%>"</h4>
-                <h4><%=threadsList.size()%> result(s) found</h4>
                 <%
                     for(pojos.Thread thread: (ArrayList<pojos.Thread>)session.getAttribute("searchThreads")) {
                 %>
                 <div id='thread-container'>
-                    <div id='votes'> Votes: <%= thread.getVotes() %></div>
-                    <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
-                    <div id="username" class="username"><a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
-                    <div id='timestamp'><%= DateService.relativeDate(thread.getTimestampModified()) %></div>
+                    <div id='thread-title'><div class="votes">Votes: <%= thread.getVotes() %></div>
+                        <div class="vDivider"></div>
+                        <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a>
+                    </div>
+                    <div id="username" class="username"><%= DateService.relativeDate(thread.getTimestampModified()) %> by <a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
                 </div>
+                <hr class="divider">
                 <% } %>
             </div>
         </div>

@@ -1081,3 +1081,14 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 #dashboard-content .user-item {
     background: white;
 }
+
+/* CSS for Search Results */
+
+.main h2 {
+    color: #3498db;
+    margin-bottom: 20px;
+}
+
+.main h4 {
+    margin-bottom: 20px;
+}
