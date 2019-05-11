@@ -54,7 +54,9 @@
         %>
         
         <div id="GuestDiv">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" id="navbar-right">
+                <li class="nav-item"><a href="/Hanashi/signup">New? Register here</a></li>
+                <div class="vDivider"></div>
                 <li class="nav-item">
                     <a href="#/" 
                         id='login-pop'
@@ -81,7 +83,6 @@
                         Log In
                     </a>
                 </li>
-                <li class="nav-item"><a href="/Hanashi/signup"><span class="glyphicon glyphicon-plua-sign"></span> Sign Up</a></li>
             </ul>
         </div>
         
@@ -90,7 +91,7 @@
         %>
         
         <div id="UserDiv">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" id="navbar-right">
                 <li class="nav-item">
                     <a href="#/" 
                         id='profile-pop'
