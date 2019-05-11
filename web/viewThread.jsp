@@ -638,7 +638,7 @@
                             <div class="btn btn-primary btn-reply" onclick="reply_to(<%=post.getPostID()%>, '<%=reply.getUsername()%>');">
                                 Reply
                             </div>
-                            <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> by <a href='/Hanashi/users/<%= reply.getUsername() %>'><%= reply.getUsername() %></div>
+                            <div id='timestamp'> <%= utilities.DateService.relativeDate(reply.getTimestampModified()) %> by <a href='/Hanashi/users/<%= reply.getUsername() %>'><%= reply.getUsername() %></a></div>
                             <hr class="replies-divider">
                         </div>
                         
