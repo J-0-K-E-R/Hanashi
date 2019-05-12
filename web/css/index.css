@@ -29,7 +29,7 @@
 }
 
 .myColor {
-    color: #3498db;
+    color: #141414;
 }
 
 #logo {
@@ -444,10 +444,18 @@ body input {
 }
 
 .post-container .reply-container .post-header .edit-post {
+    display: table-cell;
     text-align: right;
     vertical-align: top;
     color: #16a085;
-    display: table-cell;
+}
+
+.post-container .reply-container .post-header .edit-post a {
+    color: #16a085;
+}
+
+.post-container .reply-container .post-header .edit-post a span {
+    margin-top: 5px;
 }
 
 .post-container .reply-container .post-header .dropdown {
@@ -538,20 +546,20 @@ body input {
     margin-top: 30px;
 }
 
-#user-profile-container #user-threads #thread-container #votes{
+#user-profile-container #user-threads #thread-container #votes {
     color: #16a085;
     float: left;
 }
 
-#user-profile-container #user-threads #thread-container #thread-title{
+#user-profile-container #user-threads #thread-container #thread-title {
     color: #2f3640;
 }
 
-#user-profile-container #user-threads #thread-container #thread-title a{
+#user-profile-container #user-threads #thread-container #thread-title a {
     text-decoration: none;
 }
 
-#user-profile-container #user-threads #thread-container #timestamp{
+#user-profile-container #user-threads #thread-container #timestamp {
     color: white;
     float: right;
 }
@@ -586,7 +594,7 @@ body input {
     float: none;
 }
 
-#thread-container #thread-title a, #post-container #post-title a{
+#thread-container #thread-title a, #post-container #post-title a {
     font-size: 18px;
     color: #3498db;
 }
@@ -622,11 +630,11 @@ hr.divider {
     color: #16a085;
 }
 
-#thread-container .username a, #post-container .username a{
+#thread-container .username a, #post-container .username a {
     color: #fdcb6e;
 }
 
-#thread-container .username{
+#thread-container .username {
     float: right;
     color: white;
 }
@@ -727,20 +735,25 @@ hr.divider {
 
 #signup-main {
     overflow: hidden;
+    width: 1080px;
+    position: absolute;
 }
 
 #signupform {
     position: relative;
     padding: 5rem;
+    padding-left: 0rem;
     padding-right: 1rem;
     width: 600px;
     height: 100%;
+    left: 0px;
     float: left;
 }
 
 #signupform .input-group {
     float: left;
     width: 400px;
+    left: 0px;
     margin-bottom: 40px;
 }
 
@@ -830,7 +843,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     padding: 5px;
 }
 
-#tags-list-wrapper h2{
+#tags-list-wrapper h2 {
     color: #3498db;
 }
 
@@ -976,7 +989,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
     width: 100%;
 }
 
-.full-screen-background input{
+.full-screen-background input {
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -1032,8 +1045,8 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 #dashboard-container .btn-dashboard-selected {
-    background: lavender;
-    color: black;
+    background: #2f3542;
+    color: #e84118;
 }
 
 #dashboard-container .dashboard-content-item {
@@ -1046,45 +1059,42 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 #dashboard-container #dashboard-content {
     width: 100%;
-    background: #222;
+    background: #2f3640;
     position: relative;
     top: 0;
     min-height: 78vh;
     overflow: auto;
 }
 
-#dashboard-container #dashboard-content .report-info {
-    display: none;
-    position: absolute;
-    width: 250px;
-    height: 140px;
-    overflow: auto;
-    padding: 15px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 99;
+#dashboard-container #dashboard-content #reported-threads #thread-container a {
+    text-decoration : none;
 }
 
-#dashboard-container #dropdown:hover .report-info {
-    display: inline-block;
+#dashboard-container #dashboard-content #reported-threads #thread-container #username {
+    color: white;
 }
 
-#dashboard-container .reported-by {
-    margin-bottom: 10px;
-    color: darkblue;
+#dashboard-container #dashboard-content #reported-posts {
+    width: 100%;
+    position: relative; 
+}
+
+#dashboard-container #dashboard-content #reported-posts #post-container #post-title .votes {
+    float: left;
+    color: #16a085;
+}
+
+#dashboard-container #dashboard-content #reported-posts #post-container a {
+    text-decoration : none;
+}
+
+#dashboard-container #dashboard-content #reported-posts #post-container #username {
+    color: white;
+    float: right;
 }
 
 #dashboard-container .username {
     color: #3498db;
-}
-
-#dashboard-container .comment, #dashboard-container .reported {
-    margin-bottom: 10px;
-    color: darkblue;
-}
-
-#dashboard-container .comment-content, #dashboard-container .reported-time {
-    color: #fdcb6e;
 }
 
 #dashboard-content .grid-container {
@@ -1096,7 +1106,51 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 }
 
 #dashboard-content .user-item {
-    background: white;
+    background: none;
+    border: 1px dashed #e55039;
+    padding:10px;
+}
+
+#dashboard-content #dropdown #report-info {
+    background: #2f3640;
+}
+
+#dashboard-content .user-item #user-info {
+    margin-top: 10px;
+    margin-left: 7px;
+}
+
+#dashboard-container #dropdown .username {
+    color: #fdcb6e;
+    font-size: 16px;
+    float: none;
+}
+
+#dashboard-container #dashboard-content .report-info {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 140px;
+    overflow: auto;
+    padding: 15px;
+    background-color: #3c6382;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 99;
+}
+
+#dashboard-container #dashboard-content .reported-time {
+    color: white;
+}
+
+#dashboard-container #dashboard-content .comment-content {
+    color: #78e08f;
+}
+
+#dashboard-container #dropdown:hover .report-info {
+    display: inline-block;
+    height: auto;
+    border-radius: 4px;
+    color: #e55039;
 }
 
 /* CSS for Search Results */

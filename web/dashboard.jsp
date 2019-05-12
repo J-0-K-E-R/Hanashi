@@ -62,31 +62,25 @@
                             for(pojos.ThreadReport report: reportedThreadsList) {
                                 pojos.Thread thread = td.fetchThread(report.getThreadID());
                         %>        
-                         
                         <div id='thread-container'>
-                            <div id='votes'> Votes: <%= thread.getVotes() %></div>
-                            
-                            <div id="dropdown">
-                                <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
-                                <div class="report-info">
-                                    <div class="reported-by"> Reported By: 
-                                        <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                            <div id='thread-title'><div class="votes">Votes: <%= thread.getVotes() %></div>
+                                <div class="vDivider"></div>
+                                <div id="dropdown">
+                                    <div id='thread-title'> <a href='/Hanashi/threads/<%= thread.getThreadID() %>'><%= thread.getTitle() %></a></div>
+                                    <div class="report-info">
+                                        <div class="reported-by"> Reported By: 
+                                            <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                        </div>
+                                        <div class="reported"> Reported: 
+                                            <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                        </div>
+                                        <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
                                     </div>
-                                    <div class="reported"> Reported: 
-                                        <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
-                                    </div>
-                                    <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
-                                </div>
+                                </div>    
                             </div>
-                            
-                            <div id="username" class="username"><a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
-                            <div id='timestamp'><%= utilities.DateService.relativeDate(thread.getTimestampModified()) %></div>
-
-
+                            <div id="username" class="username"><%= utilities.DateService.relativeDate(thread.getTimestampModified()) %> by <a href='/Hanashi/users/<%= thread.getUsername()%>'><%= thread.getUsername()%></a> </div>
                         </div>
-                        
-
-
+                        <hr class="divider">
                         <%  } %>
                     </div>
                     
@@ -100,32 +94,25 @@
                                 pojos.Post post = pd.fetchPost(report.getPostID());
                                 pojos.Thread thread = td.fetchThread(post.getThreadID());
                         %>        
-                         
                         <div id='post-container'>
-                            <div id='votes'> Votes: <%= post.getVotes() %></div>
-                            
-                            <div id="dropdown">
-                                <div id='post-title'> <a href="/Hanashi/threads/<%= post.getThreadID()%>/<%=utilities.ThreadsService.encodeTitleToURL(thread.getTitle())%>?target=<%= post.getPostID() %>">View Post</a></div>
-
-                                <div class="report-info">
-                                    <div class="reported-by"> Reported By: 
-                                        <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                            <div id='post-title'><div class="votes">Votes: <%= post.getVotes() %></div>
+                                <div class="vDivider"></div>
+                                <div id="dropdown">
+                                    <div id='post-title'> <a href='/Hanashi/threads/<%= post.getThreadID()%>/<%=utilities.ThreadsService.encodeTitleToURL(thread.getTitle())%>?target=<%= post.getPostID() %>'>View Post</a></div>
+                                    <div class="report-info">
+                                        <div class="reported-by"> Reported By: 
+                                            <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                        </div>
+                                        <div class="reported"> Reported: 
+                                            <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                        </div>
+                                        <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
                                     </div>
-                                    <div class="reported"> Reported: 
-                                        <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
-                                    </div>
-                                    <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
-                                </div>
+                                </div>    
                             </div>
-                            
-                            <div id="username" class="username"><a href='/Hanashi/users/<%= post.getUsername()%>'><%= post.getUsername()%></a> </div>
-                            <div id='timestamp'><%= utilities.DateService.relativeDate(post.getTimestampModified()) %></div>
-
-
+                            <div id="username" class="username"><%= utilities.DateService.relativeDate(post.getTimestampModified()) %> by <a href='/Hanashi/users/<%= post.getUsername()%>'><%= thread.getUsername()%></a> </div>
                         </div>
-                        
-
-
+                        <hr class="divider"> 
                         <%  } %>
                     </div>
                     
@@ -144,19 +131,21 @@
                                 <div class='user-profile-image'>
                                     <a href="/Hanashi/users/<%= reportedUser.getUsername()%>"><img src="<%= reportedUser.getAvatarPath() %>" class="user-profile-image"></a>
                                 </div>
-                                <div id="dropdown">
-                                    <div class="username"> <a href="/Hanashi/users/<%=reportedUser.getUsername()%>"><%=reportedUser.getUsername()%> </a></div>
-                                    <div class="report-info">
-                                        <div class="reported-by"> Reported By: 
-                                            <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                <div id="user-info">
+                                    <div id="dropdown">
+                                        <div class="username"> <a href="/Hanashi/users/<%=reportedUser.getUsername()%>"><%=reportedUser.getUsername()%> </a></div>
+                                        <div class="report-info">
+                                            <div class="reported-by"> Reported By: 
+                                                <a href="/Hanashi/users/<%=report.getReportedBy()%>" class="username"> <%=report.getReportedBy()%> </a>
+                                            </div>
+                                            <div class="reported"> Reported: 
+                                                <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
+                                            </div>
+                                            <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
                                         </div>
-                                        <div class="reported"> Reported: 
-                                            <span class="reported-time"> <%= utilities.DateService.relativeDate(report.getTimestamp()) %> </span> 
-                                        </div>
-                                        <div class="comment"> Comment: <span class="comment-content"> <%=report.getComment()%> </span> </div>
-                                    </div>
-                                 </div>
-                                <div class="user-points"> <%=reportedUser.getPoints()%> </div>
+                                     </div>
+                                    <div class="user-points"> <%=reportedUser.getPoints()%> </div>
+                                </div>
                             </div>
 
                             <%  } %>
