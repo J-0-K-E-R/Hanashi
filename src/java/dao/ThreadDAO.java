@@ -35,8 +35,10 @@ public class ThreadDAO {
     private PreparedStatement updateVariableStatement;
     
     public Thread addNewThread(Thread thread) {
+        int tid = -1;
         Thread returnThread = null;
         Connection conn = null;
+        ResultSet rs = null;
         try {
             //Set up connection
             Class.forName("com.mysql.jdbc.Driver");
@@ -56,8 +58,15 @@ public class ThreadDAO {
             createThreadStatement.setString(3, thread.getTagsList());
             createThreadStatement.setString(4, thread.getUsername());
             createThreadStatement.executeUpdate();
+                        
+            fetchThreadIDStatement = conn.prepareStatement("SELECT MAX(Thread_ID) from threads;");
             
-            returnThread = this.fetchThread(thread.getThreadID());
+            rs = fetchThreadIDStatement.executeQuery();
+            rs.next();
+            tid = rs.getInt(1);
+            
+            returnThread = this.fetchThread(tid);//thread.getThreadID());
+            
             addProcessedThread(returnThread);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
@@ -77,11 +86,36 @@ public class ThreadDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
             
-            fetchThreadIDStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND   TABLE_NAME   = 'threads';");
+            fetchThreadIDStatement = conn.prepareStatement("SELECT `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'hanashi' AND TABLE_NAME = 'threads';");
             
             rs = fetchThreadIDStatement.executeQuery();
             if(rs.next()) {
                 tid = rs.getInt("AUTO_INCREMENT");
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+            DBUtil.close(fetchThreadIDStatement);
+            DBUtil.close(conn);
+        }
+        return tid;
+    }
+    
+    public int getNewThreadID() {
+        int tid = -1;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/hanashi", "root", "");
+            
+            fetchThreadIDStatement = conn.prepareStatement("SELECT MAX(Thread_ID) from threads;");
+            
+            rs = fetchThreadIDStatement.executeQuery();
+            if(rs.next()) {
+                tid = rs.getInt("Thread_ID");
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -356,7 +390,6 @@ public class ThreadDAO {
                     + ") values(?, ?, ?, ?, ?)");
             
             //Add parameters to the ?'s in the preparedstatement and execute
-            
             createThreadStatement.setInt(1, thread.getThreadID());
             createThreadStatement.setString(2, Preprocess.preprocess(thread.getTitle()));
             createThreadStatement.setString(3, Preprocess.preprocess(Preprocess.htmlToText(thread.getPost())));

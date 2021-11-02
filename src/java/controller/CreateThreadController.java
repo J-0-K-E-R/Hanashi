@@ -86,6 +86,7 @@ public class CreateThreadController extends HttpServlet {
 
 
                 thread = td.addNewThread(thread);
+                System.out.println(thread.getThreadID());
 
                 TagsDAO tgd = new TagsDAO();
                 String message = tgd.updateTags(request.getParameter("tags"));
@@ -99,8 +100,9 @@ public class CreateThreadController extends HttpServlet {
                     response.setHeader("Refresh", "3; URL="+url);
                 }
                 else {
-                    request.setAttribute("threadID", threadID);
+                    request.setAttribute("threadID", thread.getThreadID());
                     System.out.println("Log::: Created Thread");
+                    System.out.println("Log::: Created Thread with ThreadID = " + threadID + "");
                     session.removeAttribute("threads");
                     RequestDispatcher rd = request.getRequestDispatcher("/FetchThread");
                     rd.forward(request, response);

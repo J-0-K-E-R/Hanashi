@@ -61,6 +61,10 @@ public class LoginController extends HttpServlet {
     
     /**
      * Process POST requests/responses (login)
+     * @param request
+     * @param response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
